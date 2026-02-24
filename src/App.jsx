@@ -858,7 +858,7 @@ function MockResultsView({mock,results,onBack,onRetry}){
   );
 }
 // ─── QUIZ VIEW ────────────────────────────────────────────────────────────────
-function QuizView({questions,onDone}){
+function QuizView({questions,onDone,onExit,headerLabel}){
   const T=useTheme();
   const [idx,setIdx]=useState(0);
   const [selected,setSelected]=useState(null);
@@ -874,10 +874,29 @@ function QuizView({questions,onDone}){
     setResults(r=>[...r,{section:q.section,topic:q.topic,correct:i===q.answer}]);
   }
   function next(){
-    const nr=[...results,{section:q.section,topic:q.topic,correct:selected===q.answer}];
-    if(isLast){onDone(nr);}else{setIdx(i=>i+1);setSelected(null);setShowExp(false);}
+    // Results are recorded once at selection time; do not double-count.
+    if(isLast){onDone(results);}else{setIdx(i=>i+1);setSelected(null);setShowExp(false);}
   }
-  return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:"32px 28px"}}>
+  function requestExit(){
+    if(!onExit) return;
+    const ok = confirm("Exit this test and return to the dashboard? Your partial progress will NOT be saved.");
+    if(ok) onExit();
+  }
+  return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,overflow:"hidden"}}>
+    {onExit && (
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 14px",background:T.bgAlt,borderBottom:`1px solid ${T.border}`}}>
+        <button onClick={requestExit} style={{background:"transparent",border:"none",cursor:"pointer",fontFamily:"inherit",fontWeight:800,color:T.textSub}}>
+          🏠 Dashboard
+        </button>
+        <div style={{fontSize:12,fontWeight:800,color:T.textMuted,letterSpacing:1,textTransform:"uppercase"}}>
+          {headerLabel || "Test"}
+        </div>
+        <button onClick={requestExit} style={{background:"transparent",border:`1px solid ${T.border}` ,borderRadius:10,padding:"6px 10px",cursor:"pointer",fontFamily:"inherit",fontWeight:800,color:T.text}}>
+          ❌ Exit
+        </button>
+      </div>
+    )}
+    <div style={{padding:"32px 28px"}}>
     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
       <span style={{color:T.textSub,fontSize:12}}>{SECTIONS[q.section]?.label} › {q.topic}</span>
       <span style={{color:sc,fontWeight:700,fontSize:13}}>{idx+1} / {questions.length}</span>
@@ -906,12 +925,13 @@ function QuizView({questions,onDone}){
     {selected!==null&&(<button style={{padding:"12px 24px",borderRadius:10,border:"none",fontWeight:700,fontSize:14,cursor:"pointer",fontFamily:"inherit",color:"#fff",background:sc,marginTop:16}} onClick={next}>
       {isLast?"Finish Test →":"Next Question →"}
     </button>)}
+    </div>
   </div>);
 }
 
-function TopicQuizView({section,topic,difficulty,onDone}){
+function TopicQuizView({section,topic,difficulty,onDone,onExit}){
   const pool=(QB[section]?.[topic]?.[difficulty]??[]).sort(()=>Math.random()-0.5);
-  return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone}/>;
+  return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
 }
 
 // ─── RESULTS ──────────────────────────────────────────────────────────────────
@@ -980,8 +1000,8 @@ function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest}){
         <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:8}}>SAT PREP</div>
         <h1 style={{fontSize:28,fontWeight:800,margin:"0 0 8px",lineHeight:1.1,color:T.text}}>Study Dashboard</h1>
         <p style={{color:T.textSub,fontSize:13,margin:"0 0 16px"}}>Track progress · Identify gaps · Ace the test</p>
-        <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Untimed Practice Test</button>
-        <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit',marginLeft:10}}>⏱️ Timed Practice Test</button>
+        <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Untimed Test</button>
+        <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit',marginLeft:10}}>⏱️ Timed Test</button>
       </div>
       <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
         <RadialProgress value={op} size={110} stroke={9}/>
@@ -1094,10 +1114,21 @@ export default function App(){
           )}
 
           {view==="quiz"&&active.mode==="topic"&&(
-            <TopicQuizView section={active.section} topic={active.topic} difficulty={active.difficulty} onDone={finish}/>
+            <TopicQuizView
+              section={active.section}
+              topic={active.topic}
+              difficulty={active.difficulty}
+              onDone={finish}
+              onExit={()=>{setActive({});setView("dashboard");}}
+            />
           )}
           {view==="quiz"&&active.mode==="practice"&&(
-            <QuizView questions={active.questions} onDone={finish}/>
+            <QuizView
+              questions={active.questions}
+              onDone={finish}
+              onExit={()=>{setActive({});setView("dashboard");}}
+              headerLabel={`Untimed Test · ${TEST_LENGTHS[active.length]?.label ?? ""} · ${DIFFICULTY_LEVELS[active.difficulty]?.label ?? ""}`}
+            />
           )}
           {view==="mock"&&active.mode==="mock"&&(
             <MockRunner mock={active.mock} onBack={()=>setView("dashboard")} onDone={finishMock}/>
