@@ -482,6 +482,64 @@ function getPracticeQs(length,diff){
   return all.sort(()=>Math.random()-0.5);
 }
 
+
+/* ─── MOCK SAT (TIMED SECTIONS + SCORING) ────────────────────────────────────
+   Digital SAT total time ≈ 2h14m (134 minutes): R&W 64m + Math 70m.
+   For shorter mocks, we scale section times proportionally. */
+const MOCK_SECTION_MINUTES = {
+  full:    { reading: 64, math: 70 },
+  half:    { reading: 32, math: 35 },
+  quarter: { reading: 16, math: 18 },
+};
+
+function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+function fmtTime(sec){
+  const s = Math.max(0, Math.floor(sec));
+  const m = Math.floor(s/60);
+  const r = s%60;
+  return `${m}:${String(r).padStart(2,'0')}`;
+}
+
+// Simple (transparent) scaling: map percent-correct to SAT section score [200,800].
+// Later we can replace with a more realistic curve / equating table.
+function scaledSectionScore(percent){
+  const p = clamp(percent, 0, 100);
+  return Math.round(200 + (p/100)*600);
+}
+
+function buildPool(section, diff){
+  let pool=[];
+  SECTIONS[section].topics.forEach(t=>{
+    const qs = QB[section]?.[t]?.[diff] ?? [];
+    pool.push(...qs.map(q=>({...q,section,topic:t})));
+  });
+  return pool.sort(()=>Math.random()-0.5);
+}
+
+function pickN(arr, n){
+  if(arr.length<=n) return arr.slice();
+  const copy = arr.slice().sort(()=>Math.random()-0.5);
+  return copy.slice(0,n);
+}
+
+function getMockTest(length, diff){
+  const cfg = TEST_LENGTHS[length];
+  const mins = MOCK_SECTION_MINUTES[length] ?? MOCK_SECTION_MINUTES.half;
+
+  const readingQs = pickN(buildPool('reading', diff), cfg.rw);
+  const mathQs    = pickN(buildPool('math', diff),    cfg.math);
+
+  return {
+    length,
+    difficulty: diff,
+    sections: [
+      { key:'reading', label: SECTIONS.reading.label, minutes: mins.reading, questions: readingQs },
+      { key:'math',    label: SECTIONS.math.label,    minutes: mins.math,    questions: mathQs },
+    ]
+  };
+}
+
+
 // ─── RADIAL ───────────────────────────────────────────────────────────────────
 function RadialProgress({value,size=80,stroke=7,color}){
   const T=useTheme();
@@ -546,6 +604,259 @@ function PracticeTestPage({onStart,onBack}){
   </div>);
 }
 
+
+
+// ─── MOCK TEST (TIMED) ─────────────────────────────────────────────────────
+function MockTestPage({onStart,onBack}){
+  const T=useTheme();
+  const [sel,setSel]=useState('full');
+  const [diff,setDiff]=useState('medium');
+  const cfg=TEST_LENGTHS[sel], dv=DIFFICULTY_LEVELS[diff];
+  const mins = MOCK_SECTION_MINUTES[sel] ?? MOCK_SECTION_MINUTES.half;
+
+  return(<div style={{display:'flex',flexDirection:'column',gap:20}}>
+    <button onClick={onBack} style={{background:'transparent',border:'none',color:T.accent1,fontWeight:700,fontSize:14,cursor:'pointer',fontFamily:'inherit',alignSelf:'flex-start'}}>← Dashboard</button>
+
+    <div style={{background:T.bgHero,border:`1px solid ${T.border}`,borderRadius:20,padding:28}}>
+      <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:8}}>TIMED MOCK</div>
+      <h1 style={{fontSize:24,fontWeight:800,margin:'0 0 8px',color:T.text}}>Mock Digital SAT</h1>
+      <p style={{color:T.textSub,fontSize:13,margin:0}}>Runs in <strong style={{color:T.accent1}}>two timed sections</strong> (R&W then Math) with a simple 1600-style score.</p>
+    </div>
+
+    <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:24}}>
+      <div style={{fontWeight:700,fontSize:13,color:T.textSub,letterSpacing:1,textTransform:'uppercase',marginBottom:16}}>📏 Test Length</div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:12}}>
+        {Object.entries(TEST_LENGTHS).map(([key,val])=>{
+          const m = MOCK_SECTION_MINUTES[key] ?? MOCK_SECTION_MINUTES.half;
+          const timeLabel = `${m.reading}m R&W + ${m.math}m Math`;
+          return (
+            <button key={key} onClick={()=>setSel(key)} style={{borderRadius:14,border:`2px solid ${sel===key?T.accent1:T.border}`,padding:'20px 14px',cursor:'pointer',textAlign:'center',fontFamily:'inherit',background:sel===key?T.bgInput:T.bgCard,color:T.text}}>
+              <div style={{fontSize:22,marginBottom:6}}>{key==='full'?'⏱️':key==='half'?'⏲️':'⌛'}</div>
+              <div style={{fontWeight:800,fontSize:15,color:sel===key?T.accent1:T.text}}>{val.label}</div>
+              <div style={{color:T.textSub,fontSize:12,marginTop:4}}>{val.rw} R&W · {val.math} Math</div>
+              <div style={{display:'inline-block',background:T.pillBg,borderRadius:20,padding:'3px 10px',fontSize:11,color:T.pillText,marginTop:8}}>{timeLabel}</div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:24}}>
+      <div style={{fontWeight:700,fontSize:13,color:T.textSub,letterSpacing:1,textTransform:'uppercase',marginBottom:4}}>🎯 Difficulty Level</div>
+      <p style={{color:T.textSub,fontSize:13,marginBottom:16}}>Pick one difficulty for now (adaptive comes next).</p>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:12}}>
+        {Object.entries(DIFFICULTY_LEVELS).map(([key,val])=>{
+          const on = diff===key;
+          return (
+            <button key={key} onClick={()=>setDiff(key)} style={{borderRadius:14,border:`2px solid ${on?val.color:T.border}`,padding:'20px 14px',cursor:'pointer',textAlign:'center',fontFamily:'inherit',background:on?`${val.color}18`:T.bgCard,color:T.text}}>
+              <div style={{fontSize:22,marginBottom:6}}>{key==='easy'?'🟢':key==='medium'?'🟡':'🔴'}</div>
+              <div style={{fontWeight:800,fontSize:15,color:on?val.color:T.text}}>{val.label}</div>
+              <div style={{color:T.textSub,fontSize:12,marginTop:6,lineHeight:1.4}}>{val.desc}</div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    <div style={{background:T.bgCard,border:`1.5px solid ${T.border}`,borderRadius:16,padding:'20px 24px',display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
+      <div style={{flex:1}}>
+        <div style={{fontWeight:800,fontSize:17,marginBottom:6,color:T.text}}>Your Mock</div>
+        <div style={{color:T.textSub,fontSize:14}}>
+          <span style={{color:T.accent1,fontWeight:700}}>{cfg.total} questions</span>{' · '}
+          <span style={{color:dv.color,fontWeight:700}}>{dv.label}</span>{' · '}
+          <span style={{color:T.textMuted}}>{mins.reading}m R&W + {mins.math}m Math</span>
+        </div>
+      </div>
+      <button onClick={()=>onStart(sel,diff)} style={{background:T.startBtn,border:'none',borderRadius:12,padding:'14px 28px',color:'#fff',fontWeight:800,fontSize:15,cursor:'pointer',fontFamily:'inherit'}}>Start Timed Mock →</button>
+    </div>
+  </div>);
+}
+
+function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
+  const T=useTheme();
+  const [idx,setIdx]=useState(0);
+  const [selected,setSelected]=useState(null);
+  const [showExp,setShowExp]=useState(false);
+  const [results,setResults]=useState([]);
+  const [secsLeft,setSecsLeft]=useState(secondsTotal);
+
+  useEffect(()=>{
+    setSecsLeft(secondsTotal);
+  },[secondsTotal]);
+
+  useEffect(()=>{
+    const t = setInterval(()=>setSecsLeft(s=>s-1), 1000);
+    return ()=>clearInterval(t);
+  },[]);
+
+  useEffect(()=>{
+    if(secsLeft<=0){
+      // time up: finish section immediately
+      onDone(results);
+    }
+  },[secsLeft]);
+
+  if(!questions||!questions.length) return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:32}}><p style={{color:T.textSub}}>No questions available.</p></div>);
+
+  const q=questions[idx];
+  const isLast = idx===questions.length-1;
+  const progress=((idx+1)/questions.length)*100;
+  const sc = q.section==='math'?T.accent1:T.accent2;
+
+  function choose(i){
+    if(selected!==null) return;
+    setSelected(i);
+    setShowExp(true);
+    setResults(r=>[...r,{section:q.section,topic:q.topic,correct:i===q.answer}]);
+  }
+
+  function next(){
+    if(isLast){
+      onDone(results);
+    } else {
+      setIdx(i=>i+1);
+      setSelected(null);
+      setShowExp(false);
+    }
+  }
+
+  return(
+    <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:'32px 28px'}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:10}}>
+        <span style={{color:T.textSub,fontSize:12}}>{sectionLabel} · {q.topic}</span>
+        <div style={{display:'flex',alignItems:'center',gap:12}}>
+          <span style={{color:T.textSub,fontSize:12}}>Time left</span>
+          <span style={{color:secsLeft<=60?T.incorrect:sc,fontWeight:800,fontSize:14,fontVariantNumeric:'tabular-nums'}}>{fmtTime(secsLeft)}</span>
+        </div>
+      </div>
+
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+        <span style={{color:sc,fontWeight:700,fontSize:13}}>{idx+1} / {questions.length}</span>
+        <button onClick={()=>onDone(results)} style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:10,padding:'8px 12px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:700,fontSize:12}}>Submit section</button>
+      </div>
+
+      <div style={{height:4,background:T.bgInput,borderRadius:4,marginBottom:28}}>
+        <div style={{height:4,width:`${progress}%`,background:sc,borderRadius:4,transition:'width 0.4s ease'}}/>
+      </div>
+
+      {q.fig&&<Figure fig={q.fig}/>}
+      <p style={{fontSize:17,lineHeight:1.6,fontWeight:600,marginBottom:24,color:T.text}}>{q.q}</p>
+
+      <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:20}}>
+        {q.choices.map((c,i)=>{
+          let bg=T.bgInput,border=T.border;
+          if(selected!==null){
+            if(i===q.answer){bg=T.correctBg;border=T.correctBdr;}
+            else if(i===selected){bg=T.incorrectBg;border=T.incorrectBdr;}
+          }
+          return(
+            <button key={i} onClick={()=>choose(i)} style={{display:'flex',alignItems:'center',padding:'14px 16px',borderRadius:10,fontSize:14,color:T.textChoice,textAlign:'left',fontFamily:'inherit',lineHeight:1.4,background:bg,border:`1.5px solid ${border}`,cursor:selected!==null?'default':'pointer'}}>
+              <span style={{color:sc,fontWeight:700,marginRight:12,fontSize:13}}>{String.fromCharCode(65+i)}</span>{c}
+            </button>
+          );
+        })}
+      </div>
+
+      {showExp&&(
+        <div style={{background:T.bgInput,border:`1px solid ${T.border}`,borderRadius:10,padding:'14px 16px',fontSize:13,color:T.textExpl,lineHeight:1.6}}>
+          <span style={{color:selected===q.answer?T.correct:T.incorrect,fontWeight:700,marginRight:8}}>{selected===q.answer?'✓ Correct!':'✗ Incorrect'}</span>
+          {q.explanation}
+        </div>
+      )}
+
+      {selected!==null&&(
+        <button style={{padding:'12px 24px',borderRadius:10,border:'none',fontWeight:700,fontSize:14,cursor:'pointer',fontFamily:'inherit',color:'#fff',background:sc,marginTop:16}} onClick={next}>
+          {isLast?'Finish Section →':'Next Question →'}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function MockRunner({mock,onBack,onDone}){
+  const T=useTheme();
+  const [secIdx,setSecIdx]=useState(0);
+  const [allResults,setAllResults]=useState([]);
+
+  const sec = mock.sections[secIdx];
+  const secsTotal = (sec.minutes||1)*60;
+
+  function finishSection(sectionResults){
+    const merged = [...allResults, ...sectionResults.map(r=>({...r, section: sec.key}))];
+    setAllResults(merged);
+
+    if(secIdx === mock.sections.length-1){
+      onDone(merged);
+    } else {
+      setSecIdx(i=>i+1);
+    }
+  }
+
+  const header = (
+    <div style={{background:T.bgHero,border:`1px solid ${T.border}`,borderRadius:20,padding:'18px 22px',display:'flex',justifyContent:'space-between',alignItems:'center',gap:12,flexWrap:'wrap'}}>
+      <div>
+        <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:6}}>TIMED MOCK</div>
+        <div style={{fontWeight:900,fontSize:18,color:T.text}}>{secIdx+1}/2 · {sec.label}</div>
+        <div style={{color:T.textSub,fontSize:12}}>Length: {TEST_LENGTHS[mock.length].label} · Difficulty: {DIFFICULTY_LEVELS[mock.difficulty].label}</div>
+      </div>
+      <button onClick={onBack} style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:10,padding:'10px 12px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:800,fontSize:12}}>Exit</button>
+    </div>
+  );
+
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:16}}>
+      {header}
+      <TimedSectionView sectionLabel={sec.label} questions={sec.questions} secondsTotal={secsTotal} onDone={finishSection}/>
+    </div>
+  );
+}
+
+function MockResultsView({mock,results,onBack,onRetry}){
+  const T=useTheme();
+  const bySec = { reading: [], math: [] };
+  results.forEach(r=>{ if(bySec[r.section]) bySec[r.section].push(r); });
+
+  const rC = bySec.reading.filter(x=>x.correct).length;
+  const rT = bySec.reading.length;
+  const mC = bySec.math.filter(x=>x.correct).length;
+  const mT = bySec.math.length;
+
+  const rP = pct(rC,rT);
+  const mP = pct(mC,mT);
+
+  const rS = scaledSectionScore(rP);
+  const mS = scaledSectionScore(mP);
+  const total = rS + mS;
+
+  return(
+    <div style={{display:'flex',flexDirection:'column',gap:20}}>
+      <div style={{textAlign:'center',marginBottom:4}}>
+        <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:8}}>SCORE REPORT</div>
+        <h2 style={{fontSize:34,fontWeight:900,margin:'0 0 6px',color:T.text}}>{total}</h2>
+        <p style={{color:T.textSub,margin:0}}>R&W {rS} · Math {mS}</p>
+        <p style={{color:T.textMuted,fontSize:12,marginTop:10}}>Scoring is currently a simple, transparent mapping from % correct → 200–800. We can swap in a more realistic curve later.</p>
+      </div>
+
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:14}}>
+        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:18}}>
+          <div style={{fontWeight:800,fontSize:14,color:T.text,marginBottom:6}}>Reading & Writing</div>
+          <div style={{color:T.textSub,fontSize:13}}>{rC}/{rT} correct ({rP}%)</div>
+          <div style={{marginTop:10,color:T.accent2,fontWeight:900,fontSize:22}}>{rS}</div>
+        </div>
+        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:18}}>
+          <div style={{fontWeight:800,fontSize:14,color:T.text,marginBottom:6}}>Math</div>
+          <div style={{color:T.textSub,fontSize:13}}>{mC}/{mT} correct ({mP}%)</div>
+          <div style={{marginTop:10,color:T.accent1,fontWeight:900,fontSize:22}}>{mS}</div>
+        </div>
+      </div>
+
+      <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
+        <button style={{padding:'12px 24px',borderRadius:10,border:'none',fontWeight:700,fontSize:14,cursor:'pointer',fontFamily:'inherit',color:'#fff',background:T.accent1}} onClick={onRetry}>Try Another Mock</button>
+        <button style={{padding:'12px 24px',borderRadius:10,border:`1.5px solid ${T.border}`,fontWeight:700,fontSize:14,cursor:'pointer',fontFamily:'inherit',color:T.text,background:T.bgInput}} onClick={onBack}>Dashboard</button>
+      </div>
+    </div>
+  );
+}
 // ─── QUIZ VIEW ────────────────────────────────────────────────────────────────
 function QuizView({questions,onDone}){
   const T=useTheme();
@@ -653,7 +964,7 @@ function ResultsView({results,length,difficulty,onBack,onRetry}){
 }
 
 // ─── DASHBOARD ────────────────────────────────────────────────────────────────
-function Dashboard({progress,onStartTopic,onPracticeTest}){
+function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest}){
   const T=useTheme();
   const all=Object.values(progress).flatMap(s=>Object.values(s).flatMap(t=>Object.values(t)));
   const tC=all.reduce((a,s)=>a+s.c,0),tT=all.reduce((a,s)=>a+s.t,0),op=pct(tC,tT);
@@ -670,6 +981,7 @@ function Dashboard({progress,onStartTopic,onPracticeTest}){
         <h1 style={{fontSize:28,fontWeight:800,margin:"0 0 8px",lineHeight:1.1,color:T.text}}>Study Dashboard</h1>
         <p style={{color:T.textSub,fontSize:13,margin:"0 0 16px"}}>Track progress · Identify gaps · Ace the test</p>
         <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Take a Practice Test</button>
+        <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit',marginLeft:10}}>⏱️ Timed Mock SAT</button>
       </div>
       <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
         <RadialProgress value={op} size={110} stroke={9}/>
@@ -747,6 +1059,11 @@ export default function App(){
     });
   }
   function finish(results){updProg(results);setLastResults(results);setView("results");}
+  function finishMock(results){
+    // For now we only store results; mock scoring is computed in MockResultsView
+    setLastResults({mode:"mock", results, mock: active.mock});
+    setView("mockResults");
+  }
   return(
     <ThemeCtx.Provider value={T}>
       <div style={{minHeight:"100vh",background:T.bg,color:T.text,fontFamily:"'DM Sans',system-ui,sans-serif",padding:"12px 16px 48px"}}>
@@ -758,18 +1075,49 @@ export default function App(){
           {view==="dashboard"&&(<>
             <Dashboard progress={progress}
               onStartTopic={(sec,topic,diff)=>{setActive({section:sec,topic,difficulty:diff,mode:"topic"});setView("quiz");}}
-              onPracticeTest={()=>setView("practiceTest")}/>
+              onPracticeTest={()=>setView("practiceTest")}
+              onMockTest={()=>setView("mockSetup")}/>
             <button style={{padding:"10px 20px",borderRadius:10,border:`1px solid ${T.border}`,fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit",color:T.textMuted,background:"transparent",margin:"0 auto",display:"block",marginTop:8}}
               onClick={()=>{if(confirm("Reset all progress?")){setProgress(makeEmpty());localStorage.removeItem("sat_p4");}}}>
               Reset All Progress
             </button>
           </>)}
-          {view==="practiceTest"&&(<PracticeTestPage onBack={()=>setView("dashboard")} onStart={(length,diff)=>{const qs=getPracticeQs(length,diff);setActive({mode:"practice",length,difficulty:diff,questions:qs});setView("quiz");}}/>)}
-          {view==="quiz"&&active.mode==="topic"&&(<TopicQuizView section={active.section} topic={active.topic} difficulty={active.difficulty} onDone={finish}/>)}
-          {view==="quiz"&&active.mode==="practice"&&(<QuizView questions={active.questions} onDone={finish}/>)}
-          {view==="results"&&lastResults&&(<ResultsView results={lastResults} length={active.length??"quarter"} difficulty={active.difficulty??"medium"}
-            onBack={()=>setView("dashboard")}
-            onRetry={()=>{if(active.mode==="practice"){const qs=getPracticeQs(active.length,active.difficulty);setActive({...active,questions:qs});}setView("quiz");}}/>)}
+          {view==="practiceTest"&&(
+            <PracticeTestPage
+              onBack={()=>setView("dashboard")}
+              onStart={(length,diff)=>{const qs=getPracticeQs(length,diff);setActive({mode:"practice",length,difficulty:diff,questions:qs});setView("quiz");}}/>
+          )}
+          {view==="mockSetup"&&(
+            <MockTestPage
+              onBack={()=>setView("dashboard")}
+              onStart={(length,diff)=>{const mock=getMockTest(length,diff);setActive({mode:"mock",length,difficulty:diff,mock});setView("mock");}}/>
+          )}
+
+          {view==="quiz"&&active.mode==="topic"&&(
+            <TopicQuizView section={active.section} topic={active.topic} difficulty={active.difficulty} onDone={finish}/>
+          )}
+          {view==="quiz"&&active.mode==="practice"&&(
+            <QuizView questions={active.questions} onDone={finish}/>
+          )}
+          {view==="mock"&&active.mode==="mock"&&(
+            <MockRunner mock={active.mock} onBack={()=>setView("dashboard")} onDone={finishMock}/>
+          )}
+
+          {view==="results"&&lastResults&&(
+            <ResultsView
+              results={lastResults}
+              length={active.length??"quarter"}
+              difficulty={active.difficulty??"medium"}
+              onBack={()=>setView("dashboard")}
+              onRetry={()=>{if(active.mode==="practice"){const qs=getPracticeQs(active.length,active.difficulty);setActive({...active,questions:qs});}setView("quiz");}}/>
+          )}
+          {view==="mockResults"&&lastResults?.mode==="mock"&&(
+            <MockResultsView
+              mock={lastResults.mock}
+              results={lastResults.results}
+              onBack={()=>setView("dashboard")}
+              onRetry={()=>{const mock=getMockTest(active.length??"full", active.difficulty??"medium");setActive({mode:"mock",length:active.length??"full",difficulty:active.difficulty??"medium",mock});setView("mock");}}/>
+          )}
         </div>
       </div>
     </ThemeCtx.Provider>
