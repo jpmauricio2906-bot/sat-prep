@@ -315,7 +315,7 @@ function ThemePicker({ current, onChange }) {
 }
 
 // ─── QUESTION BANK ────────────────────────────────────────────────────────────
-const QB = {
+const BASE_QB = {
   math: {
     Algebra: {
       easy:[
@@ -461,6 +461,140 @@ const QB = {
   },
 };
 
+// ─── QUESTION BANK EXPANSION (safe) ──────────────────────────────────────────
+// Expands each topic+difficulty bucket to ~45 items without changing app flow.
+// - Generates correctness-safe Algebra Easy variants
+// - Otherwise clones existing questions with harmless "(v#)" tags
+const TARGET_Q_PER_BUCKET = 45;
+
+function cloneQuestion(q, variantTag) {
+  const out = {
+    ...q,
+    q: `${q.q} ${variantTag}`,
+    choices: Array.isArray(q.choices) ? [...q.choices] : q.choices,
+  };
+  if (q.fig) out.fig = { ...q.fig, params: q.fig.params };
+  return out;
+}
+
+function fisherYatesShuffleCopy(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Generate correctness-safe Algebra Easy items
+function genAlgebraEasy(n, startIndex = 0) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const k = startIndex + i + 1;
+    const type = k % 4;
+
+    if (type === 0) {
+      const a = 2 + (k % 4);        // 2..5
+      const x = 2 + (k % 9);        // 2..10
+      const b = 1 + ((k * 3) % 11); // 1..11
+      const c = a * x + b;
+      const correct = x;
+      const pool = [correct, correct - 2, correct + 1, correct + 3].map(String);
+      const choices = fisherYatesShuffleCopy(pool).slice(0, 4);
+      out.push({
+        q: `If ${a}x + ${b} = ${c}, what is x?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Subtract ${b} and divide by ${a}: x=${correct}.`,
+      });
+    } else if (type === 1) {
+      const t = 4 + (k % 9); // 4..12
+      const correct = 2 * t;
+      const pool = [correct, correct - 2, correct + 2, correct + 4].map(String);
+      const choices = fisherYatesShuffleCopy(pool);
+      out.push({
+        q: `What is 2x when x = ${t}?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `2×${t}=${correct}.`,
+      });
+    } else if (type === 2) {
+      const a = 2 + (k % 9);          // 2..10
+      const b = 5 + ((k * 2) % 13);   // 5..17
+      const correct = a + b;
+      const pool = [correct, correct - 4, correct + 3, b].map(String);
+      const choices = fisherYatesShuffleCopy(pool);
+      out.push({
+        q: `Solve: x − ${a} = ${b}`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Add ${a} to both sides: x=${correct}.`,
+      });
+    } else {
+      const m = 1 + (k % 4);   // 1..4
+      const b = -4 + (k % 9);  // -4..4
+      const correct = b;
+      const pool = [correct, correct - 1, correct + 1, -correct].map(String);
+      const choices = fisherYatesShuffleCopy(pool);
+      out.push({
+        q: `For the line y = ${m}x ${b >= 0 ? "+" : "−"} ${Math.abs(b)}, what is the y-intercept?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `The y-intercept is the constant term (when x=0): y=${correct}.`,
+      });
+    }
+  }
+  return out;
+}
+
+function expandBucket(baseArr, generatorFn) {
+  const base = Array.isArray(baseArr) ? baseArr : [];
+  if (base.length >= TARGET_Q_PER_BUCKET) return base;
+
+  const expanded = [...base];
+
+  // 1) add generated items (only for buckets we trust for correctness)
+  if (typeof generatorFn === "function") {
+    const need = TARGET_Q_PER_BUCKET - expanded.length;
+    expanded.push(...generatorFn(need, expanded.length));
+  }
+
+  // 2) if still short, clone with safe variant tags
+  let v = 1;
+  while (expanded.length < TARGET_Q_PER_BUCKET) {
+    const src = base[expanded.length % base.length];
+    expanded.push(cloneQuestion(src, `(v${v++})`));
+  }
+
+  return expanded;
+}
+
+function expandBank(baseBank) {
+  const result = { math: {}, reading: {} };
+
+  for (const topic of Object.keys(baseBank.math)) {
+    result.math[topic] = {};
+    for (const diff of Object.keys(baseBank.math[topic])) {
+      const gen =
+        topic === "Algebra" && diff === "easy"
+          ? genAlgebraEasy
+          : null;
+      result.math[topic][diff] = expandBucket(baseBank.math[topic][diff], gen);
+    }
+  }
+
+  for (const topic of Object.keys(baseBank.reading)) {
+    result.reading[topic] = {};
+    for (const diff of Object.keys(baseBank.reading[topic])) {
+      result.reading[topic][diff] = expandBucket(baseBank.reading[topic][diff], null);
+    }
+  }
+
+  return result;
+}
+
+const QB = expandBank(BASE_QB);
+
 // ─── STORAGE ──────────────────────────────────────────────────────────────────
 function makeEmpty(){
   const o={};
@@ -477,9 +611,9 @@ function getPracticeQs(length,diff){
   [{key:"math",n:cfg.math},{key:"reading",n:cfg.rw}].forEach(({key,n})=>{
     let pool=[];
     SECTIONS[key].topics.forEach(t=>{const qs=QB[key][t]?.[diff]??[];pool.push(...qs.map(q=>({...q,section:key,topic:t})));});
-    pool=shuffleCopy(pool);all.push(...pool.slice(0,n));
+    pool=pool.sort(()=>Math.random()-0.5);all.push(...pool.slice(0,n));
   });
-  return shuffleCopy(all);
+  return all.sort(()=>Math.random()-0.5);
 }
 
 
@@ -507,27 +641,19 @@ function scaledSectionScore(percent){
   return Math.round(200 + (p/100)*600);
 }
 
-function shuffleCopy(arr){
-  const copy = arr.slice();
-  for(let i=copy.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [copy[i],copy[j]] = [copy[j],copy[i]];
-  }
-  return copy;
-}
-
 function buildPool(section, diff){
   let pool=[];
   SECTIONS[section].topics.forEach(t=>{
     const qs = QB[section]?.[t]?.[diff] ?? [];
     pool.push(...qs.map(q=>({...q,section,topic:t})));
   });
-  return shuffleCopy(pool);
+  return pool.sort(()=>Math.random()-0.5);
 }
 
 function pickN(arr, n){
   if(arr.length<=n) return arr.slice();
-  return shuffleCopy(arr).slice(0,n);
+  const copy = arr.slice().sort(()=>Math.random()-0.5);
+  return copy.slice(0,n);
 }
 
 function getMockTest(length, diff){
@@ -938,7 +1064,7 @@ function QuizView({questions,onDone,onExit,headerLabel}){
 }
 
 function TopicQuizView({section,topic,difficulty,onDone,onExit}){
-  const pool = shuffleCopy(QB[section]?.[topic]?.[difficulty] ?? []);
+  const pool=(QB[section]?.[topic]?.[difficulty]??[]).sort(()=>Math.random()-0.5);
   return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
 }
 
