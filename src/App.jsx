@@ -123,6 +123,20 @@ const THEMES = {
 const ThemeCtx = createContext(THEMES.midnight);
 const useTheme = () => useContext(ThemeCtx);
 
+// ─── USER SETTINGS (LOCAL) ──────────────────────────────────────────────────
+// Drill length applies to "practice by subject" drills.
+const DRILL_LENGTH_OPTIONS = [4, 8, 12, 16];
+function loadDrillLength(){
+  try{
+    const v = parseInt(localStorage.getItem("sat_drill_len")||"", 10);
+    if(Number.isFinite(v) && DRILL_LENGTH_OPTIONS.includes(v)) return v;
+  }catch(_e){ /* ignore */ }
+  return 4;
+}
+function saveDrillLength(v){
+  try{ localStorage.setItem("sat_drill_len", String(v)); }catch(_e){ /* ignore */ }
+}
+
 // ─── SAT STRUCTURE ────────────────────────────────────────────────────────────
 const TEST_LENGTHS = {
   full:    { label:"Full SAT",    total:98, rw:54, math:44, time:"2h 14min" },
@@ -1202,11 +1216,16 @@ function QuizView({questions,onDone,onExit,headerLabel}){
   </div>);
 }
 
-function TopicQuizView({section,topic,difficulty,onDone,onExit}){
-  // Keep drills short (4 questions) but rotate questions each time.
+function TopicQuizView({section,topic,difficulty,drillLength,onDone,onExit}){
+  // Topic drills: configurable length + rotate questions each time.
   const base = (QB[section]?.[topic]?.[difficulty] ?? []);
-  const pool = sampleQuestions(base, 4);
-  return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
+  const pool = sampleQuestions(base, drillLength);
+  return <QuizView
+    questions={pool.map(q=>({...q,section,topic}))}
+    onDone={onDone}
+    onExit={onExit}
+    headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty} · ${pool.length} Qs`}
+  />;
 }
 
 // ─── RESULTS ──────────────────────────────────────────────────────────────────
@@ -1259,7 +1278,7 @@ function ResultsView({results,length,difficulty,onBack,onRetry}){
 }
 
 // ─── DASHBOARD ────────────────────────────────────────────────────────────────
-function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest}){
+function Dashboard({progress,drillLength,onSetDrillLength,onStartTopic,onPracticeTest,onMockTest}){
   const T=useTheme();
   const all=Object.values(progress).flatMap(s=>Object.values(s).flatMap(t=>Object.values(t)));
   const tC=all.reduce((a,s)=>a+s.c,0),tT=all.reduce((a,s)=>a+s.t,0),op=pct(tC,tT);
@@ -1275,8 +1294,30 @@ function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest}){
         <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:8}}>SAT PREP</div>
         <h1 style={{fontSize:28,fontWeight:800,margin:"0 0 8px",lineHeight:1.1,color:T.text}}>Study Dashboard</h1>
         <p style={{color:T.textSub,fontSize:13,margin:"0 0 16px"}}>Track progress · Identify gaps · Ace the test</p>
-        <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Untimed Test</button>
-        <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit',marginLeft:10}}>⏱️ Timed Test</button>
+        <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
+          <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Untimed Test</button>
+          <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit'}}>⏱️ Timed Test</button>
+          <div style={{display:"flex",alignItems:"center",gap:8,marginLeft:2}}>
+            <span style={{fontSize:12,color:T.textSub,fontWeight:700}}>Drill length</span>
+            <select
+              value={drillLength}
+              onChange={(e)=>onSetDrillLength(parseInt(e.target.value,10))}
+              style={{
+                background:T.bgInput,
+                border:`1px solid ${T.border}`,
+                color:T.text,
+                borderRadius:8,
+                padding:"8px 10px",
+                fontFamily:"inherit",
+                fontWeight:700,
+                fontSize:12,
+                cursor:"pointer"
+              }}
+            >
+              {DRILL_LENGTH_OPTIONS.map(n=>(<option key={n} value={n}>{n} questions</option>))}
+            </select>
+          </div>
+        </div>
       </div>
       <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
         <RadialProgress value={op} size={110} stroke={9}/>
@@ -1335,12 +1376,14 @@ function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest}){
 export default function App(){
   const [themeKey,setThemeKey]=useState(loadThemeKey);
   const [progress,setProgress]=useState(loadProg);
+  const [drillLength,setDrillLength]=useState(loadDrillLength);
   const [view,setView]=useState("dashboard");
   const [active,setActive]=useState({});
   const [lastResults,setLastResults]=useState(null);
   const T=THEMES[themeKey]??THEMES.midnight;
   useEffect(()=>saveProg(progress),[progress]);
   useEffect(()=>saveThemeKey(themeKey),[themeKey]);
+  useEffect(()=>saveDrillLength(drillLength),[drillLength]);
   function updProg(results){
     setProgress(prev=>{
       const next=JSON.parse(JSON.stringify(prev));
@@ -1369,6 +1412,8 @@ export default function App(){
         <div style={{maxWidth:700,margin:"0 auto"}}>
           {view==="dashboard"&&(<>
             <Dashboard progress={progress}
+              drillLength={drillLength}
+              onSetDrillLength={(n)=>setDrillLength(DRILL_LENGTH_OPTIONS.includes(n)?n:4)}
               onStartTopic={(sec,topic,diff)=>{setActive({section:sec,topic,difficulty:diff,mode:"topic"});setView("quiz");}}
               onPracticeTest={()=>setView("practiceTest")}
               onMockTest={()=>setView("mockSetup")}/>
@@ -1393,6 +1438,7 @@ export default function App(){
               section={active.section}
               topic={active.topic}
               difficulty={active.difficulty}
+              drillLength={drillLength}
               onDone={finish}
               onExit={()=>{setActive({});setView("dashboard");}}
             />
