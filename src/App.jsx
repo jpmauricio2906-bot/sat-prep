@@ -315,231 +315,486 @@ function ThemePicker({ current, onChange }) {
 }
 
 // ─── QUESTION BANK ────────────────────────────────────────────────────────────
-const QB = {
-  math: {
-    Algebra: {
-      easy:[
-        {q:"If 3x + 7 = 22, what is x?",choices:["3","5","7","9"],answer:1,explanation:"3x=15, x=5."},
-        {q:"What is 2x when x = 6?",choices:["8","10","12","14"],answer:2,explanation:"2×6=12."},
-        {q:"Solve: x − 4 = 10",choices:["6","14","10","4"],answer:1,explanation:"x=14."},
-        {q:"The graph shows y = 2x − 1. What is the y-intercept?",fig:{type:"svg",shape:"coordinate_plane",params:{lineEq:x=>2*x-1,points:[[0,-1]]}},choices:["−2","−1","0","1"],answer:1,explanation:"At x=0: y=−1."},
-      ],
-      medium:[
-        {q:"Which is equivalent to 2(x+3) − 4(x−1)?",choices:["−2x+10","6x+2","−2x+2","2x+10"],answer:0,explanation:"2x+6−4x+4=−2x+10."},
-        {q:"If y=2x−1 and y=x+3, what is x?",choices:["2","4","5","7"],answer:1,explanation:"x=4."},
-        {q:"Solve: 5x − 3 = 2x + 12",choices:["3","5","7","9"],answer:1,explanation:"3x=15, x=5."},
-        {q:"Where do the two lines intersect?",fig:{type:"svg",shape:"coordinate_plane",params:{lineEq:x=>x+1,points:[[2,3]]}},choices:["(1,2)","(2,3)","(3,4)","(0,1)"],answer:1,explanation:"Intersection at (2,3)."},
-      ],
-      hard:[
-        {q:"If f(x)=3x²−2x+1, what is f(−2)?",choices:["9","17","13","21"],answer:1,explanation:"3(4)−2(−2)+1=17."},
-        {q:"For what k does kx²−4x+1=0 have exactly one solution?",choices:["2","4","8","16"],answer:1,explanation:"Discriminant=0: 16−4k=0, k=4."},
-      ],
-    },
-    Geometry:{
-      easy:[
-        {q:"What is the area of the rectangle shown?",fig:{type:"svg",shape:"rectangle",params:{w:8,h:5}},choices:["26","40","13","45"],answer:1,explanation:"8×5=40."},
-        {q:"Perimeter of a square with side 6?",choices:["12","24","36","18"],answer:1,explanation:"4×6=24."},
-      ],
-      medium:[
-        {q:"What is the hypotenuse of the triangle shown?",fig:{type:"svg",shape:"right_triangle",params:{a:3,b:4,c:"?"}},choices:["5","6","7","8"],answer:0,explanation:"√(9+16)=5."},
-        {q:"Radius=6. Circumference? (π≈3.14)",choices:["18.84","37.68","113.04","28.26"],answer:1,explanation:"2×3.14×6=37.68."},
-      ],
-      hard:[
-        {q:"Volume of the cylinder shown? (π≈3.14)",fig:{type:"svg",shape:"cylinder",params:{}},choices:["94.2","282.6","188.4","314"],answer:1,explanation:"π×9×10=282.6."},
-        {q:"Central angle 60°, radius 12. Arc length? (π≈3.14)",fig:{type:"svg",shape:"circle_arc",params:{radius:12,angle:60}},choices:["12.56","6.28","18.84","25.12"],answer:0,explanation:"(60/360)×2π×12≈12.56."},
-      ],
-    },
-    "Data Analysis":{
-      easy:[
-        {q:"Which month had the highest sales?",fig:{type:"chart",chartType:"bar",data:[{name:"Jan",value:40},{name:"Feb",value:65},{name:"Mar",value:50},{name:"Apr",value:80},{name:"May",value:55}],config:{xKey:"name",yKey:"value",caption:"Monthly Sales (units)"}},choices:["January","February","March","April"],answer:3,explanation:"April=80 units."},
-        {q:"Median of {4,7,7,9,13}?",choices:["7","8","9","6"],answer:0,explanation:"Middle value=7."},
-        {q:"Mode of {2,4,4,5,7}?",choices:["2","4","5","7"],answer:1,explanation:"4 appears most."},
-      ],
-      medium:[
-        {q:"What is the mean score from the table?",fig:{type:"table",headers:["Student","Score"],rows:[["Alice","82"],["Bob","90"],["Carlos","74"],["Diana","94"],["Evan","80"]],caption:"Test Scores"},choices:["82","84","86","88"],answer:1,explanation:"420/5=84."},
-        {q:"Between which months did temperature rise most?",fig:{type:"chart",chartType:"line",data:[{x:"Jan",y:30},{x:"Feb",y:35},{x:"Mar",y:50},{x:"Apr",y:62},{x:"May",y:70},{x:"Jun",y:74}],config:{xKey:"x",yKey:"y",caption:"Average Monthly Temperature (°F)"}},choices:["Jan–Feb","Feb–Mar","Mar–Apr","May–Jun"],answer:1,explanation:"Feb→Mar = +15°F, the largest jump."},
-        {q:"Mean of 80,90,70,100?",choices:["82","84","85","90"],answer:2,explanation:"340/4=85."},
-      ],
-      hard:[
-        {q:"Which best describes the scatterplot relationship?",fig:{type:"chart",chartType:"scatter",data:[{x:1,y:55},{x:2,y:60},{x:3,y:65},{x:4,y:72},{x:5,y:78},{x:6,y:85},{x:7,y:88},{x:8,y:93}],config:{xLabel:"Hours Studied",yLabel:"Score",caption:"Hours Studied vs. Test Score",trendLine:[{x:1,y:52},{x:8,y:95}]}},choices:["Strong negative correlation","No correlation","Weak positive correlation","Strong positive correlation"],answer:3,explanation:"Scores rise with hours → strong positive correlation."},
-        {q:"What fraction of female students prefer Math?",fig:{type:"table",headers:["","Math","English","Total"],rows:[["Male","18","12","30"],["Female","14","16","30"],["Total","32","28","60"]],caption:"Subject Preference by Gender"},choices:["7/15","7/16","14/30","7/30"],answer:0,explanation:"14/30=7/15."},
-        {q:"Strong positive scatterplot. Most likely r-value?",choices:["−0.9","0.1","0.85","−0.3"],answer:2,explanation:"Strong positive → r≈+1."},
-      ],
-    },
-    "Advanced Math":{
-      easy:[{q:"x² when x=5?",choices:["10","15","25","30"],answer:2,explanation:"25."}],
-      medium:[
-        {q:"Roots of x²−5x+6=0?",choices:["2 and 3","1 and 6","−2 and −3","0 and 5"],answer:0,explanation:"(x−2)(x−3)=0."},
-        {q:"Simplify (x²−9)/(x−3)",choices:["x+3","x−3","x+9","x²"],answer:0,explanation:"x+3."},
-        {q:"What are the x-intercepts of the parabola?",fig:{type:"svg",shape:"coordinate_plane",params:{lineEq:x=>-(x-1)*(x+3)/3,points:[[1,0],[-3,0]]}},choices:["x=1 and x=−3","x=−1 and x=3","x=0 and x=2","x=1 and x=3"],answer:0,explanation:"Crosses at x=1 and x=−3."},
-      ],
-      hard:[
-        {q:"g(x)=x³−4x. Where does g(x)=0?",choices:["0,2,−2","0,4","1,−1","2,−2"],answer:0,explanation:"x(x−2)(x+2)=0."},
-        {q:"(2x+3)² equals?",choices:["4x²+9","4x²+6x+9","4x²+12x+9","2x²+12x+9"],answer:2,explanation:"4x²+12x+9."},
-      ],
-    },
-    "Problem Solving":{
-      easy:[
-        {q:"150 miles in 3 hours. Average speed?",choices:["40 mph","45 mph","50 mph","55 mph"],answer:2,explanation:"50 mph."},
-        {q:"8 apples at $0.50 each?",choices:["$3.00","$3.50","$4.00","$4.50"],answer:2,explanation:"$4.00."},
-      ],
-      medium:[
-        {q:"Maria buys 2 shirts and 1 pair of pants. Total?",fig:{type:"table",headers:["Item","Price"],rows:[["Shirt","$25"],["Pants","$45"],["Shoes","$60"],["Hat","$15"]],caption:"Store Prices"},choices:["$70","$85","$95","$100"],answer:2,explanation:"$50+$45=$95."},
-        {q:"20% off $80 item. Sale price?",choices:["$60","$64","$68","$72"],answer:1,explanation:"$64."},
-        {q:"Tank fills at 5 gal/min, drains at 2. Fill 30 gallons?",choices:["5 min","8 min","10 min","15 min"],answer:2,explanation:"Net 3 gal/min; 10 min."},
-      ],
-      hard:[
-        {q:"In which quarter did production DECREASE?",fig:{type:"chart",chartType:"bar",data:[{name:"Q1",value:120},{name:"Q2",value:145},{name:"Q3",value:130},{name:"Q4",value:160}],config:{xKey:"name",yKey:"value",caption:"Quarterly Production (units)"}},choices:["Q1","Q2","Q3","Q4"],answer:2,explanation:"Q3(130)<Q2(145)."},
-        {q:"x varies inversely with y. x=4,y=9. Find x when y=6.",choices:["3","6","8","12"],answer:1,explanation:"xy=36, x=6."},
-        {q:"A and B together finish in 4h. A alone=6h. B alone?",choices:["8h","10h","12h","14h"],answer:2,explanation:"12h."},
-      ],
-    },
-  },
-  reading:{
-    "Main Idea":{
-      easy:[
-        {q:"'Ocean floor remains largely unexplored.' Main idea?",choices:["well documented","mostly unknown","teeming with life","irrelevant"],answer:1,explanation:"Largely unexplored=mostly unknown."},
-        {q:"Paragraph describes recycling reducing landfill waste. Purpose?",choices:["entertain","inform about benefits","argue against recycling","describe history"],answer:1,explanation:"Informing about a benefit."},
-      ],
-      medium:[
-        {q:"Author covers pros and cons of remote work. Passage is primarily…",choices:["persuasive","analytical","narrative","descriptive"],answer:1,explanation:"Pros and cons=analytical."},
-        {q:"Most supported conclusion from the survey?",fig:{type:"table",headers:["Age Group","Books/Year","Digital","Print"],rows:[["13–17","8","62%","38%"],["18–25","6","70%","30%"],["26–40","9","45%","55%"],["41+","12","28%","72%"]],caption:"Reading Habits Survey"},choices:["Older readers read fewer books","Digital preferred by all","Older readers prefer print and read more","Teens read most"],answer:2,explanation:"41+ reads 12/year and 72% prefer print."},
-      ],
-      hard:[
-        {q:"Passage opens with anecdote then cites three studies. Structure serves to…",choices:["entertain then educate","establish emotional connection then credibility","refute the opening","summarize research"],answer:1,explanation:"Anecdote=hook; studies=credibility."},
-      ],
-    },
-    "Vocabulary in Context":{
-      easy:[
-        {q:"'Meticulous notes enabled the breakthrough.' Meticulous means:",choices:["careless","extremely careful","brief","creative"],answer:1,explanation:"Meticulous=detailed care."},
-        {q:"'She gave a candid answer.' Candid means:",choices:["rehearsed","honest","lengthy","confusing"],answer:1,explanation:"Candid=truthful."},
-      ],
-      medium:[
-        {q:"'Rhetoric was deliberately obfuscating.' Obfuscating means:",choices:["clarifying","persuasive","confusing","inspiring"],answer:2,explanation:"Obfuscate=make unclear."},
-        {q:"'The review was scathing.' Scathing means:",choices:["mild","praising","harshly critical","brief"],answer:2,explanation:"Scathing=severely critical."},
-      ],
-      hard:[
-        {q:"'The policy was draconian.' Draconian means:",choices:["generous","excessively harsh","popular","poorly explained"],answer:1,explanation:"Draconian=extremely severe."},
-        {q:"'Her equanimity impressed everyone.' Equanimity means:",choices:["panic","indifference","mental calmness","confusion"],answer:2,explanation:"Equanimity=calm composure."},
-      ],
-    },
-    Evidence:{
-      easy:[{q:"Best evidence 'most teens prefer streaming to cable'?",choices:["Quote from one teen","Survey of 5,000 teens","Cable press release","Parent anecdote"],answer:1,explanation:"Large survey=strongest."}],
-      medium:[
-        {q:"Strongest study design to prove Exercise X reduces stress?",choices:["Interview 5 people","Observe one class","Randomized controlled trial","Reading articles"],answer:2,explanation:"RCT=gold standard."},
-        {q:"Which data supports 'screen time harms academic performance'?",fig:{type:"table",headers:["Screen Time","Avg GPA","Hours Sleep"],rows:[["< 1 hr","3.7","8.2"],["1–2 hrs","3.4","7.8"],["2–4 hrs","3.1","7.2"],["4+ hrs","2.7","6.5"]],caption:"Screen Time & Academic Performance"},choices:["4+ hrs students sleep 6.5h","<1hr students have 3.7 GPA","As screen time increases, GPA consistently decreases","Screen time affects sleep more than GPA"],answer:2,explanation:"GPA drops 3.7→2.7 as screen time rises."},
-        {q:"Which weakens 'social media increases teen anxiety'?",choices:["More screen time correlates with anxiety","Teens report stress","Non-users show no significant anxiety difference","Anxiety rose with social media"],answer:2,explanation:"If non-users show similar anxiety, social media may not be the cause."},
-      ],
-      hard:[{q:"Author argues drug is effective. Critic notes it was funded by manufacturer. This questions the study's:",choices:["sample size","statistical methods","objectivity/bias","peer review"],answer:2,explanation:"Funding source=conflict of interest."}],
-    },
-    Grammar:{
-      easy:[
-        {q:"Which is grammatically correct?",choices:["Each of the students have a textbook.","Each of the students has a textbook.","Each students has.","Each of student have."],answer:1,explanation:"'Each' is singular→'has'."},
-        {q:"Correct sentence:",choices:["Him and I went.","He and I went.","Him and me went.","He and me went."],answer:1,explanation:"Subject pronouns: He and I."},
-      ],
-      medium:[
-        {q:"Correct semicolon use?",choices:["I like cats; and dogs.","She studied hard; she passed.","He ran fast; but lost.","They won; the game."],answer:1,explanation:"Semicolons join independent clauses."},
-        {q:"'The team ___ playing well.'",choices:["is","are","were","have been"],answer:0,explanation:"Collective noun→singular verb."},
-      ],
-      hard:[
-        {q:"Which avoids a dangling modifier?",choices:["Running, the rain soaked her.","Running, she got soaked by the rain.","Having run, the rain was heavy.","To run, the rain started."],answer:1,explanation:"'Running' must refer to 'she'."},
-        {q:"Correct apostrophe:",choices:["The dogs' bone was buried.","The dog's' bone.","The dogs bone.","The dogs's bone."],answer:0,explanation:"Plural possessive: dogs'."},
-      ],
-    },
-    "Rhetorical Skills":{
-      easy:[{q:"Author ends essay urging readers to vote. Primarily meant to:",choices:["entertain","inform","persuade readers to act","describe a process"],answer:2,explanation:"Call to action=persuasive."}],
-      medium:[
-        {q:"'Can we afford to ignore climate change?' Purpose:",choices:["request info","admit uncertainty","prompt reader to agree","introduce counterargument"],answer:2,explanation:"Rhetorical questions guide conclusions."},
-        {q:"Which claim is best supported by this data?",fig:{type:"chart",chartType:"line",data:[{x:"2018",y:42},{x:"2019",y:47},{x:"2020",y:53},{x:"2021",y:58},{x:"2022",y:64}],config:{xKey:"x",yKey:"y",caption:"Public Support for Policy A (%)"}},choices:["Support remained stable","Policy A steadily gained support since 2018","Policy A lost support after 2020","Both equally popular"],answer:1,explanation:"42%→64%=consistent upward trend."},
-        {q:"'Like a ship without a compass, the company drifted.' This is:",choices:["alliteration","a simile","hyperbole","personification"],answer:1,explanation:"'Like a ship'=simile."},
-      ],
-      hard:[
-        {q:"Author refutes counterargument before thesis. This is called:",choices:["anaphora","concession and rebuttal","appeal to authority","circular reasoning"],answer:1,explanation:"Acknowledging then refuting=concession and rebuttal."},
-        {q:"Repeating a phrase at the start of consecutive sentences is:",choices:["creates ambiguity","anaphora — building emphasis","an ad hominem attack","weakens argument"],answer:1,explanation:"Anaphora=repetition for emphasis."},
-      ],
-    },
-  },
-};
+// v4.2: Expanded question bank (≈45 per topic: 15 easy / 15 medium / 15 hard)
+// Notes:
+// • Deterministic (seeded) generation so questions are stable across refreshes
+// • Questions are ONLY recorded to progress when a test is finished (handled elsewhere)
 
-// ─── STORAGE ──────────────────────────────────────────────────────────────────
-function makeEmpty(){
-  const o={};
-  Object.keys(SECTIONS).forEach(sec=>{o[sec]={};SECTIONS[sec].topics.forEach(t=>{o[sec][t]={easy:{c:0,t:0},medium:{c:0,t:0},hard:{c:0,t:0}};});});
-  return o;
+function makeRng(seed=1234567){
+  let s = seed >>> 0;
+  return () => {
+    // LCG (deterministic)
+    s = (1664525 * s + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
 }
-function loadProg(){try{const s=localStorage.getItem("sat_p4");if(s)return JSON.parse(s);}catch{}return makeEmpty();}
-function saveProg(p){try{localStorage.setItem("sat_p4",JSON.stringify(p));}catch{}}
-function loadThemeKey(){try{return localStorage.getItem("sat_theme4")||"midnight";}catch{return "midnight";}}
-function saveThemeKey(k){try{localStorage.setItem("sat_theme4",k);}catch{}}
-function pct(c,t){return t===0?0:Math.round((c/t)*100);}
-function getPracticeQs(length,diff){
-  const cfg=TEST_LENGTHS[length];let all=[];
-  [{key:"math",n:cfg.math},{key:"reading",n:cfg.rw}].forEach(({key,n})=>{
-    let pool=[];
-    SECTIONS[key].topics.forEach(t=>{const qs=QB[key][t]?.[diff]??[];pool.push(...qs.map(q=>({...q,section:key,topic:t})));});
-    pool=pool.sort(()=>Math.random()-0.5);all.push(...pool.slice(0,n));
-  });
-  return all.sort(()=>Math.random()-0.5);
+function randint(rng, a, b){ return Math.floor(rng()*(b-a+1))+a; }
+function shuffleInPlace(rng, arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(rng()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+function mcqFromCorrect(rng, correct, makeDistractor){
+  const vals = new Set([correct]);
+  while(vals.size<4) vals.add(makeDistractor());
+  const choices = Array.from(vals);
+  shuffleInPlace(rng, choices);
+  return { choices: choices.map(String), answer: choices.indexOf(correct) };
 }
 
-
-/* ─── MOCK SAT (TIMED SECTIONS + SCORING) ────────────────────────────────────
-   Digital SAT total time ≈ 2h14m (134 minutes): R&W 64m + Math 70m.
-   For shorter mocks, we scale section times proportionally. */
-const MOCK_SECTION_MINUTES = {
-  full:    { reading: 64, math: 70 },
-  half:    { reading: 32, math: 35 },
-  quarter: { reading: 16, math: 18 },
-};
-
-function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-function fmtTime(sec){
-  const s = Math.max(0, Math.floor(sec));
-  const m = Math.floor(s/60);
-  const r = s%60;
-  return `${m}:${String(r).padStart(2,'0')}`;
+// ---- Math generators ---------------------------------------------------------
+function genAlgebraEasy(rng, n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a = randint(rng,1,6);
+    const x = randint(rng,1,12);
+    const b = randint(rng,-10,10);
+    const c = a*x + b;
+    const base = mcqFromCorrect(rng, x, ()=> x + randint(rng,-3,3) || x+1);
+    out.push({
+      q:`If ${a}x ${b>=0?"+":"−"} ${Math.abs(b)} = ${c}, what is x?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`Solve: ${a}x = ${c} ${b>=0?"−":"+"} ${Math.abs(b)} = ${a*x}. So x = ${a*x}/${a} = ${x}.`,
+    });
+  }
+  return out;
+}
+function genAlgebraMedium(rng, n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const k = randint(rng,2,7);
+    const m = randint(rng,-6,9);
+    const p = randint(rng,2,7);
+    const q = randint(rng,-6,9);
+    const n0 = randint(rng,-12,12);
+    // Expression: k(x+m) + n0 − p(x+q)
+    const coeff = k - p;
+    const constant = k*m + n0 - p*q;
+    const correct = `${coeff===1?"":coeff===-1?"-":coeff}x ${constant>=0?"+":"−"} ${Math.abs(constant)}`.replace("1x","x").replace("-1x","-x");
+    const distractors = [
+      `${(k+p)}x ${constant>=0?"+":"−"} ${Math.abs(constant)}`,
+      `${coeff}x ${(-constant)>=0?"+":"−"} ${Math.abs(-constant)}`,
+      `${coeff}x ${ (k*m - n0 - p*q)>=0?"+":"−"} ${Math.abs(k*m - n0 - p*q)}`
+    ].map(s=>s.replace("1x","x").replace("-1x","-x"));
+    const choices=[correct,...distractors];
+    shuffleInPlace(rng, choices);
+    out.push({
+      q:`Which expression is equivalent to ${k}(x ${m>=0?"+":"−"} ${Math.abs(m)}) ${n0>=0?"+":"−"} ${Math.abs(n0)} − ${p}(x ${q>=0?"+":"−"} ${Math.abs(q)})?`,
+      choices,
+      answer: choices.indexOf(correct),
+      explanation:`Distribute: ${k}x + ${k*m} ${n0>=0?"+":"−"} ${Math.abs(n0)} − ${p}x ${p*q>=0?"−":"+"} ${Math.abs(p*q)} = (${k}−${p})x + (${k*m} ${n0>=0?"+":"−"} ${Math.abs(n0)} ${p*q>=0?"−":"+"} ${Math.abs(p*q)}).`,
+    });
+  }
+  return out;
+}
+function genAlgebraHard(rng, n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    // Two-equation system with integer solution
+    const x = randint(rng,1,10);
+    const y = randint(rng,1,10);
+    const a1 = randint(rng,1,6), b1 = randint(rng,1,6);
+    const a2 = randint(rng,1,6), b2 = randint(rng,1,6);
+    const c1 = a1*x + b1*y;
+    const c2 = a2*x + b2*y;
+    const base = mcqFromCorrect(rng, x, ()=> x + randint(rng,-3,3) || x+2);
+    out.push({
+      q:`If ${a1}x + ${b1}y = ${c1} and ${a2}x + ${b2}y = ${c2}, what is x?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`The system has solution (x,y)=(${x},${y}). You can solve by elimination or substitution to find x=${x}.`,
+    });
+  }
+  return out;
 }
 
-// Simple (transparent) scaling: map percent-correct to SAT section score [200,800].
-// Later we can replace with a more realistic curve / equating table.
-function scaledSectionScore(percent){
-  const p = clamp(percent, 0, 100);
-  return Math.round(200 + (p/100)*600);
+function genGeometryEasy(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const w=randint(rng,2,20), h=randint(rng,2,20);
+    const correct=w*h;
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-20,20) || correct+5);
+    out.push({
+      q:`A rectangle has width ${w} and height ${h}. What is its area?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`Area = width × height = ${w}×${h} = ${correct}.`,
+    });
+  }
+  return out;
+}
+function genGeometryMedium(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const r=randint(rng,2,12);
+    const correct = 2*r*Math.PI;
+    // keep as exact form 2πr
+    const corrStr = `${2*r===1?"":2*r}π`.replace("1π","π")+` (${r})?`.includes("?")?"":""; // unused
+    const correctExact = `${2*r}π`.replace("1π","π");
+    const distractors=[`${r}π`,`${2*r*r}π`,`${4*r}π`].map(s=>s.replace("1π","π"));
+    const choices=[correctExact,...distractors];
+    shuffleInPlace(rng, choices);
+    out.push({
+      q:`A circle has radius ${r}. What is the circumference in terms of π?`,
+      choices,
+      answer: choices.indexOf(correctExact),
+      explanation:`Circumference = 2πr = 2π(${r}) = ${correctExact}.`,
+    });
+  }
+  return out;
+}
+function genGeometryHard(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a=randint(rng,3,15);
+    const b=randint(rng,3,15);
+    const correct = Math.sqrt(a*a+b*b);
+    // pick cases where hypotenuse is integer often
+    const hyp = Number.isInteger(correct)? correct : Math.round(correct*10)/10;
+    const base=mcqFromCorrect(rng, hyp, ()=> hyp + randint(rng,-5,5) || hyp+1);
+    out.push({
+      q:`A right triangle has legs ${a} and ${b}. What is the length of the hypotenuse?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`Use Pythagorean theorem: c = √(${a}²+${b}²) = √(${a*a}+${b*b}) ≈ ${hyp}.`,
+    });
+  }
+  return out;
 }
 
-function buildPool(section, diff){
-  let pool=[];
-  SECTIONS[section].topics.forEach(t=>{
-    const qs = QB[section]?.[t]?.[diff] ?? [];
-    pool.push(...qs.map(q=>({...q,section,topic:t})));
-  });
-  return pool.sort(()=>Math.random()-0.5);
+function genDataEasy(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const nums=[randint(rng,1,12),randint(rng,1,12),randint(rng,1,12),randint(rng,1,12)];
+    const sum=nums.reduce((a,b)=>a+b,0);
+    const correct=sum/nums.length;
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-3,3) || correct+1);
+    out.push({
+      q:`What is the mean of ${nums.join(", ")}?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`Mean = (sum of values) / (number of values) = ${sum}/4 = ${correct}.`,
+    });
+  }
+  return out;
+}
+function genDataMedium(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const total=randint(rng,30,120);
+    const part=randint(rng,5,total-5);
+    const correct = (part/total);
+    const correctPct = Math.round(correct*100);
+    const base=mcqFromCorrect(rng, correctPct, ()=> correctPct + randint(rng,-20,20) || correctPct+5);
+    out.push({
+      q:`A jar has ${part} red marbles out of ${total} total marbles. What percent are red?`,
+      choices: base.choices.map(v=>v+"%"),
+      answer: base.answer,
+      explanation:`Percent = (${part}/${total})×100 ≈ ${correctPct}%.`,
+    });
+  }
+  return out;
+}
+function genDataHard(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const x1=randint(rng,0,6), x2=x1+randint(rng,2,8);
+    const m=randint(rng,-4,6);
+    const b=randint(rng,-10,10);
+    const y1=m*x1+b, y2=m*x2+b;
+    const correct=m;
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-3,3) || correct+1);
+    out.push({
+      q:`A line passes through (${x1}, ${y1}) and (${x2}, ${y2}). What is its slope?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`Slope m = (y₂−y₁)/(x₂−x₁) = (${y2}−${y1})/(${x2}−${x1}) = ${m}.`,
+    });
+  }
+  return out;
 }
 
-function pickN(arr, n){
-  if(arr.length<=n) return arr.slice();
-  const copy = arr.slice().sort(()=>Math.random()-0.5);
-  return copy.slice(0,n);
+function genAdvEasy(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a=randint(rng,2,9), b=randint(rng,2,6);
+    const correct = Math.pow(a,b);
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-50,50) || correct+10);
+    out.push({
+      q:`What is ${a}^${b}?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`${a}^${b} means multiplying ${a} by itself ${b} times = ${correct}.`,
+    });
+  }
+  return out;
+}
+function genAdvMedium(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const r=randint(rng,-5,8);
+    const correct = r;
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-4,4) || correct+2);
+    out.push({
+      q:`If (x − ${r})² = 0, what is x?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`(x − ${r})² = 0 implies x − ${r} = 0, so x = ${r}.`,
+    });
+  }
+  return out;
+}
+function genAdvHard(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const r1=randint(rng,-6,6);
+    let r2=randint(rng,-6,6);
+    if(r2===r1) r2+=1;
+    const a=1;
+    const b=-(r1+r2);
+    const c=r1*r2;
+    const correct = `${a===1?"":a}x^2 ${b>=0?"+":"−"} ${Math.abs(b)}x ${c>=0?"+":"−"} ${Math.abs(c)}`
+      .replace("1x^2","x^2");
+    const distractors=[
+      `x^2 ${b>=0?"+":"−"} ${Math.abs(b)}x ${(-c)>=0?"+":"−"} ${Math.abs(-c)}`,
+      `x^2 ${ (r1+r2)>=0?"+":"−"} ${Math.abs(r1+r2)}x ${c>=0?"+":"−"} ${Math.abs(c)}`,
+      `x^2 ${b>=0?"+":"−"} ${Math.abs(b)}x ${ (r1+r2)>=0?"+":"−"} ${Math.abs(r1+r2)}`
+    ];
+    const choices=[correct,...distractors];
+    shuffleInPlace(rng, choices);
+    out.push({
+      q:`A quadratic has zeros at x=${r1} and x=${r2}. Which equation could represent it?`,
+      choices,
+      answer: choices.indexOf(correct),
+      explanation:`With zeros r₁ and r₂: (x−r₁)(x−r₂)=x²−(r₁+r₂)x+r₁r₂ = ${correct}.`,
+    });
+  }
+  return out;
 }
 
-function getMockTest(length, diff){
-  const cfg = TEST_LENGTHS[length];
-  const mins = MOCK_SECTION_MINUTES[length] ?? MOCK_SECTION_MINUTES.half;
+function genPSolEasy(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const rate=randint(rng,2,12);
+    const hours=randint(rng,2,10);
+    const correct=rate*hours;
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-20,20) || correct+3);
+    out.push({
+      q:`A car travels at ${rate} miles per hour for ${hours} hours. How many miles does it travel?`,
+      choices: base.choices,
+      answer: base.answer,
+      explanation:`Distance = rate × time = ${rate}×${hours} = ${correct}.`,
+    });
+  }
+  return out;
+}
+function genPSolMedium(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a=randint(rng,2,9), b=randint(rng,2,9), c=randint(rng,2,9);
+    const correct = a/b;
+    const correctStr = `${a/b}`; // decimal possible
+    const choices=[correctStr, `${a/c}`, `${c/b}`, `${b/a}`];
+    shuffleInPlace(rng, choices);
+    out.push({
+      q:`A recipe uses ${a} cups of flour for every ${b} cups of sugar. What is the flour-to-sugar ratio as a number (flour ÷ sugar)?`,
+      choices,
+      answer: choices.indexOf(correctStr),
+      explanation:`Ratio flour ÷ sugar = ${a}/${b} = ${a/b}.`,
+    });
+  }
+  return out;
+}
+function genPSolHard(rng,n=15){
+  const out=[];
+  for(let i=0;i<n;i++){
+    // Percent increase/decrease
+    const original=randint(rng,40,200);
+    const pct=randint(rng,5,35);
+    const inc = rng()<0.5;
+    const correct = Math.round(original*(inc?(1+pct/100):(1-pct/100)));
+    const base=mcqFromCorrect(rng, correct, ()=> correct + randint(rng,-30,30) || correct+7);
+    out.push({
+      q:`An item costs $${original}. Its price is ${inc?"increased":"decreased"} by ${pct}%. What is the new price (nearest dollar)?`,
+      choices: base.choices.map(v=>"$"+v),
+      answer: base.answer,
+      explanation:`New price = ${original}×(1 ${inc?"+":"−"} ${pct}/100) ≈ ${correct}.`,
+    });
+  }
+  return out;
+}
 
-  const readingQs = pickN(buildPool('reading', diff), cfg.rw);
-  const mathQs    = pickN(buildPool('math', diff),    cfg.math);
-
-  return {
-    length,
-    difficulty: diff,
-    sections: [
-      { key:'reading', label: SECTIONS.reading.label, minutes: mins.reading, questions: readingQs },
-      { key:'math',    label: SECTIONS.math.label,    minutes: mins.math,    questions: mathQs },
+// ---- R&W generators (small passages + grammar/vocab) -------------------------
+const RW_PASSAGES = [
+  {
+    topic:"Main Idea",
+    passage:"City planners tested a pilot program that added protected bike lanes on three major streets. After six months, cycling increased and minor traffic delays were limited to rush hour. The planners recommended expanding the program.",
+    question:"Which choice best states the main idea of the passage?",
+    correct:"A pilot bike-lane program increased cycling with manageable traffic impacts, so planners recommend expansion.",
+    distractors:[
+      "Protected bike lanes always reduce traffic delays during all hours of the day.",
+      "City planners decided to remove bike lanes after observing severe congestion.",
+      "Cycling decreased because the pilot program made streets less safe."
     ]
+  },
+  {
+    topic:"Main Idea",
+    passage:"A biologist compared two wetlands: one restored five years ago and one never drained. The restored wetland had fewer bird species, but the number rose each year. The biologist concluded that restoration can rebuild biodiversity over time.",
+    question:"Which choice best states the main idea of the passage?",
+    correct:"Wetland restoration can gradually rebuild biodiversity, even if early species counts are lower.",
+    distractors:[
+      "Restored wetlands immediately match undisturbed wetlands in every species measure.",
+      "Bird species are unrelated to wetland quality and change randomly year to year.",
+      "Wetlands should never be restored because biodiversity always declines."
+    ]
+  },
+  {
+    topic:"Evidence",
+    passage:"In a study of study habits, students who used short daily review sessions outperformed students who crammed the night before. The researchers noted that daily review led to better long-term recall.",
+    question:"Which sentence from the passage best supports the idea that daily review improves performance?",
+    correct:"Students who used short daily review sessions outperformed students who crammed the night before.",
+    distractors:[
+      "In a study of study habits, students were observed for one semester.",
+      "The researchers noted that students prefer different schedules.",
+      "Some students reported feeling stressed during exam week."
+    ]
+  },
+  {
+    topic:"Vocabulary",
+    passage:"The committee’s decision was met with immediate criticism, but the chair remained resolute and continued with the plan.",
+    question:"As used in the passage, \"resolute\" most nearly means",
+    correct:"determined",
+    distractors:["confused","careless","secretive"]
+  },
+  {
+    topic:"Grammar",
+    passage:"Select the best revision for the underlined portion: \"The results of the experiment show, that the hypothesis was incorrect.\"",
+    question:"Which choice best revises the underlined portion to follow standard English conventions?",
+    correct:"show that",
+    distractors:["show, that","shows, that","shows that,"]
+  },
+];
+
+function genRWEasy(rng, topic, n=15){
+  const out=[];
+  // Favor Grammar/Vocabulary in easy
+  const pool = RW_PASSAGES.filter(p=>["Grammar","Vocabulary"].includes(p.topic));
+  for(let i=0;i<n;i++){
+    const p = pool[i % pool.length];
+    const choices=[p.correct,...p.distractors];
+    shuffleInPlace(rng, choices);
+    out.push({
+      passage:p.passage,
+      q:p.question,
+      choices,
+      answer: choices.indexOf(p.correct),
+      explanation:`Correct because it best matches the meaning or follows standard conventions.`,
+      meta:{topic},
+    });
+  }
+  return out;
+}
+function genRWMedium(rng, topic, n=15){
+  const out=[];
+  // Mix in main idea/evidence
+  const pool = RW_PASSAGES.filter(p=>["Main Idea","Evidence","Vocabulary"].includes(p.topic));
+  for(let i=0;i<n;i++){
+    const p = pool[i % pool.length];
+    const choices=[p.correct,...p.distractors];
+    shuffleInPlace(rng, choices);
+    out.push({
+      passage:p.passage,
+      q:p.question,
+      choices,
+      answer: choices.indexOf(p.correct),
+      explanation:`Choose the option that is most directly supported by the passage.`,
+      meta:{topic},
+    });
+  }
+  return out;
+}
+function genRWHard(rng, topic, n=15){
+  const out=[];
+  // Hard focuses on Main Idea/Evidence with close distractors
+  const pool = RW_PASSAGES.filter(p=>["Main Idea","Evidence"].includes(p.topic));
+  for(let i=0;i<n;i++){
+    const p = pool[i % pool.length];
+    // Make distractors "closer" by reusing + slight tweak (still deterministic)
+    const close = [...p.distractors];
+    if(close.length<3) close.push("This option is not supported by the passage.");
+    const choices=[p.correct,...close];
+    shuffleInPlace(rng, choices);
+    out.push({
+      passage:p.passage,
+      q:p.question,
+      choices,
+      answer: choices.indexOf(p.correct),
+      explanation:`The correct choice best matches what the passage actually says (not what it suggests or what might be true generally).`,
+      meta:{topic},
+    });
+  }
+  return out;
+}
+
+function buildQuestionBank(){
+  const rng = makeRng(424242);
+  return {
+    math: {
+      Algebra: {
+        easy:   genAlgebraEasy(rng,15),
+        medium: genAlgebraMedium(rng,15),
+        hard:   genAlgebraHard(rng,15),
+      },
+      Geometry: {
+        easy:   genGeometryEasy(rng,15),
+        medium: genGeometryMedium(rng,15),
+        hard:   genGeometryHard(rng,15),
+      },
+      "Data Analysis": {
+        easy:   genDataEasy(rng,15),
+        medium: genDataMedium(rng,15),
+        hard:   genDataHard(rng,15),
+      },
+      "Advanced Math": {
+        easy:   genAdvEasy(rng,15),
+        medium: genAdvMedium(rng,15),
+        hard:   genAdvHard(rng,15),
+      },
+      "Problem Solving": {
+        easy:   genPSolEasy(rng,15),
+        medium: genPSolMedium(rng,15),
+        hard:   genPSolHard(rng,15),
+      },
+    },
+    rw: {
+      "Main Idea": {
+        easy:   genRWMedium(rng,"Main Idea",15),
+        medium: genRWMedium(rng,"Main Idea",15),
+        hard:   genRWHard(rng,"Main Idea",15),
+      },
+      "Evidence": {
+        easy:   genRWMedium(rng,"Evidence",15),
+        medium: genRWMedium(rng,"Evidence",15),
+        hard:   genRWHard(rng,"Evidence",15),
+      },
+      "Vocabulary": {
+        easy:   genRWEasy(rng,"Vocabulary",15),
+        medium: genRWMedium(rng,"Vocabulary",15),
+        hard:   genRWMedium(rng,"Vocabulary",15),
+      },
+      "Grammar": {
+        easy:   genRWEasy(rng,"Grammar",15),
+        medium: genRWEasy(rng,"Grammar",15),
+        hard:   genRWMedium(rng,"Grammar",15),
+      },
+    }
   };
 }
 
-
+const QB = buildQuestionBank();
 // ─── RADIAL ───────────────────────────────────────────────────────────────────
 function RadialProgress({value,size=80,stroke=7,color}){
   const T=useTheme();
@@ -858,7 +1113,7 @@ function MockResultsView({mock,results,onBack,onRetry}){
   );
 }
 // ─── QUIZ VIEW ────────────────────────────────────────────────────────────────
-function QuizView({questions,onDone}){
+function QuizView({questions,onDone,onExit,headerLabel}){
   const T=useTheme();
   const [idx,setIdx]=useState(0);
   const [selected,setSelected]=useState(null);
@@ -874,10 +1129,29 @@ function QuizView({questions,onDone}){
     setResults(r=>[...r,{section:q.section,topic:q.topic,correct:i===q.answer}]);
   }
   function next(){
-    const nr=[...results,{section:q.section,topic:q.topic,correct:selected===q.answer}];
-    if(isLast){onDone(nr);}else{setIdx(i=>i+1);setSelected(null);setShowExp(false);}
+    // Results are recorded once at selection time; do not double-count.
+    if(isLast){onDone(results);}else{setIdx(i=>i+1);setSelected(null);setShowExp(false);}
   }
-  return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:"32px 28px"}}>
+  function requestExit(){
+    if(!onExit) return;
+    const ok = confirm("Exit this test and return to the dashboard? Your partial progress will NOT be saved.");
+    if(ok) onExit();
+  }
+  return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,overflow:"hidden"}}>
+    {onExit && (
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 14px",background:T.bgAlt,borderBottom:`1px solid ${T.border}`}}>
+        <button onClick={requestExit} style={{background:"transparent",border:"none",cursor:"pointer",fontFamily:"inherit",fontWeight:800,color:T.textSub}}>
+          🏠 Dashboard
+        </button>
+        <div style={{fontSize:12,fontWeight:800,color:T.textMuted,letterSpacing:1,textTransform:"uppercase"}}>
+          {headerLabel || "Test"}
+        </div>
+        <button onClick={requestExit} style={{background:"transparent",border:`1px solid ${T.border}` ,borderRadius:10,padding:"6px 10px",cursor:"pointer",fontFamily:"inherit",fontWeight:800,color:T.text}}>
+          ❌ Exit
+        </button>
+      </div>
+    )}
+    <div style={{padding:"32px 28px"}}>
     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
       <span style={{color:T.textSub,fontSize:12}}>{SECTIONS[q.section]?.label} › {q.topic}</span>
       <span style={{color:sc,fontWeight:700,fontSize:13}}>{idx+1} / {questions.length}</span>
@@ -906,12 +1180,13 @@ function QuizView({questions,onDone}){
     {selected!==null&&(<button style={{padding:"12px 24px",borderRadius:10,border:"none",fontWeight:700,fontSize:14,cursor:"pointer",fontFamily:"inherit",color:"#fff",background:sc,marginTop:16}} onClick={next}>
       {isLast?"Finish Test →":"Next Question →"}
     </button>)}
+    </div>
   </div>);
 }
 
-function TopicQuizView({section,topic,difficulty,onDone}){
+function TopicQuizView({section,topic,difficulty,onDone,onExit}){
   const pool=(QB[section]?.[topic]?.[difficulty]??[]).sort(()=>Math.random()-0.5);
-  return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone}/>;
+  return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
 }
 
 // ─── RESULTS ──────────────────────────────────────────────────────────────────
@@ -980,8 +1255,8 @@ function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest}){
         <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:8}}>SAT PREP</div>
         <h1 style={{fontSize:28,fontWeight:800,margin:"0 0 8px",lineHeight:1.1,color:T.text}}>Study Dashboard</h1>
         <p style={{color:T.textSub,fontSize:13,margin:"0 0 16px"}}>Track progress · Identify gaps · Ace the test</p>
-        <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Take a Practice Test</button>
-        <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit',marginLeft:10}}>⏱️ Timed Mock SAT</button>
+        <button onClick={onPracticeTest} style={{background:T.accent1Bg,border:`1.5px solid ${T.accent1}`,borderRadius:10,padding:"10px 18px",color:T.accent1Soft,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>📋 Untimed Test</button>
+        <button onClick={onMockTest} style={{background:'transparent',border:`1.5px solid ${T.border}`,borderRadius:10,padding:'10px 18px',color:T.text,fontWeight:800,fontSize:13,cursor:'pointer',fontFamily:'inherit',marginLeft:10}}>⏱️ Timed Test</button>
       </div>
       <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
         <RadialProgress value={op} size={110} stroke={9}/>
@@ -1094,10 +1369,21 @@ export default function App(){
           )}
 
           {view==="quiz"&&active.mode==="topic"&&(
-            <TopicQuizView section={active.section} topic={active.topic} difficulty={active.difficulty} onDone={finish}/>
+            <TopicQuizView
+              section={active.section}
+              topic={active.topic}
+              difficulty={active.difficulty}
+              onDone={finish}
+              onExit={()=>{setActive({});setView("dashboard");}}
+            />
           )}
           {view==="quiz"&&active.mode==="practice"&&(
-            <QuizView questions={active.questions} onDone={finish}/>
+            <QuizView
+              questions={active.questions}
+              onDone={finish}
+              onExit={()=>{setActive({});setView("dashboard");}}
+              headerLabel={`Untimed Test · ${TEST_LENGTHS[active.length]?.label ?? ""} · ${DIFFICULTY_LEVELS[active.difficulty]?.label ?? ""}`}
+            />
           )}
           {view==="mock"&&active.mode==="mock"&&(
             <MockRunner mock={active.mock} onBack={()=>setView("dashboard")} onDone={finishMock}/>
