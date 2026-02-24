@@ -477,9 +477,9 @@ function getPracticeQs(length,diff){
   [{key:"math",n:cfg.math},{key:"reading",n:cfg.rw}].forEach(({key,n})=>{
     let pool=[];
     SECTIONS[key].topics.forEach(t=>{const qs=QB[key][t]?.[diff]??[];pool.push(...qs.map(q=>({...q,section:key,topic:t})));});
-    pool=pool.sort(()=>Math.random()-0.5);all.push(...pool.slice(0,n));
+    pool=shuffleCopy(pool);all.push(...pool.slice(0,n));
   });
-  return all.sort(()=>Math.random()-0.5);
+  return shuffleCopy(all);
 }
 
 
@@ -507,19 +507,27 @@ function scaledSectionScore(percent){
   return Math.round(200 + (p/100)*600);
 }
 
+function shuffleCopy(arr){
+  const copy = arr.slice();
+  for(let i=copy.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]] = [copy[j],copy[i]];
+  }
+  return copy;
+}
+
 function buildPool(section, diff){
   let pool=[];
   SECTIONS[section].topics.forEach(t=>{
     const qs = QB[section]?.[t]?.[diff] ?? [];
     pool.push(...qs.map(q=>({...q,section,topic:t})));
   });
-  return pool.sort(()=>Math.random()-0.5);
+  return shuffleCopy(pool);
 }
 
 function pickN(arr, n){
   if(arr.length<=n) return arr.slice();
-  const copy = arr.slice().sort(()=>Math.random()-0.5);
-  return copy.slice(0,n);
+  return shuffleCopy(arr).slice(0,n);
 }
 
 function getMockTest(length, diff){
@@ -930,7 +938,7 @@ function QuizView({questions,onDone,onExit,headerLabel}){
 }
 
 function TopicQuizView({section,topic,difficulty,onDone,onExit}){
-  const pool=(QB[section]?.[topic]?.[difficulty]??[]).sort(()=>Math.random()-0.5);
+  const pool = shuffleCopy(QB[section]?.[topic]?.[difficulty] ?? []);
   return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
 }
 
