@@ -315,6 +315,19 @@ function ThemePicker({ current, onChange }) {
 }
 
 // ─── QUESTION BANK ────────────────────────────────────────────────────────────
+// ─── QUESTION BANK ────────────────────────────────────────────────────────────
+/*
+  Expanded bank (TARGET_Q_PER_BUCKET=45)
+  Goals:
+  - Preserve all hand-crafted visuals (SVG/Chart/Table) in BASE_QB.
+  - Expand every (topic, difficulty) bucket to ~45 questions.
+  - For Geometry and Data Analysis, generated questions ALWAYS include a figure/chart.
+  - Avoid repeats: we reject duplicates by a normalized question fingerprint.
+*/
+
+const TARGET_Q_PER_BUCKET = 45;
+
+// Base, hand-crafted questions (with visuals)
 const BASE_QB = {
   math: {
     Algebra: {
@@ -461,11 +474,23 @@ const BASE_QB = {
   },
 };
 
-// ─── QUESTION BANK EXPANSION (safe) ──────────────────────────────────────────
-// Expands each topic+difficulty bucket to ~45 items without changing app flow.
-// - Generates correctness-safe Algebra Easy variants
-// - Otherwise clones existing questions with harmless "(v#)" tags
-const TARGET_Q_PER_BUCKET = 45;
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function fisherYatesShuffleCopy(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function normalizeQuestionKey(q) {
+  return (q?.q || "")
+    .replace(/\s+/g, " ")
+    .replace(/\(v\d+\)\s*$/i, "")
+    .trim()
+    .toLowerCase();
+}
 
 function cloneQuestion(q, variantTag) {
   const out = {
@@ -477,30 +502,25 @@ function cloneQuestion(q, variantTag) {
   return out;
 }
 
-function fisherYatesShuffleCopy(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+function mkChoices(correct, distractors) {
+  return fisherYatesShuffleCopy([String(correct), ...distractors.map(String)]).slice(0, 4);
 }
 
-// Generate correctness-safe Algebra Easy items
+// ── Generators (correctness-safe) ─────────────────────────────────────────────
+// Algebra
 function genAlgebraEasy(n, startIndex = 0) {
   const out = [];
   for (let i = 0; i < n; i++) {
     const k = startIndex + i + 1;
-    const type = k % 4;
+    const type = k % 5;
 
     if (type === 0) {
-      const a = 2 + (k % 4);        // 2..5
-      const x = 2 + (k % 9);        // 2..10
-      const b = 1 + ((k * 3) % 11); // 1..11
+      const a = 2 + (k % 4);
+      const x = 2 + (k % 9);
+      const b = 1 + ((k * 3) % 11);
       const c = a * x + b;
       const correct = x;
-      const pool = [correct, correct - 2, correct + 1, correct + 3].map(String);
-      const choices = fisherYatesShuffleCopy(pool).slice(0, 4);
+      const choices = mkChoices(correct, [correct - 2, correct + 1, correct + 3]);
       out.push({
         q: `If ${a}x + ${b} = ${c}, what is x?`,
         choices,
@@ -508,62 +528,555 @@ function genAlgebraEasy(n, startIndex = 0) {
         explanation: `Subtract ${b} and divide by ${a}: x=${correct}.`,
       });
     } else if (type === 1) {
-      const t = 4 + (k % 9); // 4..12
-      const correct = 2 * t;
-      const pool = [correct, correct - 2, correct + 2, correct + 4].map(String);
-      const choices = fisherYatesShuffleCopy(pool);
+      const x = 2 + ((k * 7) % 29);
+      const correct = 2 * x;
+      const choices = mkChoices(correct, [correct - 4, correct + 2, correct + 6]);
       out.push({
-        q: `What is 2x when x = ${t}?`,
+        q: `What is 2x when x = ${x}?`,
         choices,
         answer: choices.indexOf(String(correct)),
-        explanation: `2×${t}=${correct}.`,
+        explanation: `2×${x}=${correct}.`,
       });
     } else if (type === 2) {
-      const a = 2 + (k % 9);          // 2..10
-      const b = 5 + ((k * 2) % 13);   // 5..17
-      const correct = a + b;
-      const pool = [correct, correct - 4, correct + 3, b].map(String);
-      const choices = fisherYatesShuffleCopy(pool);
+      const x = 3 + ((k * 5) % 23);
+      const b = 2 + (k % 6);
+      const correct = x + b;
+      const choices = mkChoices(correct, [correct - 3, correct + 2, correct + 6]);
       out.push({
-        q: `Solve: x − ${a} = ${b}`,
+        q: `Solve: x − ${b} = ${x}`,
         choices,
         answer: choices.indexOf(String(correct)),
-        explanation: `Add ${a} to both sides: x=${correct}.`,
+        explanation: `Add ${b} to both sides: x=${correct}.`,
+      });
+    } else if (type === 3) {
+      const m = 1 + (k % 4);
+      const b = -4 + (k % 9);
+      const correct = b;
+      const choices = mkChoices(correct, [b - 1, b + 1, b + 2]);
+      out.push({
+        q: `The graph shows y = ${m}x ${b >= 0 ? "+" : "−"} ${Math.abs(b)}. What is the y-intercept?`,
+        fig: { type: "svg", shape: "coordinate_plane", params: { lineEq: x => m * x + b, points: [[0, b]] } },
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `At x=0, y=${b}.`,
       });
     } else {
-      const m = 1 + (k % 4);   // 1..4
-      const b = -4 + (k % 9);  // -4..4
-      const correct = b;
-      const pool = [correct, correct - 1, correct + 1, -correct].map(String);
-      const choices = fisherYatesShuffleCopy(pool);
+      const a = 2 + (k % 5);
+      const x = 2 + ((k * 11) % 31);
+      const b = 3 + (k % 9);
+      const c = a * x - b;
+      const correct = x;
+      const choices = mkChoices(correct, [correct - 2, correct + 1, correct + 3]);
       out.push({
-        q: `For the line y = ${m}x ${b >= 0 ? "+" : "−"} ${Math.abs(b)}, what is the y-intercept?`,
+        q: `If ${a}x − ${b} = ${c}, what is x?`,
         choices,
         answer: choices.indexOf(String(correct)),
-        explanation: `The y-intercept is the constant term (when x=0): y=${correct}.`,
+        explanation: `Add ${b} and divide by ${a}: x=${correct}.`,
       });
     }
   }
   return out;
 }
 
+function genAlgebraMedium(n, startIndex = 0) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const k = startIndex + i + 1;
+    const type = k % 4;
+
+    if (type === 0) {
+      const a = 2 + (k % 5);
+      const b = 1 + ((k * 2) % 7);
+      const c = 2 + ((k * 3) % 8);
+      const A = a - c;
+      const B = a * b + c;
+      const correct = `${A}x${B >= 0 ? "+" : "−"}${Math.abs(B)}`.replace(/^1x/,"x").replace(/^-1x/,"−x");
+      const choices = fisherYatesShuffleCopy([
+        correct,
+        `${A}x${(B+4) >= 0 ? "+" : "−"}${Math.abs(B+4)}`,
+        `${(A+2)}x${B >= 0 ? "+" : "−"}${Math.abs(B)}`,
+        `${A}x${(B-3) >= 0 ? "+" : "−"}${Math.abs(B-3)}`,
+      ]);
+      out.push({
+        q: `Which is equivalent to ${a}(x+${b}) − ${c}(x−1)?`,
+        choices,
+        answer: choices.indexOf(correct),
+        explanation: `Distribute and combine like terms: (${a}−${c})x + ${a*b + c}.`,
+      });
+    } else if (type === 1) {
+      const m1 = 1 + (k % 3);
+      const b1 = -2 + (k % 5);
+      const m2 = m1 + 1;
+      const b2 = b1 + 3;
+      const x = b1 - b2; // because (m2-m1)=1
+      const y = m1 * x + b1;
+      const correct = `(${x},${y})`;
+      const choices = fisherYatesShuffleCopy([correct, `(${x+1},${y+m1})`, `(${x-1},${y-m1})`, `(${x},${y+1})`]);
+      out.push({
+        q: "Where do the two lines intersect?",
+        fig: { type:"svg", shape:"coordinate_plane", params: { lineEq: t => m1*t + b1, points: [[x, y]] } },
+        choices,
+        answer: choices.indexOf(correct),
+        explanation: `Solve ${m1}x+${b1} = ${m2}x+${b2} to get x=${x}, y=${y}.`,
+      });
+    } else if (type === 2) {
+      const a = 3 + (k % 6);
+      const x = 2 + (k % 9);
+      const b = 1 + (k % 7);
+      const c = a * x + b;
+      const correct = x;
+      const choices = mkChoices(correct, [correct + 1, correct - 2, correct + 4]);
+      out.push({
+        q: `Solve: ${a}x + ${b} = ${c}`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Subtract ${b}, then divide by ${a}: x=${correct}.`,
+      });
+    } else {
+      const x = 1 + (k % 6);
+      const y = 2 + (k % 7);
+      const d1 = y - x;
+      const d2 = y - 2*x;
+      const correct = x;
+      const choices = mkChoices(correct, [correct + 1, correct + 2, correct - 1]);
+      out.push({
+        q: `If y = x + ${d1} and y = 2x + ${d2}, what is x?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Set equal: x+${d1} = 2x+${d2} ⇒ x=${correct}.`,
+      });
+    }
+  }
+  return out;
+}
+
+function genAlgebraHard(n, startIndex = 0) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const k = startIndex + i + 1;
+    const type = k % 3;
+
+    if (type === 0) {
+      const a = 1 + (k % 4);
+      const x = -3 + (k % 7);
+      const b = -2 + (k % 5);
+      const c = 1 + (k % 6);
+      const correct = a * x * x + b * x + c;
+      const choices = mkChoices(correct, [correct + 4, correct - 3, correct + 7]);
+      out.push({
+        q: `If f(x) = ${a}x² ${b>=0?"+":"−"} ${Math.abs(b)}x + ${c}, what is f(${x})?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Substitute x=${x}.`,
+      });
+    } else if (type === 1) {
+      const b = 2 * (2 + (k % 5)); // 4,6,8,10,12
+      const correct = (b*b)/4;
+      const choices = mkChoices(correct, [correct + 2, correct + 6, Math.max(1, correct - 2)]);
+      out.push({
+        q: `For what k does kx² − ${b}x + 1 = 0 have exactly one solution?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Discriminant: ${b}² − 4k = 0 ⇒ k = ${b*b}/4 = ${correct}.`,
+      });
+    } else {
+      const a = 1 + (k % 3);
+      const h = -2 + (k % 5);
+      const kk = -3 + (k % 7);
+      const correct = `(${h},${kk})`;
+      const choices = fisherYatesShuffleCopy([correct, `(${h+1},${kk})`, `(${h},${kk+1})`, `(${h-1},${kk-1})`]);
+      out.push({
+        q: "The parabola shown has vertex at:",
+        fig: { type:"svg", shape:"coordinate_plane", params: { lineEq: x => a*(x-h)*(x-h)+kk, points:[[h,kk]] } },
+        choices,
+        answer: choices.indexOf(correct),
+        explanation: `Vertex form a(x−h)²+k has vertex (h,k).`,
+      });
+    }
+  }
+  return out;
+}
+
+// Geometry (always include SVG)
+function genGeometryEasy(n, startIndex = 0) {
+  const out=[];
+  const triples=[[3,4,5],[5,12,13],[6,8,10],[8,15,17],[7,24,25],[9,12,15]];
+  for (let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const type=k%3;
+    if (type===0) {
+      const [a0,b0,c0]=triples[k%triples.length];
+      const s = 1 + ((k * 5) % 3); // 1..3
+      const A=a0*s, B=b0*s, C=c0*s;
+      const choices=mkChoices(C,[C+1,C-1,C+2]);
+      out.push({
+        q:"In the right triangle shown, what is the length of the hypotenuse?",
+        fig:{type:"svg",shape:"right_triangle",params:{a:A,b:B,c:C}},
+        choices,
+        answer:choices.indexOf(String(C)),
+        explanation:`Use the Pythagorean theorem: c=√(${A}²+${B}²)=${C}.`,
+      });
+    } else if (type===1) {
+      const w=4+(k%12);
+      const h=3+((k*3)%9);
+      const area=w*h;
+      const choices=mkChoices(area,[area+w,area-h,area+2*h]);
+      out.push({
+        q:`A rectangle has width ${w} and height ${h}. What is its area?`,
+        fig:{type:"svg",shape:"rectangle",params:{w,h}},
+        choices,
+        answer:choices.indexOf(String(area)),
+        explanation:`Area = w×h = ${w}×${h}=${area}.`,
+      });
+    } else {
+      const radius=6+(k%10);
+      const angle=[30,45,60,90,120,150][k%6];
+      const arc=(2*3.14*radius)*(angle/360);
+      const arcR=Math.round(arc*10)/10;
+      const choices=mkChoices(arcR,[Math.round((arcR+1)*10)/10,Math.round((arcR+2)*10)/10,Math.max(0.1,Math.round((arcR-1.5)*10)/10)]);
+      out.push({
+        q:`In the circle shown, the radius is ${radius}. What is the arc length for a ${angle}° arc? (Use π≈3.14)`,
+        fig:{type:"svg",shape:"circle_arc",params:{radius,angle}},
+        choices,
+        answer:choices.indexOf(String(arcR)),
+        explanation:`Arc length=(θ/360)·2πr=(${angle}/360)·2·3.14·${radius}≈${arcR}.`,
+      });
+    }
+  }
+  return out;
+}
+
+function genGeometryMedium(n, startIndex = 0) {
+  const out=[];
+  for (let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const type=k%3;
+    if (type===0) {
+      const w=5+(k%13);
+      const h=4+((k*2)%10);
+      const per=2*(w+h);
+      const choices=mkChoices(per,[per+2,per-4,per+6]);
+      out.push({
+        q:`A rectangle has width ${w} and height ${h}. What is its perimeter?`,
+        fig:{type:"svg",shape:"rectangle",params:{w,h}},
+        choices,
+        answer:choices.indexOf(String(per)),
+        explanation:`Perimeter=2(w+h)=2(${w}+${h})=${per}.`,
+      });
+    } else if (type===1) {
+      const radius=5+(k%12);
+      const circ=Math.round((2*3.14*radius)*10)/10;
+      const choices=mkChoices(circ,[Math.round((circ+3.1)*10)/10,Math.round((circ-2.0)*10)/10,Math.round((circ+1.5)*10)/10]);
+      out.push({
+        q:`A circle has radius ${radius}. What is its circumference? (Use π≈3.14)`,
+        fig:{type:"svg",shape:"circle_arc",params:{radius,angle:90}},
+        choices,
+        answer:choices.indexOf(String(circ)),
+        explanation:`Circumference = 2πr = 2·3.14·${radius} ≈ ${circ}.`,
+      });
+    } else {
+      const x1=-3+(k%7), y1=-2+((k*2)%5);
+      const x2=x1+(2+(k%4)), y2=y1+(1+((k*3)%4));
+      const dx=x2-x1, dy=y2-y1;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      const distR=Math.round(dist*10)/10;
+      const choices=mkChoices(distR,[Math.round((distR+1)*10)/10,Math.round((distR-0.5)*10)/10,Math.round((distR+2)*10)/10]);
+      out.push({
+        q:`What is the distance between the two points shown? (Round to the nearest tenth)`,
+        fig:{type:"svg",shape:"coordinate_plane",params:{points:[[x1,y1],[x2,y2]]}},
+        choices,
+        answer:choices.indexOf(String(distR)),
+        explanation:`Distance=√((Δx)²+(Δy)²)=√(${dx}²+${dy}²)≈${distR}.`,
+      });
+    }
+  }
+  return out;
+}
+
+function genGeometryHard(n, startIndex = 0) {
+  const out=[];
+  for (let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const type=k%3;
+    if (type===0) {
+      const radius=6+(k%11);
+      const area=Math.round((3.14*radius*radius)*10)/10;
+      const choices=mkChoices(area,[Math.round((area+10)*10)/10,Math.round((area-6)*10)/10,Math.round((area+4)*10)/10]);
+      out.push({
+        q:`A circle has radius ${radius}. What is its area? (Use π≈3.14)`,
+        fig:{type:"svg",shape:"circle_arc",params:{radius,angle:120}},
+        choices,
+        answer:choices.indexOf(String(area)),
+        explanation:`Area=πr²=3.14·${radius}²≈${area}.`,
+      });
+    } else if (type===1) {
+      const x1=-4+(k%9), y1=-3+((k*2)%7);
+      const x2=x1+(2+((k*3)%5)), y2=y1+(2+(k%4));
+      const mx=(x1+x2)/2, my=(y1+y2)/2;
+      const correct=`(${mx},${my})`;
+      const choices=fisherYatesShuffleCopy([correct,`(${mx+1},${my})`,`(${mx},${my+1})`,`(${mx-1},${my-1})`]);
+      out.push({
+        q:"What is the midpoint of the segment connecting the two points shown?",
+        fig:{type:"svg",shape:"coordinate_plane",params:{points:[[x1,y1],[x2,y2]]}},
+        choices,
+        answer:choices.indexOf(correct),
+        explanation:`Midpoint = ((x₁+x₂)/2,(y₁+y₂)/2)=(${mx},${my}).`,
+      });
+    } else {
+      // Similar triangles ratio (with simple numeric)
+      const scale=2+(k%4); //2..5
+      const small=3+(k%7);
+      const big=small*scale;
+      const choices=mkChoices(big,[big+scale,big-scale,big+2*scale]);
+      out.push({
+        q:`Two similar triangles have corresponding side lengths ${small} and ? on the larger triangle. If the scale factor is ${scale}, what is the corresponding side length on the larger triangle?`,
+        fig:{type:"svg",shape:"right_triangle",params:{a:small,b:small+1,c:small+2}},
+        choices,
+        answer:choices.indexOf(String(big)),
+        explanation:`Corresponding lengths multiply by the scale factor: ${small}·${scale}=${big}.`,
+      });
+    }
+  }
+  return out;
+}
+
+// Data Analysis (always include Chart/Table)
+function genDataAnalysisEasy(n, startIndex=0) {
+  const out=[];
+  const labels=["A","B","C","D","E","F"];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const vals=labels.slice(0,4).map((name,idx)=>({name, value: 10 + ((k*3 + idx*7)%21)}));
+    const maxObj=vals.reduce((a,b)=>b.value>a.value?b:a, vals[0]);
+    const correct=maxObj.name;
+    const choices=fisherYatesShuffleCopy(vals.map(v=>v.name));
+    out.push({
+      q:"According to the bar chart, which category has the greatest value?",
+      fig:{type:"chart",chartType:"bar",data:vals,config:{xKey:"name",yKey:"value",caption:"Category Values"}},
+      choices,
+      answer:choices.indexOf(correct),
+      explanation:`The tallest bar is category ${correct}.`,
+    });
+  }
+  return out;
+}
+
+function genDataAnalysisMedium(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const x=[1,2,3,4,5];
+    const m=1+(k%4);
+    const b=5+((k*2)%6);
+    const data=x.map(xx=>({x:xx,y:m*xx+b}));
+    const xq=3;
+    const correct=m*xq+b;
+    const choices=mkChoices(correct,[correct+m,correct-m,correct+2*m]);
+    out.push({
+      q:`Based on the line chart, what is y when x=${xq}?`,
+      fig:{type:"chart",chartType:"line",data,config:{xKey:"x",yKey:"y",caption:"y vs. x"}},
+      choices,
+      answer:choices.indexOf(String(correct)),
+      explanation:`Read the point on the line at x=${xq}: y=${correct}.`,
+    });
+  }
+  return out;
+}
+
+function genDataAnalysisHard(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const rows=[
+      ["Mon", 8 + (k%4), 12 + (k%5)],
+      ["Tue", 7 + (k%6), 10 + (k%7)],
+      ["Wed", 9 + (k%5), 11 + (k%6)],
+      ["Thu", 6 + (k%7), 13 + (k%4)],
+    ];
+    // ask: which day has greatest total
+    const totals=rows.map(r=>({day:r[0], total:r[1]+r[2]}));
+    const max=totals.reduce((a,b)=>b.total>a.total?b:a, totals[0]);
+    const correct=max.day;
+    const choices=fisherYatesShuffleCopy(rows.map(r=>r[0]));
+    out.push({
+      q:"Using the table, on which day is the total (Column 1 + Column 2) greatest?",
+      fig:{type:"table",headers:["Day","Column 1","Column 2"],rows:rows.map(r=>[r[0],String(r[1]),String(r[2])]),caption:"Weekly Data"} ,
+      choices,
+      answer:choices.indexOf(correct),
+      explanation:`Compute totals; the greatest is on ${correct}.`,
+    });
+  }
+  return out;
+}
+
+// Advanced Math
+function genAdvancedMathEasy(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const a=1+(k%3);
+    const x=2+(k%7);
+    const correct=a*x*x;
+    const choices=mkChoices(correct,[correct+a,correct-a,correct+2*a]);
+    out.push({
+      q:`If f(x) = ${a}x², what is f(${x})?`,
+      choices,
+      answer:choices.indexOf(String(correct)),
+      explanation:`f(${x})=${a}·${x}²=${correct}.`,
+    });
+  }
+  return out;
+}
+
+function genAdvancedMathMedium(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const a=1+(k%4);
+    const b=2+(k%6);
+    const correct=`${a}x${b>=0?"+":"−"}${Math.abs(b)}`.replace(/^1x/,"x");
+    const choices=fisherYatesShuffleCopy([correct,`${a+1}x+${b}`,`x+${b+a}`,`${a}x+${b+2}`]);
+    out.push({
+      q:`Which expression represents a line with slope ${a} and y-intercept ${b}?`,
+      choices,
+      answer:choices.indexOf(correct),
+      explanation:`Slope-intercept form is y=mx+b.`,
+    });
+  }
+  return out;
+}
+
+function genAdvancedMathHard(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const r1=1+(k%6);
+    const r2=2+((k*2)%7);
+    const a=1;
+    const b=-(r1+r2);
+    const c=r1*r2;
+    const correct=String(c);
+    const choices=mkChoices(c,[c+2,c-1,c+5]);
+    out.push({
+      q:`For the quadratic x² + ${b}x + c = 0 with roots ${r1} and ${r2}, what is c?`,
+      choices,
+      answer:choices.indexOf(correct),
+      explanation:`For x²+bx+c=0, c = (root1)(root2) = ${r1}·${r2}=${c}.`,
+    });
+  }
+  return out;
+}
+
+// Problem Solving
+function genProblemSolvingEasy(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const a=2+(k%9);
+    const b=3+((k*2)%10);
+    const correct=a+b;
+    const choices=mkChoices(correct,[correct+2,correct-1,correct+5]);
+    out.push({
+      q:`A student reads ${a} pages on Monday and ${b} pages on Tuesday. How many pages does the student read in total?`,
+      choices,
+      answer:choices.indexOf(String(correct)),
+      explanation:`Add: ${a}+${b}=${correct}.`,
+    });
+  }
+  return out;
+}
+
+function genProblemSolvingMedium(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const price=20+((k*3)%41);
+    const disc=[10,15,20,25][k%4];
+    const correct=Math.round((price*(100-disc)/100)*100)/100;
+    const choices=mkChoices(correct,[Math.round((correct+2)*100)/100,Math.round((correct-1.5)*100)/100,Math.round((correct+5)*100)/100]);
+    out.push({
+      q:`An item costs ${price} dollars and is discounted by ${disc}%. What is the sale price?`,
+      choices,
+      answer:choices.indexOf(String(correct)),
+      explanation:`Sale price = ${price}·(1−${disc}/100) = ${correct}.`,
+    });
+  }
+  return out;
+}
+
+function genProblemSolvingHard(n, startIndex=0) {
+  const out=[];
+  for(let i=0;i<n;i++) {
+    const k=startIndex+i+1;
+    const total=10+(k%11);
+    const success=3+((k*2)%6);
+    const prob=Math.round((success/total)*1000)/1000;
+    const choices=mkChoices(prob,[Math.round((prob+0.1)*1000)/1000,Math.round((prob-0.05)*1000)/1000,Math.round((prob+0.2)*1000)/1000]);
+    const rows=[["Success",String(success)],["Failure",String(total-success)],["Total",String(total)]];
+    out.push({
+      q:`A bag contains ${success} success tokens and ${total-success} failure tokens. What is the probability of drawing a success?`,
+      fig:{type:"table",headers:["Outcome","Count"],rows,caption:"Token Counts"},
+      choices,
+      answer:choices.indexOf(String(prob)),
+      explanation:`Probability = success/total = ${success}/${total} ≈ ${prob}.`,
+    });
+  }
+  return out;
+}
+
+function getGenerator(sectionKey, topic, diff) {
+  if (sectionKey === "math") {
+    const map = {
+      Algebra: { easy: genAlgebraEasy, medium: genAlgebraMedium, hard: genAlgebraHard },
+      Geometry: { easy: genGeometryEasy, medium: genGeometryMedium, hard: genGeometryHard },
+      "Data Analysis": { easy: genDataAnalysisEasy, medium: genDataAnalysisMedium, hard: genDataAnalysisHard },
+      "Advanced Math": { easy: genAdvancedMathEasy, medium: genAdvancedMathMedium, hard: genAdvancedMathHard },
+      "Problem Solving": { easy: genProblemSolvingEasy, medium: genProblemSolvingMedium, hard: genProblemSolvingHard },
+    };
+    return map?.[topic]?.[diff] || null;
+  }
+  return null;
+}
+
 function expandBucket(baseArr, generatorFn) {
   const base = Array.isArray(baseArr) ? baseArr : [];
-  if (base.length >= TARGET_Q_PER_BUCKET) return base;
+  const expanded = [];
+  const seen = new Set();
 
-  const expanded = [...base];
-
-  // 1) add generated items (only for buckets we trust for correctness)
-  if (typeof generatorFn === "function") {
-    const need = TARGET_Q_PER_BUCKET - expanded.length;
-    expanded.push(...generatorFn(need, expanded.length));
+  // 1) start with base (preserves visuals)
+  for (const q of base) {
+    const key = normalizeQuestionKey(q);
+    if (!seen.has(key)) {
+      expanded.push(q);
+      seen.add(key);
+    }
   }
 
-  // 2) if still short, clone with safe variant tags
+  // 2) generate until TARGET met
+  let tries = 0;
+  while (expanded.length < TARGET_Q_PER_BUCKET && typeof generatorFn === "function" && tries < TARGET_Q_PER_BUCKET * 6) {
+    tries++;
+    const need = TARGET_Q_PER_BUCKET - expanded.length;
+    const batch = generatorFn(Math.min(need, 10), expanded.length);
+    for (const q of batch) {
+      const key = normalizeQuestionKey(q);
+      if (!seen.has(key)) {
+        expanded.push(q);
+        seen.add(key);
+      }
+      if (expanded.length >= TARGET_Q_PER_BUCKET) break;
+    }
+  }
+
+  // 3) final fallback: clone base with variant tags (keeps visuals, avoids exact repeats)
   let v = 1;
   while (expanded.length < TARGET_Q_PER_BUCKET) {
-    const src = base[expanded.length % base.length];
-    expanded.push(cloneQuestion(src, `(v${v++})`));
+    if (base.length === 0) break;
+    const src = base[(expanded.length + v) % base.length];
+    const cq = cloneQuestion(src, `(v${v++})`);
+    const key = normalizeQuestionKey(cq) + `#${v}`;
+    expanded.push(cq);
+    seen.add(key);
   }
 
   return expanded;
@@ -572,21 +1085,21 @@ function expandBucket(baseArr, generatorFn) {
 function expandBank(baseBank) {
   const result = { math: {}, reading: {} };
 
-  for (const topic of Object.keys(baseBank.math)) {
+  for (const topic of SECTIONS.math.topics) {
     result.math[topic] = {};
-    for (const diff of Object.keys(baseBank.math[topic])) {
-      const gen =
-        topic === "Algebra" && diff === "easy"
-          ? genAlgebraEasy
-          : null;
-      result.math[topic][diff] = expandBucket(baseBank.math[topic][diff], gen);
+    for (const diff of ["easy","medium","hard"]) {
+      const baseArr = baseBank.math?.[topic]?.[diff] || [];
+      const gen = getGenerator("math", topic, diff);
+      result.math[topic][diff] = expandBucket(baseArr, gen);
     }
   }
 
-  for (const topic of Object.keys(baseBank.reading)) {
+  for (const topic of SECTIONS.reading.topics) {
     result.reading[topic] = {};
-    for (const diff of Object.keys(baseBank.reading[topic])) {
-      result.reading[topic][diff] = expandBucket(baseBank.reading[topic][diff], null);
+    for (const diff of ["easy","medium","hard"]) {
+      const baseArr = baseBank.reading?.[topic]?.[diff] || [];
+      // Keep reading stable (no risky generation); expand by cloning if needed.
+      result.reading[topic][diff] = expandBucket(baseArr, null);
     }
   }
 
