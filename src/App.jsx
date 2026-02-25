@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import {
+import QUESTIONS from "./data/questions.json";
   BarChart, Bar, LineChart, Line, ScatterChart, Scatter,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine
 } from "recharts";
@@ -767,12 +768,11 @@ function toCSV(rows){
   return lines.join("\n");
 }
 
-async function loadBankFromJSON(){
-  const res = await fetch("/questions.json", { cache: "no-store" });
-  if(!res.ok) throw new Error("Failed to fetch questions.json");
-  const list = await res.json();
-  return buildBankFromQuestionList(list);
+function loadBankFromLocal() {
+  // Local, curated, build-time bank (no network fetch; no generation)
+  return buildBankFromQuestionList(QUESTIONS);
 }
+
 
 // ─── STORAGE ──────────────────────────────────────────────────────────────────
 function makeEmpty(){
@@ -1429,7 +1429,7 @@ export default function App(){
   useEffect(() => {
     (async () => {
       try {
-        const { bank, issues, matrix } = await loadBankFromJSON();
+        const { bank, issues, matrix } = await loadBankFromLocal();
         // Keep your existing expansion logic OFF by default to avoid accidental repeats.
         BANK = bank;
         setBankIssues(issues);
