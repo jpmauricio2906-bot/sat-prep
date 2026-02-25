@@ -8,7 +8,8 @@
     "build": "npm run generate:questions && npm run validate:questions && vite build",
     "preview": "vite preview",
     "generate:questions": "node scripts/generateQuestions.mjs",
-    "validate:questions": "node scripts/validateQuestions.mjs"
+    "validate:questions": "node scripts/validateQuestions.mjs",
+    "preinstall": "node -v && npm -v"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -18,5 +19,9 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.0",
     "vite": "^5.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "packageManager": "npm@10.9.2"
 }
