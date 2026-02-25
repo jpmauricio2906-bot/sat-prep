@@ -13,15 +13,7 @@
     ],
     "answerIndex": 1,
     "explanation": "3x=15, x=5.",
-    "visual": null,
-    "meta": {
-      "template": "linear_equation_ax_plus_b",
-      "params": {
-        "a": 3,
-        "b": 7,
-        "c": 22
-      }
-    }
+    "visual": null
   },
   {
     "id": "f221a7f885",
@@ -36,21 +28,15 @@
       "14"
     ],
     "answerIndex": 2,
-    "explanation": "2\u00d76=12.",
-    "visual": null,
-    "meta": {
-      "template": "double_x",
-      "params": {
-        "x": 6
-      }
-    }
+    "explanation": "2×6=12.",
+    "visual": null
   },
   {
     "id": "5541d5da1a",
     "section": "math",
     "topic": "Algebra",
     "difficulty": "easy",
-    "question": "Solve: x \u2212 4 = 10",
+    "question": "Solve: x − 4 = 10",
     "choices": [
       "6",
       "14",
@@ -59,29 +45,22 @@
     ],
     "answerIndex": 1,
     "explanation": "x=14.",
-    "visual": null,
-    "meta": {
-      "template": "x_minus_k_equals_c",
-      "params": {
-        "k": 4,
-        "c": 10
-      }
-    }
+    "visual": null
   },
   {
     "id": "95e5a59ad4",
     "section": "math",
     "topic": "Algebra",
     "difficulty": "easy",
-    "question": "The graph shows y = 2x \u2212 1. What is the y-intercept?",
+    "question": "The graph shows y = 2x − 1. What is the y-intercept?",
     "choices": [
-      "\u22122",
-      "\u22121",
+      "−2",
+      "−1",
       "0",
       "1"
     ],
     "answerIndex": 1,
-    "explanation": "At x=0: y=\u22121.",
+    "explanation": "At x=0: y=−1.",
     "visual": {
       "type": "svg",
       "shape": "coordinate_plane",
@@ -98,13 +77,6 @@
           ]
         ]
       }
-    },
-    "meta": {
-      "template": "y_intercept_line",
-      "params": {
-        "m": 2,
-        "b": -1
-      }
     }
   },
   {
@@ -112,27 +84,23 @@
     "section": "math",
     "topic": "Algebra",
     "difficulty": "medium",
-    "question": "Which is equivalent to 2(x+3) \u2212 4(x\u22121)?",
+    "question": "Which is equivalent to 2(x+3) − 4(x−1)?",
     "choices": [
-      "\u22122x+10",
+      "−2x+10",
       "6x+2",
-      "\u22122x+2",
+      "−2x+2",
       "2x+10"
     ],
     "answerIndex": 0,
-    "explanation": "2x+6\u22124x+4=\u22122x+10.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "2x+6−4x+4=−2x+10.",
+    "visual": null
   },
   {
     "id": "8762e4d13b",
     "section": "math",
     "topic": "Algebra",
     "difficulty": "medium",
-    "question": "If y=2x\u22121 and y=x+3, what is x?",
+    "question": "If y=2x−1 and y=x+3, what is x?",
     "choices": [
       "2",
       "4",
@@ -141,18 +109,14 @@
     ],
     "answerIndex": 1,
     "explanation": "x=4.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "a32a030342",
     "section": "math",
     "topic": "Algebra",
     "difficulty": "medium",
-    "question": "Solve: 5x \u2212 3 = 2x + 12",
+    "question": "Solve: 5x − 3 = 2x + 12",
     "choices": [
       "3",
       "5",
@@ -161,11 +125,7 @@
     ],
     "answerIndex": 1,
     "explanation": "3x=15, x=5.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "4948b791c2",
@@ -197,10 +157,6 @@
           ]
         ]
       }
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -208,7 +164,7 @@
     "section": "math",
     "topic": "Algebra",
     "difficulty": "hard",
-    "question": "If f(x)=3x\u00b2\u22122x+1, what is f(\u22122)?",
+    "question": "If f(x)=3x²−2x+1, what is f(−2)?",
     "choices": [
       "9",
       "17",
@@ -216,19 +172,15 @@
       "21"
     ],
     "answerIndex": 1,
-    "explanation": "3(4)\u22122(\u22122)+1=17.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "3(4)−2(−2)+1=17.",
+    "visual": null
   },
   {
     "id": "bc969c8ef0",
     "section": "math",
     "topic": "Algebra",
     "difficulty": "hard",
-    "question": "For what k does kx\u00b2\u22124x+1=0 have exactly one solution?",
+    "question": "For what k does kx²−4x+1=0 have exactly one solution?",
     "choices": [
       "2",
       "4",
@@ -236,12 +188,8 @@
       "16"
     ],
     "answerIndex": 1,
-    "explanation": "Discriminant=0: 16\u22124k=0, k=4.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "Discriminant=0: 16−4k=0, k=4.",
+    "visual": null
   },
   {
     "id": "5c3ed0974e",
@@ -256,17 +204,10 @@
       "45"
     ],
     "answerIndex": 1,
-    "explanation": "8\u00d75=40.",
+    "explanation": "8×5=40.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
-      "params": {
-        "w": 8,
-        "h": 5
-      }
-    },
-    "meta": {
-      "template": "area_rectangle",
       "params": {
         "w": 8,
         "h": 5
@@ -286,14 +227,8 @@
       "18"
     ],
     "answerIndex": 1,
-    "explanation": "4\u00d76=24.",
-    "visual": null,
-    "meta": {
-      "template": "perimeter_square",
-      "params": {
-        "s": 6
-      }
-    }
+    "explanation": "4×6=24.",
+    "visual": null
   },
   {
     "id": "4039312ed1",
@@ -308,7 +243,7 @@
       "8"
     ],
     "answerIndex": 0,
-    "explanation": "\u221a(9+16)=5.",
+    "explanation": "√(9+16)=5.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
@@ -317,13 +252,6 @@
         "b": 4,
         "c": "?"
       }
-    },
-    "meta": {
-      "template": "pythagorean_hypotenuse",
-      "params": {
-        "a": 3,
-        "b": 4
-      }
     }
   },
   {
@@ -331,7 +259,7 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "Radius=6. Circumference? (\u03c0\u22483.14)",
+    "question": "Radius=6. Circumference? (π≈3.14)",
     "choices": [
       "18.84",
       "37.68",
@@ -339,22 +267,15 @@
       "28.26"
     ],
     "answerIndex": 1,
-    "explanation": "2\u00d73.14\u00d76=37.68.",
-    "visual": null,
-    "meta": {
-      "template": "circumference",
-      "params": {
-        "r": 6,
-        "pi": 3.14
-      }
-    }
+    "explanation": "2×3.14×6=37.68.",
+    "visual": null
   },
   {
     "id": "a46ecbad12",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "hard",
-    "question": "Volume of the cylinder shown? (\u03c0\u22483.14)",
+    "question": "Volume of the cylinder shown? (π≈3.14)",
     "choices": [
       "94.2",
       "282.6",
@@ -362,19 +283,11 @@
       "314"
     ],
     "answerIndex": 1,
-    "explanation": "\u03c0\u00d79\u00d710=282.6.",
+    "explanation": "π×9×10=282.6.",
     "visual": {
       "type": "svg",
       "shape": "cylinder",
       "params": {}
-    },
-    "meta": {
-      "template": "cylinder_volume",
-      "params": {
-        "r": 3,
-        "h": 10,
-        "pi": 3.14
-      }
     }
   },
   {
@@ -382,7 +295,7 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "hard",
-    "question": "Central angle 60\u00b0, radius 12. Arc length? (\u03c0\u22483.14)",
+    "question": "Central angle 60°, radius 12. Arc length? (π≈3.14)",
     "choices": [
       "12.56",
       "6.28",
@@ -390,21 +303,13 @@
       "25.12"
     ],
     "answerIndex": 0,
-    "explanation": "(60/360)\u00d72\u03c0\u00d712\u224812.56.",
+    "explanation": "(60/360)×2π×12≈12.56.",
     "visual": {
       "type": "svg",
       "shape": "circle_arc",
       "params": {
         "radius": 12,
         "angle": 60
-      }
-    },
-    "meta": {
-      "template": "arc_length",
-      "params": {
-        "r": 12,
-        "angle": 60,
-        "pi": 3.14
       }
     }
   },
@@ -452,10 +357,6 @@
         "yKey": "value",
         "caption": "Monthly Sales (units)"
       }
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -472,11 +373,7 @@
     ],
     "answerIndex": 0,
     "explanation": "Middle value=7.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "c4ee8f0398",
@@ -492,11 +389,7 @@
     ],
     "answerIndex": 1,
     "explanation": "4 appears most.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "0ce15334fc",
@@ -541,10 +434,6 @@
         ]
       ],
       "caption": "Test Scores"
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -554,13 +443,13 @@
     "difficulty": "medium",
     "question": "Between which months did temperature rise most?",
     "choices": [
-      "Jan\u2013Feb",
-      "Feb\u2013Mar",
-      "Mar\u2013Apr",
-      "May\u2013Jun"
+      "Jan–Feb",
+      "Feb–Mar",
+      "Mar–Apr",
+      "May–Jun"
     ],
     "answerIndex": 1,
-    "explanation": "Feb\u2192Mar = +15\u00b0F, the largest jump.",
+    "explanation": "Feb→Mar = +15°F, the largest jump.",
     "visual": {
       "type": "chart",
       "chartType": "line",
@@ -593,12 +482,8 @@
       "config": {
         "xKey": "x",
         "yKey": "y",
-        "caption": "Average Monthly Temperature (\u00b0F)"
+        "caption": "Average Monthly Temperature (°F)"
       }
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -615,11 +500,7 @@
     ],
     "answerIndex": 2,
     "explanation": "340/4=85.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "07e453d141",
@@ -634,7 +515,7 @@
       "Strong positive correlation"
     ],
     "answerIndex": 3,
-    "explanation": "Scores rise with hours \u2192 strong positive correlation.",
+    "explanation": "Scores rise with hours → strong positive correlation.",
     "visual": {
       "type": "chart",
       "chartType": "scatter",
@@ -687,10 +568,6 @@
           }
         ]
       }
-    },
-    "meta": {
-      "template": "scatter_correlation_description",
-      "params": {}
     }
   },
   {
@@ -736,10 +613,6 @@
         ]
       ],
       "caption": "Subject Preference by Gender"
-    },
-    "meta": {
-      "template": "fraction_from_table_female_math",
-      "params": {}
     }
   },
   {
@@ -749,25 +622,21 @@
     "difficulty": "hard",
     "question": "Strong positive scatterplot. Most likely r-value?",
     "choices": [
-      "\u22120.9",
+      "−0.9",
       "0.1",
       "0.85",
-      "\u22120.3"
+      "−0.3"
     ],
     "answerIndex": 2,
-    "explanation": "Strong positive \u2192 r\u2248+1.",
-    "visual": null,
-    "meta": {
-      "template": "r_value_from_description",
-      "params": {}
-    }
+    "explanation": "Strong positive → r≈+1.",
+    "visual": null
   },
   {
     "id": "49df4c6bd8",
     "section": "math",
     "topic": "Advanced Math",
     "difficulty": "easy",
-    "question": "x\u00b2 when x=5?",
+    "question": "x² when x=5?",
     "choices": [
       "10",
       "15",
@@ -776,51 +645,39 @@
     ],
     "answerIndex": 2,
     "explanation": "25.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "181b965be3",
     "section": "math",
     "topic": "Advanced Math",
     "difficulty": "medium",
-    "question": "Roots of x\u00b2\u22125x+6=0?",
+    "question": "Roots of x²−5x+6=0?",
     "choices": [
       "2 and 3",
       "1 and 6",
-      "\u22122 and \u22123",
+      "−2 and −3",
       "0 and 5"
     ],
     "answerIndex": 0,
-    "explanation": "(x\u22122)(x\u22123)=0.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "(x−2)(x−3)=0.",
+    "visual": null
   },
   {
     "id": "d93637e96c",
     "section": "math",
     "topic": "Advanced Math",
     "difficulty": "medium",
-    "question": "Simplify (x\u00b2\u22129)/(x\u22123)",
+    "question": "Simplify (x²−9)/(x−3)",
     "choices": [
       "x+3",
-      "x\u22123",
+      "x−3",
       "x+9",
-      "x\u00b2"
+      "x²"
     ],
     "answerIndex": 0,
     "explanation": "x+3.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "e29705909e",
@@ -829,13 +686,13 @@
     "difficulty": "medium",
     "question": "What are the x-intercepts of the parabola?",
     "choices": [
-      "x=1 and x=\u22123",
-      "x=\u22121 and x=3",
+      "x=1 and x=−3",
+      "x=−1 and x=3",
       "x=0 and x=2",
       "x=1 and x=3"
     ],
     "answerIndex": 0,
-    "explanation": "Crosses at x=1 and x=\u22123.",
+    "explanation": "Crosses at x=1 and x=−3.",
     "visual": {
       "type": "svg",
       "shape": "coordinate_plane",
@@ -857,10 +714,6 @@
           ]
         ]
       }
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -868,40 +721,32 @@
     "section": "math",
     "topic": "Advanced Math",
     "difficulty": "hard",
-    "question": "g(x)=x\u00b3\u22124x. Where does g(x)=0?",
+    "question": "g(x)=x³−4x. Where does g(x)=0?",
     "choices": [
-      "0,2,\u22122",
+      "0,2,−2",
       "0,4",
-      "1,\u22121",
-      "2,\u22122"
+      "1,−1",
+      "2,−2"
     ],
     "answerIndex": 0,
-    "explanation": "x(x\u22122)(x+2)=0.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "x(x−2)(x+2)=0.",
+    "visual": null
   },
   {
     "id": "5a2fe5b438",
     "section": "math",
     "topic": "Advanced Math",
     "difficulty": "hard",
-    "question": "(2x+3)\u00b2 equals?",
+    "question": "(2x+3)² equals?",
     "choices": [
-      "4x\u00b2+9",
-      "4x\u00b2+6x+9",
-      "4x\u00b2+12x+9",
-      "2x\u00b2+12x+9"
+      "4x²+9",
+      "4x²+6x+9",
+      "4x²+12x+9",
+      "2x²+12x+9"
     ],
     "answerIndex": 2,
-    "explanation": "4x\u00b2+12x+9.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "4x²+12x+9.",
+    "visual": null
   },
   {
     "id": "cabf9a8685",
@@ -917,11 +762,7 @@
     ],
     "answerIndex": 2,
     "explanation": "50 mph.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "10b0b3bdb1",
@@ -937,11 +778,7 @@
     ],
     "answerIndex": 2,
     "explanation": "$4.00.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "931e2b6cf0",
@@ -982,10 +819,6 @@
         ]
       ],
       "caption": "Store Prices"
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -1002,11 +835,7 @@
     ],
     "answerIndex": 1,
     "explanation": "$64.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "73c2cfd399",
@@ -1022,11 +851,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Net 3 gal/min; 10 min.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "d3ff4fe6ef",
@@ -1068,10 +893,6 @@
         "yKey": "value",
         "caption": "Quarterly Production (units)"
       }
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -1088,11 +909,7 @@
     ],
     "answerIndex": 1,
     "explanation": "xy=36, x=6.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "4aef1d3feb",
@@ -1108,11 +925,7 @@
     ],
     "answerIndex": 2,
     "explanation": "12h.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "8ebf354621",
@@ -1128,11 +941,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Largely unexplored=mostly unknown.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "1b8f177aab",
@@ -1148,18 +957,14 @@
     ],
     "answerIndex": 1,
     "explanation": "Informing about a benefit.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "4b1e071a4c",
     "section": "reading",
     "topic": "Main Idea",
     "difficulty": "medium",
-    "question": "Author covers pros and cons of remote work. Passage is primarily\u2026",
+    "question": "Author covers pros and cons of remote work. Passage is primarily…",
     "choices": [
       "persuasive",
       "analytical",
@@ -1168,11 +973,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Pros and cons=analytical.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "fbbe89ef3d",
@@ -1198,19 +999,19 @@
       ],
       "rows": [
         [
-          "13\u201317",
+          "13–17",
           "8",
           "62%",
           "38%"
         ],
         [
-          "18\u201325",
+          "18–25",
           "6",
           "70%",
           "30%"
         ],
         [
-          "26\u201340",
+          "26–40",
           "9",
           "45%",
           "55%"
@@ -1223,10 +1024,6 @@
         ]
       ],
       "caption": "Reading Habits Survey"
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -1234,7 +1031,7 @@
     "section": "reading",
     "topic": "Main Idea",
     "difficulty": "hard",
-    "question": "Passage opens with anecdote then cites three studies. Structure serves to\u2026",
+    "question": "Passage opens with anecdote then cites three studies. Structure serves to…",
     "choices": [
       "entertain then educate",
       "establish emotional connection then credibility",
@@ -1243,11 +1040,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Anecdote=hook; studies=credibility.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "9aa9bd497b",
@@ -1263,11 +1056,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Meticulous=detailed care.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "38696760af",
@@ -1283,11 +1072,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Candid=truthful.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "52e077da32",
@@ -1303,11 +1088,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Obfuscate=make unclear.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "118180fb75",
@@ -1323,11 +1104,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Scathing=severely critical.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "bd906f66f3",
@@ -1343,11 +1120,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Draconian=extremely severe.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "9dc7ae3ff2",
@@ -1363,11 +1136,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Equanimity=calm composure.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "8c13191143",
@@ -1383,11 +1152,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Large survey=strongest.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "bf43912732",
@@ -1403,11 +1168,7 @@
     ],
     "answerIndex": 2,
     "explanation": "RCT=gold standard.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "d0b304d0de",
@@ -1422,7 +1183,7 @@
       "Screen time affects sleep more than GPA"
     ],
     "answerIndex": 2,
-    "explanation": "GPA drops 3.7\u21922.7 as screen time rises.",
+    "explanation": "GPA drops 3.7→2.7 as screen time rises.",
     "visual": {
       "type": "table",
       "headers": [
@@ -1437,12 +1198,12 @@
           "8.2"
         ],
         [
-          "1\u20132 hrs",
+          "1–2 hrs",
           "3.4",
           "7.8"
         ],
         [
-          "2\u20134 hrs",
+          "2–4 hrs",
           "3.1",
           "7.2"
         ],
@@ -1453,10 +1214,6 @@
         ]
       ],
       "caption": "Screen Time & Academic Performance"
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -1473,11 +1230,7 @@
     ],
     "answerIndex": 2,
     "explanation": "If non-users show similar anxiety, social media may not be the cause.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "e518a70d6d",
@@ -1493,11 +1246,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Funding source=conflict of interest.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "57716355cd",
@@ -1512,12 +1261,8 @@
       "Each of student have."
     ],
     "answerIndex": 1,
-    "explanation": "'Each' is singular\u2192'has'.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "'Each' is singular→'has'.",
+    "visual": null
   },
   {
     "id": "19b7635785",
@@ -1533,11 +1278,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Subject pronouns: He and I.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "f044934ae4",
@@ -1553,11 +1294,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Semicolons join independent clauses.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "f22a8eed5b",
@@ -1572,12 +1309,8 @@
       "have been"
     ],
     "answerIndex": 0,
-    "explanation": "Collective noun\u2192singular verb.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "explanation": "Collective noun→singular verb.",
+    "visual": null
   },
   {
     "id": "b364d90c8d",
@@ -1593,11 +1326,7 @@
     ],
     "answerIndex": 1,
     "explanation": "'Running' must refer to 'she'.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "7522636ecd",
@@ -1613,11 +1342,7 @@
     ],
     "answerIndex": 0,
     "explanation": "Plural possessive: dogs'.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "25b0dc4c46",
@@ -1633,11 +1358,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Call to action=persuasive.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "0134065464",
@@ -1653,11 +1374,7 @@
     ],
     "answerIndex": 2,
     "explanation": "Rhetorical questions guide conclusions.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "4ac6a2efaf",
@@ -1672,7 +1389,7 @@
       "Both equally popular"
     ],
     "answerIndex": 1,
-    "explanation": "42%\u219264%=consistent upward trend.",
+    "explanation": "42%→64%=consistent upward trend.",
     "visual": {
       "type": "chart",
       "chartType": "line",
@@ -1703,10 +1420,6 @@
         "yKey": "y",
         "caption": "Public Support for Policy A (%)"
       }
-    },
-    "meta": {
-      "template": "manual",
-      "params": {}
     }
   },
   {
@@ -1723,11 +1436,7 @@
     ],
     "answerIndex": 1,
     "explanation": "'Like a ship'=simile.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "a11fdd69c0",
@@ -1743,11 +1452,7 @@
     ],
     "answerIndex": 1,
     "explanation": "Acknowledging then refuting=concession and rebuttal.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   },
   {
     "id": "92097dbb14",
@@ -1757,16 +1462,12 @@
     "question": "Repeating a phrase at the start of consecutive sentences is:",
     "choices": [
       "creates ambiguity",
-      "anaphora \u2014 building emphasis",
+      "anaphora — building emphasis",
       "an ad hominem attack",
       "weakens argument"
     ],
     "answerIndex": 1,
     "explanation": "Anaphora=repetition for emphasis.",
-    "visual": null,
-    "meta": {
-      "template": "manual",
-      "params": {}
-    }
+    "visual": null
   }
 ]
