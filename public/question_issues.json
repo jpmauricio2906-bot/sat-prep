@@ -1,0 +1,302 @@
+{
+  "generatedAt": "2026-02-25T02:05:32.593Z",
+  "targetPerBucket": 40,
+  "totalQuestions": 67,
+  "issueCount": 37,
+  "issues": [
+    {
+      "type": "bucket_size",
+      "bucket": "math||Algebra||easy",
+      "errors": [
+        "Bucket has 4 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Algebra||medium",
+      "errors": [
+        "Bucket has 4 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Algebra||hard",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Geometry||easy",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Geometry||medium",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Geometry||hard",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Data Analysis||easy",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Data Analysis||medium",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Data Analysis||hard",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Advanced Math||easy",
+      "errors": [
+        "Bucket has 1 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Advanced Math||medium",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Advanced Math||hard",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Problem Solving||easy",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Problem Solving||medium",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "math||Problem Solving||hard",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Main Idea||easy",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Main Idea||medium",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Main Idea||hard",
+      "errors": [
+        "Bucket has 1 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Vocabulary in Context||easy",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Vocabulary in Context||medium",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Vocabulary in Context||hard",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Evidence||easy",
+      "errors": [
+        "Bucket has 1 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Evidence||medium",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Evidence||hard",
+      "errors": [
+        "Bucket has 1 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Grammar||easy",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Grammar||medium",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Grammar||hard",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Rhetorical Skills||easy",
+      "errors": [
+        "Bucket has 1 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Rhetorical Skills||medium",
+      "errors": [
+        "Bucket has 3 questions; target is 40."
+      ]
+    },
+    {
+      "type": "bucket_size",
+      "bucket": "reading||Rhetorical Skills||hard",
+      "errors": [
+        "Bucket has 2 questions; target is 40."
+      ]
+    },
+    {
+      "type": "question",
+      "id": "95e5a59ad4",
+      "section": "math",
+      "topic": "Algebra",
+      "difficulty": "easy",
+      "template": "y_intercept_line",
+      "errors": [
+        "Expected numeric answer but correct choice is non-numeric: \"−1\"."
+      ],
+      "question": "The graph shows y = 2x − 1. What is the y-intercept?"
+    },
+    {
+      "type": "question",
+      "id": "6a215e714e",
+      "section": "math",
+      "topic": "Geometry",
+      "difficulty": "easy",
+      "template": "perimeter_square",
+      "errors": [
+        "Geometry questions should include an SVG figure (visual.type='svg')."
+      ],
+      "question": "Perimeter of a square with side 6?"
+    },
+    {
+      "type": "question",
+      "id": "7e862c4149",
+      "section": "math",
+      "topic": "Geometry",
+      "difficulty": "medium",
+      "template": "circumference",
+      "errors": [
+        "Geometry questions should include an SVG figure (visual.type='svg')."
+      ],
+      "question": "Radius=6. Circumference? (π≈3.14)"
+    },
+    {
+      "type": "question",
+      "id": "ec467d28cd",
+      "section": "math",
+      "topic": "Data Analysis",
+      "difficulty": "easy",
+      "template": "manual",
+      "errors": [
+        "Data Analysis questions should include a chart or table (visual.type='chart'|'table')."
+      ],
+      "question": "Median of {4,7,7,9,13}?"
+    },
+    {
+      "type": "question",
+      "id": "c4ee8f0398",
+      "section": "math",
+      "topic": "Data Analysis",
+      "difficulty": "easy",
+      "template": "manual",
+      "errors": [
+        "Data Analysis questions should include a chart or table (visual.type='chart'|'table')."
+      ],
+      "question": "Mode of {2,4,4,5,7}?"
+    },
+    {
+      "type": "question",
+      "id": "f401cd2954",
+      "section": "math",
+      "topic": "Data Analysis",
+      "difficulty": "medium",
+      "template": "manual",
+      "errors": [
+        "Data Analysis questions should include a chart or table (visual.type='chart'|'table')."
+      ],
+      "question": "Mean of 80,90,70,100?"
+    },
+    {
+      "type": "question",
+      "id": "7aa7ded455",
+      "section": "math",
+      "topic": "Data Analysis",
+      "difficulty": "hard",
+      "template": "r_value_from_description",
+      "errors": [
+        "Data Analysis questions should include a chart or table (visual.type='chart'|'table')."
+      ],
+      "question": "Strong positive scatterplot. Most likely r-value?"
+    }
+  ]
+}
