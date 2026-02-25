@@ -548,6 +548,8 @@ function fill(topic, diff, genFns, section="math"){
   }
 }
 
+const diffs = ["easy","medium","hard"];
+
 for(const diff of diffs){
   fill("Algebra", diff, [(id,d)=>genAlgebraLinear(rng,id,d)], "math");
   // Geometry: mix multiple
