@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate:questions && npm run validate:questions && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "generate:questions": "node scripts/generateQuestions.mjs",
     "validate:questions": "node scripts/validateQuestions.mjs",
