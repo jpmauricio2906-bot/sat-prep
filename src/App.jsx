@@ -661,6 +661,8 @@ function buildBankFromQuestionList(list){
       section: raw.section,
       topic: raw.topic,
       difficulty: raw.difficulty,
+      // Reading/Writing passages (Digital SAT): support common field names from generators
+      passage: raw.passage ?? raw.passageText ?? raw.stimulus ?? raw.context ?? raw.text ?? null,
       question: raw.question,
       choices: raw.choices,
       answerIndex: raw.answerIndex,
@@ -715,7 +717,9 @@ function buildBankFromQuestionList(list){
       has_visual: has ? "yes" : "no",
       visual_type: q.visual?.type || "",
       visual_shape: q.visual?.shape || "",
-      fingerprint: fp
+      fingerprint: fp,
+      passage_present: q.passage ? "yes" : "no",
+      passage_len: q.passage ? String(q.passage).length : ""
     });
 
     // Convert to the in-app object format (backwards compatible)
@@ -725,7 +729,8 @@ function buildBankFromQuestionList(list){
       choices: q.choices,
       answer: q.answerIndex,
       explanation: q.explanation,
-      fig: q.visual
+      fig: q.visual,
+      passage: q.passage
     };
 
     const sec = q.section;
@@ -1044,7 +1049,12 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
         <div style={{height:4,width:`${progress}%`,background:sc,borderRadius:4,transition:'width 0.4s ease'}}/>
       </div>
 
-      {q.fig&&<Figure fig={q.fig}/>}
+      {q.passage && (
+      <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
+        {q.passage}
+      </div>
+    )}
+    {q.fig&&<Figure fig={q.fig}/>}
       <p style={{fontSize:17,lineHeight:1.6,fontWeight:600,marginBottom:24,color:T.text}}>{q.q}</p>
 
       <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:20}}>
@@ -1209,6 +1219,11 @@ function QuizView({questions,onDone,onExit,headerLabel}){
     <div style={{height:4,background:T.bgInput,borderRadius:4,marginBottom:28}}>
       <div style={{height:4,width:`${progress}%`,background:sc,borderRadius:4,transition:"width 0.4s ease"}}/>
     </div>
+    {q.passage && (
+      <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
+        {q.passage}
+      </div>
+    )}
     {q.fig&&<Figure fig={q.fig}/>}
     <p style={{fontSize:17,lineHeight:1.6,fontWeight:600,marginBottom:24,color:T.text}}>{q.q}</p>
     <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:20}}>
