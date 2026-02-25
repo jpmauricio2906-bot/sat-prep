@@ -548,7 +548,6 @@ function genRW(id, topic, diff){
   const {choices, answerIndex} = makeChoices(correct, distractors);
   return {
     id, section:"reading", topic:"Grammar", difficulty:diff,
-    passage,
     question,
     choices, answerIndex,
     explanation:"Subject–verb agreement: 'results' is plural.",
