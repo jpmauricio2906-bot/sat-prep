@@ -139,6 +139,9 @@ const SECTIONS = {
   reading: { label:"Reading & Writing", icon:"✦", topics:["Main Idea","Vocabulary in Context","Evidence","Grammar","Rhetorical Skills"] },
 };
 
+// Only show the passage box for Reading & Writing question types that require a passage.
+const PASSAGE_TOPICS = new Set(["Main Idea","Evidence","Vocabulary in Context","Rhetorical Skills"]);
+
 // ─── FIGURE COMPONENTS ────────────────────────────────────────────────────────
 function SVGFigure({ type, params }) {
   const T = useTheme();
@@ -1049,7 +1052,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
         <div style={{height:4,width:`${progress}%`,background:sc,borderRadius:4,transition:'width 0.4s ease'}}/>
       </div>
 
-      {q.passage && (
+      {(q.section==="reading" && PASSAGE_TOPICS.has(q.topic) && q.passage) && (
       <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
         {q.passage}
       </div>
@@ -1219,7 +1222,7 @@ function QuizView({questions,onDone,onExit,headerLabel}){
     <div style={{height:4,background:T.bgInput,borderRadius:4,marginBottom:28}}>
       <div style={{height:4,width:`${progress}%`,background:sc,borderRadius:4,transition:"width 0.4s ease"}}/>
     </div>
-    {q.passage && (
+    {(q.section==="reading" && PASSAGE_TOPICS.has(q.topic) && q.passage) && (
       <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
         {q.passage}
       </div>
