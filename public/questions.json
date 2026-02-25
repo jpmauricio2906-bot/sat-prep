@@ -1,0 +1,1473 @@
+[
+  {
+    "id": "0338112243",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "easy",
+    "question": "If 3x + 7 = 22, what is x?",
+    "choices": [
+      "3",
+      "5",
+      "7",
+      "9"
+    ],
+    "answerIndex": 1,
+    "explanation": "3x=15, x=5.",
+    "visual": null
+  },
+  {
+    "id": "f221a7f885",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "easy",
+    "question": "What is 2x when x = 6?",
+    "choices": [
+      "8",
+      "10",
+      "12",
+      "14"
+    ],
+    "answerIndex": 2,
+    "explanation": "2×6=12.",
+    "visual": null
+  },
+  {
+    "id": "5541d5da1a",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "easy",
+    "question": "Solve: x − 4 = 10",
+    "choices": [
+      "6",
+      "14",
+      "10",
+      "4"
+    ],
+    "answerIndex": 1,
+    "explanation": "x=14.",
+    "visual": null
+  },
+  {
+    "id": "95e5a59ad4",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "easy",
+    "question": "The graph shows y = 2x − 1. What is the y-intercept?",
+    "choices": [
+      "−2",
+      "−1",
+      "0",
+      "1"
+    ],
+    "answerIndex": 1,
+    "explanation": "At x=0: y=−1.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": {
+          "type": "line",
+          "m": 2,
+          "b": -1
+        },
+        "points": [
+          [
+            0,
+            -1
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "7c3c70a8a1",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "medium",
+    "question": "Which is equivalent to 2(x+3) − 4(x−1)?",
+    "choices": [
+      "−2x+10",
+      "6x+2",
+      "−2x+2",
+      "2x+10"
+    ],
+    "answerIndex": 0,
+    "explanation": "2x+6−4x+4=−2x+10.",
+    "visual": null
+  },
+  {
+    "id": "8762e4d13b",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "medium",
+    "question": "If y=2x−1 and y=x+3, what is x?",
+    "choices": [
+      "2",
+      "4",
+      "5",
+      "7"
+    ],
+    "answerIndex": 1,
+    "explanation": "x=4.",
+    "visual": null
+  },
+  {
+    "id": "a32a030342",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "medium",
+    "question": "Solve: 5x − 3 = 2x + 12",
+    "choices": [
+      "3",
+      "5",
+      "7",
+      "9"
+    ],
+    "answerIndex": 1,
+    "explanation": "3x=15, x=5.",
+    "visual": null
+  },
+  {
+    "id": "4948b791c2",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "medium",
+    "question": "Where do the two lines intersect?",
+    "choices": [
+      "(1,2)",
+      "(2,3)",
+      "(3,4)",
+      "(0,1)"
+    ],
+    "answerIndex": 1,
+    "explanation": "Intersection at (2,3).",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": {
+          "type": "line",
+          "m": 1,
+          "b": 1
+        },
+        "points": [
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "9a4e2e8fad",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "hard",
+    "question": "If f(x)=3x²−2x+1, what is f(−2)?",
+    "choices": [
+      "9",
+      "17",
+      "13",
+      "21"
+    ],
+    "answerIndex": 1,
+    "explanation": "3(4)−2(−2)+1=17.",
+    "visual": null
+  },
+  {
+    "id": "bc969c8ef0",
+    "section": "math",
+    "topic": "Algebra",
+    "difficulty": "hard",
+    "question": "For what k does kx²−4x+1=0 have exactly one solution?",
+    "choices": [
+      "2",
+      "4",
+      "8",
+      "16"
+    ],
+    "answerIndex": 1,
+    "explanation": "Discriminant=0: 16−4k=0, k=4.",
+    "visual": null
+  },
+  {
+    "id": "5c3ed0974e",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the area of the rectangle shown?",
+    "choices": [
+      "26",
+      "40",
+      "13",
+      "45"
+    ],
+    "answerIndex": 1,
+    "explanation": "8×5=40.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 8,
+        "h": 5
+      }
+    }
+  },
+  {
+    "id": "6a215e714e",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "Perimeter of a square with side 6?",
+    "choices": [
+      "12",
+      "24",
+      "36",
+      "18"
+    ],
+    "answerIndex": 1,
+    "explanation": "4×6=24.",
+    "visual": null
+  },
+  {
+    "id": "4039312ed1",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "What is the hypotenuse of the triangle shown?",
+    "choices": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "answerIndex": 0,
+    "explanation": "√(9+16)=5.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 3,
+        "b": 4,
+        "c": "?"
+      }
+    }
+  },
+  {
+    "id": "7e862c4149",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "Radius=6. Circumference? (π≈3.14)",
+    "choices": [
+      "18.84",
+      "37.68",
+      "113.04",
+      "28.26"
+    ],
+    "answerIndex": 1,
+    "explanation": "2×3.14×6=37.68.",
+    "visual": null
+  },
+  {
+    "id": "a46ecbad12",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Volume of the cylinder shown? (π≈3.14)",
+    "choices": [
+      "94.2",
+      "282.6",
+      "188.4",
+      "314"
+    ],
+    "answerIndex": 1,
+    "explanation": "π×9×10=282.6.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {}
+    }
+  },
+  {
+    "id": "1ac658f47d",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Central angle 60°, radius 12. Arc length? (π≈3.14)",
+    "choices": [
+      "12.56",
+      "6.28",
+      "18.84",
+      "25.12"
+    ],
+    "answerIndex": 0,
+    "explanation": "(60/360)×2π×12≈12.56.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 12,
+        "angle": 60
+      }
+    }
+  },
+  {
+    "id": "dc8d1b4e58",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "easy",
+    "question": "Which month had the highest sales?",
+    "choices": [
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "answerIndex": 3,
+    "explanation": "April=80 units.",
+    "visual": {
+      "type": "chart",
+      "chartType": "bar",
+      "data": [
+        {
+          "name": "Jan",
+          "value": 40
+        },
+        {
+          "name": "Feb",
+          "value": 65
+        },
+        {
+          "name": "Mar",
+          "value": 50
+        },
+        {
+          "name": "Apr",
+          "value": 80
+        },
+        {
+          "name": "May",
+          "value": 55
+        }
+      ],
+      "config": {
+        "xKey": "name",
+        "yKey": "value",
+        "caption": "Monthly Sales (units)"
+      }
+    }
+  },
+  {
+    "id": "ec467d28cd",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "easy",
+    "question": "Median of {4,7,7,9,13}?",
+    "choices": [
+      "7",
+      "8",
+      "9",
+      "6"
+    ],
+    "answerIndex": 0,
+    "explanation": "Middle value=7.",
+    "visual": null
+  },
+  {
+    "id": "c4ee8f0398",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "easy",
+    "question": "Mode of {2,4,4,5,7}?",
+    "choices": [
+      "2",
+      "4",
+      "5",
+      "7"
+    ],
+    "answerIndex": 1,
+    "explanation": "4 appears most.",
+    "visual": null
+  },
+  {
+    "id": "0ce15334fc",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "medium",
+    "question": "What is the mean score from the table?",
+    "choices": [
+      "82",
+      "84",
+      "86",
+      "88"
+    ],
+    "answerIndex": 1,
+    "explanation": "420/5=84.",
+    "visual": {
+      "type": "table",
+      "headers": [
+        "Student",
+        "Score"
+      ],
+      "rows": [
+        [
+          "Alice",
+          "82"
+        ],
+        [
+          "Bob",
+          "90"
+        ],
+        [
+          "Carlos",
+          "74"
+        ],
+        [
+          "Diana",
+          "94"
+        ],
+        [
+          "Evan",
+          "80"
+        ]
+      ],
+      "caption": "Test Scores"
+    }
+  },
+  {
+    "id": "38b6de97e0",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "medium",
+    "question": "Between which months did temperature rise most?",
+    "choices": [
+      "Jan–Feb",
+      "Feb–Mar",
+      "Mar–Apr",
+      "May–Jun"
+    ],
+    "answerIndex": 1,
+    "explanation": "Feb→Mar = +15°F, the largest jump.",
+    "visual": {
+      "type": "chart",
+      "chartType": "line",
+      "data": [
+        {
+          "x": "Jan",
+          "y": 30
+        },
+        {
+          "x": "Feb",
+          "y": 35
+        },
+        {
+          "x": "Mar",
+          "y": 50
+        },
+        {
+          "x": "Apr",
+          "y": 62
+        },
+        {
+          "x": "May",
+          "y": 70
+        },
+        {
+          "x": "Jun",
+          "y": 74
+        }
+      ],
+      "config": {
+        "xKey": "x",
+        "yKey": "y",
+        "caption": "Average Monthly Temperature (°F)"
+      }
+    }
+  },
+  {
+    "id": "f401cd2954",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "medium",
+    "question": "Mean of 80,90,70,100?",
+    "choices": [
+      "82",
+      "84",
+      "85",
+      "90"
+    ],
+    "answerIndex": 2,
+    "explanation": "340/4=85.",
+    "visual": null
+  },
+  {
+    "id": "07e453d141",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "hard",
+    "question": "Which best describes the scatterplot relationship?",
+    "choices": [
+      "Strong negative correlation",
+      "No correlation",
+      "Weak positive correlation",
+      "Strong positive correlation"
+    ],
+    "answerIndex": 3,
+    "explanation": "Scores rise with hours → strong positive correlation.",
+    "visual": {
+      "type": "chart",
+      "chartType": "scatter",
+      "data": [
+        {
+          "x": 1,
+          "y": 55
+        },
+        {
+          "x": 2,
+          "y": 60
+        },
+        {
+          "x": 3,
+          "y": 65
+        },
+        {
+          "x": 4,
+          "y": 72
+        },
+        {
+          "x": 5,
+          "y": 78
+        },
+        {
+          "x": 6,
+          "y": 85
+        },
+        {
+          "x": 7,
+          "y": 88
+        },
+        {
+          "x": 8,
+          "y": 93
+        }
+      ],
+      "config": {
+        "xLabel": "Hours Studied",
+        "yLabel": "Score",
+        "caption": "Hours Studied vs. Test Score",
+        "trendLine": [
+          {
+            "x": 1,
+            "y": 52
+          },
+          {
+            "x": 8,
+            "y": 95
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "f14fb5059c",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "hard",
+    "question": "What fraction of female students prefer Math?",
+    "choices": [
+      "7/15",
+      "7/16",
+      "14/30",
+      "7/30"
+    ],
+    "answerIndex": 0,
+    "explanation": "14/30=7/15.",
+    "visual": {
+      "type": "table",
+      "headers": [
+        "",
+        "Math",
+        "English",
+        "Total"
+      ],
+      "rows": [
+        [
+          "Male",
+          "18",
+          "12",
+          "30"
+        ],
+        [
+          "Female",
+          "14",
+          "16",
+          "30"
+        ],
+        [
+          "Total",
+          "32",
+          "28",
+          "60"
+        ]
+      ],
+      "caption": "Subject Preference by Gender"
+    }
+  },
+  {
+    "id": "7aa7ded455",
+    "section": "math",
+    "topic": "Data Analysis",
+    "difficulty": "hard",
+    "question": "Strong positive scatterplot. Most likely r-value?",
+    "choices": [
+      "−0.9",
+      "0.1",
+      "0.85",
+      "−0.3"
+    ],
+    "answerIndex": 2,
+    "explanation": "Strong positive → r≈+1.",
+    "visual": null
+  },
+  {
+    "id": "49df4c6bd8",
+    "section": "math",
+    "topic": "Advanced Math",
+    "difficulty": "easy",
+    "question": "x² when x=5?",
+    "choices": [
+      "10",
+      "15",
+      "25",
+      "30"
+    ],
+    "answerIndex": 2,
+    "explanation": "25.",
+    "visual": null
+  },
+  {
+    "id": "181b965be3",
+    "section": "math",
+    "topic": "Advanced Math",
+    "difficulty": "medium",
+    "question": "Roots of x²−5x+6=0?",
+    "choices": [
+      "2 and 3",
+      "1 and 6",
+      "−2 and −3",
+      "0 and 5"
+    ],
+    "answerIndex": 0,
+    "explanation": "(x−2)(x−3)=0.",
+    "visual": null
+  },
+  {
+    "id": "d93637e96c",
+    "section": "math",
+    "topic": "Advanced Math",
+    "difficulty": "medium",
+    "question": "Simplify (x²−9)/(x−3)",
+    "choices": [
+      "x+3",
+      "x−3",
+      "x+9",
+      "x²"
+    ],
+    "answerIndex": 0,
+    "explanation": "x+3.",
+    "visual": null
+  },
+  {
+    "id": "e29705909e",
+    "section": "math",
+    "topic": "Advanced Math",
+    "difficulty": "medium",
+    "question": "What are the x-intercepts of the parabola?",
+    "choices": [
+      "x=1 and x=−3",
+      "x=−1 and x=3",
+      "x=0 and x=2",
+      "x=1 and x=3"
+    ],
+    "answerIndex": 0,
+    "explanation": "Crosses at x=1 and x=−3.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": {
+          "type": "quadratic",
+          "a": -0.3333333333,
+          "b": -0.6666666667,
+          "c": 1
+        },
+        "points": [
+          [
+            1,
+            0
+          ],
+          [
+            -3,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "7f12074441",
+    "section": "math",
+    "topic": "Advanced Math",
+    "difficulty": "hard",
+    "question": "g(x)=x³−4x. Where does g(x)=0?",
+    "choices": [
+      "0,2,−2",
+      "0,4",
+      "1,−1",
+      "2,−2"
+    ],
+    "answerIndex": 0,
+    "explanation": "x(x−2)(x+2)=0.",
+    "visual": null
+  },
+  {
+    "id": "5a2fe5b438",
+    "section": "math",
+    "topic": "Advanced Math",
+    "difficulty": "hard",
+    "question": "(2x+3)² equals?",
+    "choices": [
+      "4x²+9",
+      "4x²+6x+9",
+      "4x²+12x+9",
+      "2x²+12x+9"
+    ],
+    "answerIndex": 2,
+    "explanation": "4x²+12x+9.",
+    "visual": null
+  },
+  {
+    "id": "cabf9a8685",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "easy",
+    "question": "150 miles in 3 hours. Average speed?",
+    "choices": [
+      "40 mph",
+      "45 mph",
+      "50 mph",
+      "55 mph"
+    ],
+    "answerIndex": 2,
+    "explanation": "50 mph.",
+    "visual": null
+  },
+  {
+    "id": "10b0b3bdb1",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "easy",
+    "question": "8 apples at $0.50 each?",
+    "choices": [
+      "$3.00",
+      "$3.50",
+      "$4.00",
+      "$4.50"
+    ],
+    "answerIndex": 2,
+    "explanation": "$4.00.",
+    "visual": null
+  },
+  {
+    "id": "931e2b6cf0",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "medium",
+    "question": "Maria buys 2 shirts and 1 pair of pants. Total?",
+    "choices": [
+      "$70",
+      "$85",
+      "$95",
+      "$100"
+    ],
+    "answerIndex": 2,
+    "explanation": "$50+$45=$95.",
+    "visual": {
+      "type": "table",
+      "headers": [
+        "Item",
+        "Price"
+      ],
+      "rows": [
+        [
+          "Shirt",
+          "$25"
+        ],
+        [
+          "Pants",
+          "$45"
+        ],
+        [
+          "Shoes",
+          "$60"
+        ],
+        [
+          "Hat",
+          "$15"
+        ]
+      ],
+      "caption": "Store Prices"
+    }
+  },
+  {
+    "id": "f18f5a3c8d",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "medium",
+    "question": "20% off $80 item. Sale price?",
+    "choices": [
+      "$60",
+      "$64",
+      "$68",
+      "$72"
+    ],
+    "answerIndex": 1,
+    "explanation": "$64.",
+    "visual": null
+  },
+  {
+    "id": "73c2cfd399",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "medium",
+    "question": "Tank fills at 5 gal/min, drains at 2. Fill 30 gallons?",
+    "choices": [
+      "5 min",
+      "8 min",
+      "10 min",
+      "15 min"
+    ],
+    "answerIndex": 2,
+    "explanation": "Net 3 gal/min; 10 min.",
+    "visual": null
+  },
+  {
+    "id": "d3ff4fe6ef",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "hard",
+    "question": "In which quarter did production DECREASE?",
+    "choices": [
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4"
+    ],
+    "answerIndex": 2,
+    "explanation": "Q3(130)<Q2(145).",
+    "visual": {
+      "type": "chart",
+      "chartType": "bar",
+      "data": [
+        {
+          "name": "Q1",
+          "value": 120
+        },
+        {
+          "name": "Q2",
+          "value": 145
+        },
+        {
+          "name": "Q3",
+          "value": 130
+        },
+        {
+          "name": "Q4",
+          "value": 160
+        }
+      ],
+      "config": {
+        "xKey": "name",
+        "yKey": "value",
+        "caption": "Quarterly Production (units)"
+      }
+    }
+  },
+  {
+    "id": "31a72526f6",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "hard",
+    "question": "x varies inversely with y. x=4,y=9. Find x when y=6.",
+    "choices": [
+      "3",
+      "6",
+      "8",
+      "12"
+    ],
+    "answerIndex": 1,
+    "explanation": "xy=36, x=6.",
+    "visual": null
+  },
+  {
+    "id": "4aef1d3feb",
+    "section": "math",
+    "topic": "Problem Solving",
+    "difficulty": "hard",
+    "question": "A and B together finish in 4h. A alone=6h. B alone?",
+    "choices": [
+      "8h",
+      "10h",
+      "12h",
+      "14h"
+    ],
+    "answerIndex": 2,
+    "explanation": "12h.",
+    "visual": null
+  },
+  {
+    "id": "8ebf354621",
+    "section": "reading",
+    "topic": "Main Idea",
+    "difficulty": "easy",
+    "question": "'Ocean floor remains largely unexplored.' Main idea?",
+    "choices": [
+      "well documented",
+      "mostly unknown",
+      "teeming with life",
+      "irrelevant"
+    ],
+    "answerIndex": 1,
+    "explanation": "Largely unexplored=mostly unknown.",
+    "visual": null
+  },
+  {
+    "id": "1b8f177aab",
+    "section": "reading",
+    "topic": "Main Idea",
+    "difficulty": "easy",
+    "question": "Paragraph describes recycling reducing landfill waste. Purpose?",
+    "choices": [
+      "entertain",
+      "inform about benefits",
+      "argue against recycling",
+      "describe history"
+    ],
+    "answerIndex": 1,
+    "explanation": "Informing about a benefit.",
+    "visual": null
+  },
+  {
+    "id": "4b1e071a4c",
+    "section": "reading",
+    "topic": "Main Idea",
+    "difficulty": "medium",
+    "question": "Author covers pros and cons of remote work. Passage is primarily…",
+    "choices": [
+      "persuasive",
+      "analytical",
+      "narrative",
+      "descriptive"
+    ],
+    "answerIndex": 1,
+    "explanation": "Pros and cons=analytical.",
+    "visual": null
+  },
+  {
+    "id": "fbbe89ef3d",
+    "section": "reading",
+    "topic": "Main Idea",
+    "difficulty": "medium",
+    "question": "Most supported conclusion from the survey?",
+    "choices": [
+      "Older readers read fewer books",
+      "Digital preferred by all",
+      "Older readers prefer print and read more",
+      "Teens read most"
+    ],
+    "answerIndex": 2,
+    "explanation": "41+ reads 12/year and 72% prefer print.",
+    "visual": {
+      "type": "table",
+      "headers": [
+        "Age Group",
+        "Books/Year",
+        "Digital",
+        "Print"
+      ],
+      "rows": [
+        [
+          "13–17",
+          "8",
+          "62%",
+          "38%"
+        ],
+        [
+          "18–25",
+          "6",
+          "70%",
+          "30%"
+        ],
+        [
+          "26–40",
+          "9",
+          "45%",
+          "55%"
+        ],
+        [
+          "41+",
+          "12",
+          "28%",
+          "72%"
+        ]
+      ],
+      "caption": "Reading Habits Survey"
+    }
+  },
+  {
+    "id": "fad1bd579a",
+    "section": "reading",
+    "topic": "Main Idea",
+    "difficulty": "hard",
+    "question": "Passage opens with anecdote then cites three studies. Structure serves to…",
+    "choices": [
+      "entertain then educate",
+      "establish emotional connection then credibility",
+      "refute the opening",
+      "summarize research"
+    ],
+    "answerIndex": 1,
+    "explanation": "Anecdote=hook; studies=credibility.",
+    "visual": null
+  },
+  {
+    "id": "9aa9bd497b",
+    "section": "reading",
+    "topic": "Vocabulary in Context",
+    "difficulty": "easy",
+    "question": "'Meticulous notes enabled the breakthrough.' Meticulous means:",
+    "choices": [
+      "careless",
+      "extremely careful",
+      "brief",
+      "creative"
+    ],
+    "answerIndex": 1,
+    "explanation": "Meticulous=detailed care.",
+    "visual": null
+  },
+  {
+    "id": "38696760af",
+    "section": "reading",
+    "topic": "Vocabulary in Context",
+    "difficulty": "easy",
+    "question": "'She gave a candid answer.' Candid means:",
+    "choices": [
+      "rehearsed",
+      "honest",
+      "lengthy",
+      "confusing"
+    ],
+    "answerIndex": 1,
+    "explanation": "Candid=truthful.",
+    "visual": null
+  },
+  {
+    "id": "52e077da32",
+    "section": "reading",
+    "topic": "Vocabulary in Context",
+    "difficulty": "medium",
+    "question": "'Rhetoric was deliberately obfuscating.' Obfuscating means:",
+    "choices": [
+      "clarifying",
+      "persuasive",
+      "confusing",
+      "inspiring"
+    ],
+    "answerIndex": 2,
+    "explanation": "Obfuscate=make unclear.",
+    "visual": null
+  },
+  {
+    "id": "118180fb75",
+    "section": "reading",
+    "topic": "Vocabulary in Context",
+    "difficulty": "medium",
+    "question": "'The review was scathing.' Scathing means:",
+    "choices": [
+      "mild",
+      "praising",
+      "harshly critical",
+      "brief"
+    ],
+    "answerIndex": 2,
+    "explanation": "Scathing=severely critical.",
+    "visual": null
+  },
+  {
+    "id": "bd906f66f3",
+    "section": "reading",
+    "topic": "Vocabulary in Context",
+    "difficulty": "hard",
+    "question": "'The policy was draconian.' Draconian means:",
+    "choices": [
+      "generous",
+      "excessively harsh",
+      "popular",
+      "poorly explained"
+    ],
+    "answerIndex": 1,
+    "explanation": "Draconian=extremely severe.",
+    "visual": null
+  },
+  {
+    "id": "9dc7ae3ff2",
+    "section": "reading",
+    "topic": "Vocabulary in Context",
+    "difficulty": "hard",
+    "question": "'Her equanimity impressed everyone.' Equanimity means:",
+    "choices": [
+      "panic",
+      "indifference",
+      "mental calmness",
+      "confusion"
+    ],
+    "answerIndex": 2,
+    "explanation": "Equanimity=calm composure.",
+    "visual": null
+  },
+  {
+    "id": "8c13191143",
+    "section": "reading",
+    "topic": "Evidence",
+    "difficulty": "easy",
+    "question": "Best evidence 'most teens prefer streaming to cable'?",
+    "choices": [
+      "Quote from one teen",
+      "Survey of 5,000 teens",
+      "Cable press release",
+      "Parent anecdote"
+    ],
+    "answerIndex": 1,
+    "explanation": "Large survey=strongest.",
+    "visual": null
+  },
+  {
+    "id": "bf43912732",
+    "section": "reading",
+    "topic": "Evidence",
+    "difficulty": "medium",
+    "question": "Strongest study design to prove Exercise X reduces stress?",
+    "choices": [
+      "Interview 5 people",
+      "Observe one class",
+      "Randomized controlled trial",
+      "Reading articles"
+    ],
+    "answerIndex": 2,
+    "explanation": "RCT=gold standard.",
+    "visual": null
+  },
+  {
+    "id": "d0b304d0de",
+    "section": "reading",
+    "topic": "Evidence",
+    "difficulty": "medium",
+    "question": "Which data supports 'screen time harms academic performance'?",
+    "choices": [
+      "4+ hrs students sleep 6.5h",
+      "<1hr students have 3.7 GPA",
+      "As screen time increases, GPA consistently decreases",
+      "Screen time affects sleep more than GPA"
+    ],
+    "answerIndex": 2,
+    "explanation": "GPA drops 3.7→2.7 as screen time rises.",
+    "visual": {
+      "type": "table",
+      "headers": [
+        "Screen Time",
+        "Avg GPA",
+        "Hours Sleep"
+      ],
+      "rows": [
+        [
+          "< 1 hr",
+          "3.7",
+          "8.2"
+        ],
+        [
+          "1–2 hrs",
+          "3.4",
+          "7.8"
+        ],
+        [
+          "2–4 hrs",
+          "3.1",
+          "7.2"
+        ],
+        [
+          "4+ hrs",
+          "2.7",
+          "6.5"
+        ]
+      ],
+      "caption": "Screen Time & Academic Performance"
+    }
+  },
+  {
+    "id": "cb2a42537e",
+    "section": "reading",
+    "topic": "Evidence",
+    "difficulty": "medium",
+    "question": "Which weakens 'social media increases teen anxiety'?",
+    "choices": [
+      "More screen time correlates with anxiety",
+      "Teens report stress",
+      "Non-users show no significant anxiety difference",
+      "Anxiety rose with social media"
+    ],
+    "answerIndex": 2,
+    "explanation": "If non-users show similar anxiety, social media may not be the cause.",
+    "visual": null
+  },
+  {
+    "id": "e518a70d6d",
+    "section": "reading",
+    "topic": "Evidence",
+    "difficulty": "hard",
+    "question": "Author argues drug is effective. Critic notes it was funded by manufacturer. This questions the study's:",
+    "choices": [
+      "sample size",
+      "statistical methods",
+      "objectivity/bias",
+      "peer review"
+    ],
+    "answerIndex": 2,
+    "explanation": "Funding source=conflict of interest.",
+    "visual": null
+  },
+  {
+    "id": "57716355cd",
+    "section": "reading",
+    "topic": "Grammar",
+    "difficulty": "easy",
+    "question": "Which is grammatically correct?",
+    "choices": [
+      "Each of the students have a textbook.",
+      "Each of the students has a textbook.",
+      "Each students has.",
+      "Each of student have."
+    ],
+    "answerIndex": 1,
+    "explanation": "'Each' is singular→'has'.",
+    "visual": null
+  },
+  {
+    "id": "19b7635785",
+    "section": "reading",
+    "topic": "Grammar",
+    "difficulty": "easy",
+    "question": "Correct sentence:",
+    "choices": [
+      "Him and I went.",
+      "He and I went.",
+      "Him and me went.",
+      "He and me went."
+    ],
+    "answerIndex": 1,
+    "explanation": "Subject pronouns: He and I.",
+    "visual": null
+  },
+  {
+    "id": "f044934ae4",
+    "section": "reading",
+    "topic": "Grammar",
+    "difficulty": "medium",
+    "question": "Correct semicolon use?",
+    "choices": [
+      "I like cats; and dogs.",
+      "She studied hard; she passed.",
+      "He ran fast; but lost.",
+      "They won; the game."
+    ],
+    "answerIndex": 1,
+    "explanation": "Semicolons join independent clauses.",
+    "visual": null
+  },
+  {
+    "id": "f22a8eed5b",
+    "section": "reading",
+    "topic": "Grammar",
+    "difficulty": "medium",
+    "question": "'The team ___ playing well.'",
+    "choices": [
+      "is",
+      "are",
+      "were",
+      "have been"
+    ],
+    "answerIndex": 0,
+    "explanation": "Collective noun→singular verb.",
+    "visual": null
+  },
+  {
+    "id": "b364d90c8d",
+    "section": "reading",
+    "topic": "Grammar",
+    "difficulty": "hard",
+    "question": "Which avoids a dangling modifier?",
+    "choices": [
+      "Running, the rain soaked her.",
+      "Running, she got soaked by the rain.",
+      "Having run, the rain was heavy.",
+      "To run, the rain started."
+    ],
+    "answerIndex": 1,
+    "explanation": "'Running' must refer to 'she'.",
+    "visual": null
+  },
+  {
+    "id": "7522636ecd",
+    "section": "reading",
+    "topic": "Grammar",
+    "difficulty": "hard",
+    "question": "Correct apostrophe:",
+    "choices": [
+      "The dogs' bone was buried.",
+      "The dog's' bone.",
+      "The dogs bone.",
+      "The dogs's bone."
+    ],
+    "answerIndex": 0,
+    "explanation": "Plural possessive: dogs'.",
+    "visual": null
+  },
+  {
+    "id": "25b0dc4c46",
+    "section": "reading",
+    "topic": "Rhetorical Skills",
+    "difficulty": "easy",
+    "question": "Author ends essay urging readers to vote. Primarily meant to:",
+    "choices": [
+      "entertain",
+      "inform",
+      "persuade readers to act",
+      "describe a process"
+    ],
+    "answerIndex": 2,
+    "explanation": "Call to action=persuasive.",
+    "visual": null
+  },
+  {
+    "id": "0134065464",
+    "section": "reading",
+    "topic": "Rhetorical Skills",
+    "difficulty": "medium",
+    "question": "'Can we afford to ignore climate change?' Purpose:",
+    "choices": [
+      "request info",
+      "admit uncertainty",
+      "prompt reader to agree",
+      "introduce counterargument"
+    ],
+    "answerIndex": 2,
+    "explanation": "Rhetorical questions guide conclusions.",
+    "visual": null
+  },
+  {
+    "id": "4ac6a2efaf",
+    "section": "reading",
+    "topic": "Rhetorical Skills",
+    "difficulty": "medium",
+    "question": "Which claim is best supported by this data?",
+    "choices": [
+      "Support remained stable",
+      "Policy A steadily gained support since 2018",
+      "Policy A lost support after 2020",
+      "Both equally popular"
+    ],
+    "answerIndex": 1,
+    "explanation": "42%→64%=consistent upward trend.",
+    "visual": {
+      "type": "chart",
+      "chartType": "line",
+      "data": [
+        {
+          "x": "2018",
+          "y": 42
+        },
+        {
+          "x": "2019",
+          "y": 47
+        },
+        {
+          "x": "2020",
+          "y": 53
+        },
+        {
+          "x": "2021",
+          "y": 58
+        },
+        {
+          "x": "2022",
+          "y": 64
+        }
+      ],
+      "config": {
+        "xKey": "x",
+        "yKey": "y",
+        "caption": "Public Support for Policy A (%)"
+      }
+    }
+  },
+  {
+    "id": "007c069cb5",
+    "section": "reading",
+    "topic": "Rhetorical Skills",
+    "difficulty": "medium",
+    "question": "'Like a ship without a compass, the company drifted.' This is:",
+    "choices": [
+      "alliteration",
+      "a simile",
+      "hyperbole",
+      "personification"
+    ],
+    "answerIndex": 1,
+    "explanation": "'Like a ship'=simile.",
+    "visual": null
+  },
+  {
+    "id": "a11fdd69c0",
+    "section": "reading",
+    "topic": "Rhetorical Skills",
+    "difficulty": "hard",
+    "question": "Author refutes counterargument before thesis. This is called:",
+    "choices": [
+      "anaphora",
+      "concession and rebuttal",
+      "appeal to authority",
+      "circular reasoning"
+    ],
+    "answerIndex": 1,
+    "explanation": "Acknowledging then refuting=concession and rebuttal.",
+    "visual": null
+  },
+  {
+    "id": "92097dbb14",
+    "section": "reading",
+    "topic": "Rhetorical Skills",
+    "difficulty": "hard",
+    "question": "Repeating a phrase at the start of consecutive sentences is:",
+    "choices": [
+      "creates ambiguity",
+      "anaphora — building emphasis",
+      "an ad hominem attack",
+      "weakens argument"
+    ],
+    "answerIndex": 1,
+    "explanation": "Anaphora=repetition for emphasis.",
+    "visual": null
+  }
+]
