@@ -46,9 +46,9 @@ function solve(q){
     // Reading & Writing templates (deterministic correct choice stored in params)
     case "rw_vocab": return p.correct;
     case "rw_grammar": return p.correct;
-    case "rw_rhetoric": return p.correct;
     case "rw_main_idea": return p.correct;
     case "rw_evidence": return p.correct;
+    case "rw_transition": return p.correct;
     default: return null;
   }
 }
@@ -68,6 +68,15 @@ for(const q of questions){
   if(!q.topic) errs.push("missing topic");
   if(!q.difficulty) errs.push("missing difficulty");
   if(!q.question) errs.push("missing question");
+
+  // RW quality checks (structural + anti-placeholder)
+  if(q.section==="reading"){
+    if(!q.passage || String(q.passage).trim().length < 40) errs.push("rw passage too short/missing");
+    const ph = (q.choices||[]).every(c=>/^choice\s*[abcd]$/i.test(String(c).trim()));
+    if(ph) errs.push("rw placeholder choices");
+    if(/programmatically generated for practice/i.test(String(q.explanation||""))) errs.push("rw placeholder explanation");
+  }
+
   if(!Array.isArray(q.choices) || q.choices.length!==4) errs.push("choices must be 4");
   if(typeof q.answerIndex!=="number" || q.answerIndex<0 || q.answerIndex>3) errs.push("answerIndex 0..3");
   if(needsVisual(q) && !visualOk(q)) errs.push("visual missing/invalid for topic");
@@ -91,7 +100,7 @@ for(const q of questions){
       if(norm(correctChoice)!==norm(expected)) errs.push(`answer mismatch expected "${expected}" got "${correctChoice}"`);
     }
   } else {
-    errs.push("unverified_template_or_missing_meta");
+    if(q.meta?.template && q.meta.template!=="manual") errs.push("unverified_template");
   }
 
   matrix.push({

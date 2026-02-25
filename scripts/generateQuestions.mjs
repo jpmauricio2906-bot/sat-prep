@@ -259,173 +259,282 @@ function genCoordinateDistance(rng, id, diff){
 }
 
 function genReadingTopic(rng, id, topic, diff){
-  // Lightweight but *real* RW items (no placeholders). Each template has a deterministically correct answer.
-  // Note: These are not official SAT items; they are practice-style.
+  // Digital SAT-style mini passages (2–4 sentences) across 6 domains:
+  // Science, History, Social Science, Humanities, Literature, Technology.
+  // Items are template-driven (not placeholders) with plausible distractors.
 
-  // Shared pools
-  const animals = ["fox","otter","sparrow","tortoise","honeybee","octopus"]; 
-  const places  = ["library","greenhouse","workshop","observatory","studio","market"]; 
-  const verbs   = ["measured","observed","recorded","compared","summarized","revised"]; 
+  const domains = ["Science","History","Social Science","Humanities","Literature","Technology"];
 
-  function rwChoices(rng, correct, distractors){
+  // Sentence/idea pools per domain to create varied, SAT-like mini passages.
+  const POOLS = {
+    "Science": {
+      subjects: ["ecologists","astronomers","neuroscientists","chemists","climatologists","biologists"],
+      topics: ["pollinator networks","exoplanet atmospheres","memory consolidation","catalyst efficiency","urban heat islands","microbial communities"],
+      verbs: ["observed","measured","modeled","tested","analyzed","replicated"],
+      findings: [
+        "the effect was strongest under low-light conditions",
+        "the pattern disappeared when the sample size increased",
+        "the results varied across regions with different rainfall",
+        "the new method reduced error without increasing cost",
+        "the trend reversed when the variable was held constant",
+        "the effect persisted even after controlling for temperature"
+      ]
+    },
+    "History": {
+      subjects: ["archivists","historians","diplomats","reformers","journalists","legislators"],
+      topics: ["trade policy","labor protections","public education","urban sanitation","postal networks","voting reforms"],
+      verbs: ["argued","reported","documented","debated","proposed","criticized"],
+      findings: [
+        "the policy’s impact differed sharply between rural and urban areas",
+        "the compromise satisfied neither faction completely",
+        "the reform’s success depended on local enforcement",
+        "public opinion shifted after a widely circulated pamphlet",
+        "the measure was framed as temporary but lasted for decades",
+        "implementation lagged despite strong rhetoric"
+      ]
+    },
+    "Social Science": {
+      subjects: ["sociologists","economists","psychologists","anthropologists","policy analysts","survey researchers"],
+      topics: ["risk perception","student motivation","household budgeting","community trust","workplace collaboration","social media habits"],
+      verbs: ["found","estimated","surveyed","interviewed","compared","tracked"],
+      findings: [
+        "participants overestimated rare events after vivid examples",
+        "small incentives changed behavior more than large warnings",
+        "the effect weakened when choices were presented simultaneously",
+        "self-reports diverged from observed behavior",
+        "the relationship held only for first-time participants",
+        "results depended on how the question was framed"
+      ]
+    },
+    "Humanities": {
+      subjects: ["critics","curators","linguists","philosophers","art historians","essayists"],
+      topics: ["modernist poetry","public monuments","translation choices","musical improvisation","museum lighting","aesthetic theory"],
+      verbs: ["claimed","noted","interpreted","contrasted","emphasized","questioned"],
+      findings: [
+        "the work invites multiple interpretations rather than a single message",
+        "the style prioritizes texture and rhythm over narrative clarity",
+        "the argument challenges a common assumption about authenticity",
+        "the author uses contrast to highlight a subtle tension",
+        "the example complicates an otherwise straightforward claim",
+        "the analysis shifts attention from content to form"
+      ]
+    },
+    "Literature": {
+      subjects: ["the narrator","the protagonist","the speaker","the author","a character","the storyteller"],
+      topics: ["a missed opportunity","an unexpected reunion","a difficult choice","a quiet confession","a turning point","a lingering doubt"],
+      verbs: ["admits","recalls","describes","reveals","suggests","implies"],
+      findings: [
+        "the tone moves from certainty to hesitation",
+        "the description underscores the character’s isolation",
+        "the scene hints at conflict without stating it directly",
+        "the imagery creates a sense of urgency",
+        "the dialogue exposes an unspoken motive",
+        "the ending reframes the earlier events"
+      ]
+    },
+    "Technology": {
+      subjects: ["engineers","designers","developers","research teams","manufacturers","startups"],
+      topics: ["battery management","data compression","privacy settings","sensor calibration","recommendation systems","cloud reliability"],
+      verbs: ["released","optimized","tested","updated","benchmarked","debugged"],
+      findings: [
+        "the update improved performance but increased energy use",
+        "users preferred transparency even when it reduced convenience",
+        "the system failed mostly under peak demand",
+        "small design changes reduced errors dramatically",
+        "the model generalized poorly outside its training data",
+        "latency dropped after the pipeline was simplified"
+      ]
+    }
+  };
+
+  const domain = choice(rng, domains);
+  const P = POOLS[domain];
+
+  // Build a 2–4 sentence passage with mild variation.
+  const subj = choice(rng, P.subjects);
+  const top  = choice(rng, P.topics);
+  const v    = choice(rng, P.verbs);
+  const fin  = choice(rng, P.findings);
+
+  const structures = ["cause_effect","contrast","example","concession"];
+  const structure = choice(rng, structures);
+
+  let s1="", s2="", s3="", s4="";
+  if (structure === "cause_effect") {
+    s1 = `${subj} ${v} ${top} to better understand how small changes can produce large outcomes.`;
+    s2 = `They found that ${fin}.`;
+    s3 = `This suggests that the phenomenon is sensitive to context rather than governed by a single rule.`;
+  } else if (structure === "contrast") {
+    s1 = `${subj} often describe ${top} in broad terms, but recent work focuses on specific mechanisms.`;
+    s2 = `In one analysis, ${fin}.`;
+    s3 = `The contrast highlights how general claims can miss important details.`;
+  } else if (structure === "example") {
+    s1 = `${subj} use ${top} as an example of how methods influence conclusions.`;
+    s2 = `For instance, ${fin}.`;
+    s3 = `The example shows why interpreting results requires attention to procedure.`;
+  } else { // concession
+    s1 = `Although ${top} seems straightforward at first glance, ${subj} argue that it is more complex in practice.`;
+    s2 = `In particular, ${fin}.`;
+    s3 = `Even so, the broader pattern remains useful for generating new hypotheses.`;
+  }
+
+  // 2–4 sentences
+  const passageSentences = shuffle(rng, [s1, s2, s3].filter(Boolean)).slice(0, randInt(rng,2,3));
+  const passage = passageSentences.join(" ");
+
+  function makeChoices(correct, distractors){
     const opts = shuffle(rng, [correct, ...distractors].slice(0,4));
     return { choices: opts, answerIndex: opts.indexOf(correct) };
   }
 
-  if (topic === "Vocabulary in Context") {
-    const vocab = choice(rng, [
-      {w:"resilient", sent:"After several failed attempts, the team remained resilient and continued experimenting.", correct:"able to recover quickly", ds:["easily irritated","careless","secretive"]},
-      {w:"allocate", sent:"The principal will allocate funds to repair the gym roof.", correct:"distribute", ds:["conceal","question","predict"]},
-      {w:"deduce", sent:"From the wet sidewalk and dark clouds, Maya could deduce that it had recently rained.", correct:"infer", ds:["announce","forget","delay"]},
-      {w:"scarce", sent:"Water was scarce during the long drought.", correct:"in short supply", ds:["dangerous","expensive","colorful"]},
-      {w:"precise", sent:"The technician gave precise instructions for calibrating the device.", correct:"exact", ds:["timely","hesitant","lengthy"]},
-    ]);
-    const stem = `In the sentence below, the word "${vocab.w}" most nearly means:`;
-    const question = `${stem}\n\n${vocab.sent}`;
-    const {choices, answerIndex} = rwChoices(rng, vocab.correct, vocab.ds);
-    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
-      explanation:`"${vocab.w}" in this context means ${vocab.correct}.`, visual:null,
-      meta:{ template:"rw_vocab", params:{word:vocab.w, correct:vocab.correct} } };
-  }
-
-  if (topic === "Grammar") {
-    const who = choice(rng, ["The researcher","My cousin","The manager","A student","The artist"]);
-    const v = choice(rng, verbs);
-    const place = choice(rng, places);
-    // Subject-verb agreement / punctuation
-    const templates = [
-      {
-        stem:`Which choice best maintains standard English conventions?`,
-        base:`${who} ${v} the results in the ${place}, and then shared them with the class.`,
-        correct:`${who} ${v} the results in the ${place} and then shared them with the class.`,
-        ds:[
-          `${who} ${v} the results in the ${place} then and shared them with the class.`,
-          `${who} ${v} the results in the ${place}; and then shared them with the class.`,
-          `${who} ${v} the results in the ${place}, then shared them with the class.`,
-        ]
-      },
-      {
-        stem:`Which choice best corrects the underlined portion?`,
-        base:`The committee's decision were announced yesterday.`,
-        correct:`The committee's decision was announced yesterday.`,
-        ds:[
-          `The committees decision was announced yesterday.`,
-          `The committee decision were announced yesterday.`,
-          `The committee's decisions was announced yesterday.`,
-        ]
-      },
-      {
-        stem:`Which choice best completes the sentence?`,
-        base:`Neither the maps nor the guide _____ accurate.`,
-        correct:`Neither the maps nor the guide is accurate.`,
-        ds:[
-          `Neither the maps nor the guide are accurate.`,
-          `Neither the maps nor the guide were accurate.`,
-          `Neither the maps nor the guide have been accurate.`,
-        ]
-      }
-    ];
-    const t = choice(rng, templates);
-    const question = `${t.stem}\n\n${t.base}`;
-    const {choices, answerIndex} = rwChoices(rng, t.correct, t.ds);
-    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
-      explanation:`The correct choice follows standard grammar and punctuation.`, visual:null,
-      meta:{ template:"rw_grammar", params:{correct:t.correct} } };
-  }
-
-  if (topic === "Rhetorical Skills") {
-    const a = choice(rng, animals);
-    const place = choice(rng, places);
-    const templates = [
-      {
-        stem:`Which transition best connects the sentences?`,
-        passage:`The ${a} searched for food near the ${place}. ___ it avoided areas with bright lights.`,
-        correct:`However,`,
-        ds:["Similarly,","Therefore,","For example,"]
-      },
-      {
-        stem:`Which choice best emphasizes the contrast?`,
-        passage:`The first prototype was heavy and fragile; ___ the second prototype was lightweight and durable.`,
-        correct:`by contrast,`,
-        ds:["in addition,","for instance,","as a result,"]
-      },
-      {
-        stem:`Which choice best introduces the example?`,
-        passage:`Many everyday materials can be recycled. ___ aluminum cans can be processed and used again.`,
-        correct:`For example,`,
-        ds:["In conclusion,","Nevertheless,","Likewise,"]
-      },
-    ];
-    const t = choice(rng, templates);
-    const question = `${t.stem}\n\n${t.passage}`;
-    const {choices, answerIndex} = rwChoices(rng, t.correct, t.ds);
-    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
-      explanation:`The best choice logically links the ideas in the sentence(s).`, visual:null,
-      meta:{ template:"rw_rhetoric", params:{correct:t.correct} } };
-  }
-
+  // --- Topic templates ---
   if (topic === "Main Idea") {
-    const place = choice(rng, places);
-    const act = choice(rng, ["small changes in routine", "careful planning", "frequent feedback", "consistent practice", "curiosity-driven exploration"]);
-    const passage = `At the ${place}, a group of students experimented with different study habits. Over time, they found that ${act} helped them learn more efficiently.`;
-    const correct = `The passage suggests that ${act} can improve learning.`;
-    const ds = [
-      `The passage argues that studying is unnecessary for most students.`,
-      `The passage describes how the ${place} was built.`,
-      `The passage explains why students should avoid experimenting with study habits.`,
+    const correct = `The passage explains a recent perspective on ${top} and emphasizes that ${fin}.`;
+    const tooNarrow = `The passage lists several definitions of ${top}.`;
+    const tooBroad  = `The passage argues that all research methods are equally effective.`;
+    const offTopic  = `The passage describes a personal experience unrelated to research.`;
+    const {choices, answerIndex} = makeChoices(correct, [tooNarrow, tooBroad, offTopic]);
+    return {
+      id, section:"reading", topic, difficulty:diff,
+      passage,
+      question:"Which choice best states the main idea of the text?",
+      choices, answerIndex,
+      explanation:"Main idea questions ask for the overall point, not a minor detail.",
+      visual:null,
+      meta:{ template:"rw_main_idea", params:{domain, structure, top, fin, correct} }
+    };
+  }
+
+  if (topic === "Vocabulary in Context") {
+    const vocabSet = [
+      {w:"consequently", correct:"as a result", ds:["in contrast","for example","in the meantime"]},
+      {w:"notably", correct:"in particular", ds:["rarely","suddenly","carelessly"]},
+      {w:"mitigate", correct:"reduce", ds:["predict","exaggerate","ignore"]},
+      {w:"plausible", correct:"seemingly reasonable", ds:["strictly illegal","highly confusing","completely finished"]},
+      {w:"retain", correct:"keep", ds:["replace","explain","celebrate"]},
+      {w:"refine", correct:"improve by making small changes", ds:["hide from view","argue against","remove entirely"]}
     ];
-    const question = `What is the main idea of the passage?\n\n${passage}`;
-    const {choices, answerIndex} = rwChoices(rng, correct, ds);
-    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
-      explanation:`The second sentence states the key takeaway about what helped learning.`, visual:null,
-      meta:{ template:"rw_main_idea", params:{correct} } };
+    const v = choice(rng, vocabSet);
+
+    // Insert target word into a short sentence based on the passage theme
+    const sent = `In discussing ${top}, the author suggests that researchers should ${v.w} their assumptions rather than treat them as fixed.`;
+    const fullPassage = passage + " " + sent;
+
+    const {choices, answerIndex} = makeChoices(v.correct, v.ds);
+    return {
+      id, section:"reading", topic, difficulty:diff,
+      passage: fullPassage,
+      question:`As used in the text, what does "${v.w}" most nearly mean?`,
+      choices, answerIndex,
+      explanation:"Vocabulary-in-context asks for the meaning in this specific sentence.",
+      visual:null,
+      meta:{ template:"rw_vocab", params:{word:v.w, correct:v.correct, domain} }
+    };
   }
 
   if (topic === "Evidence") {
-    const claim = choice(rng, [
-      "The new schedule reduced late arrivals.",
-      "The experiment suggests the material is more durable than expected.",
-      "The town's recycling program increased participation.",
-    ]);
-    const lines = [
-      `1 The report compared attendance before and after the schedule change.`,
-      `2 Late arrivals fell from 18% to 9% over two months.`,
-      `3 Some students said mornings felt less rushed.`,
-      `4 The cafeteria extended breakfast service by ten minutes.`,
-    ];
-    const correct = `Line 2 ("Late arrivals fell from 18% to 9%...")`;
-    const ds = [`Line 1`,`Line 3`,`Line 4`];
-    const question = `Which choice provides the best evidence for the claim below?\n\nClaim: ${claim}\n\n${lines.join("\n")}`;
-    const {choices, answerIndex} = rwChoices(rng, correct, ds);
-    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
-      explanation:`A numerical decrease directly supports the claim.`, visual:null,
-      meta:{ template:"rw_evidence", params:{correct} } };
+    // We’ll ask for the sentence that best supports a claim.
+    const claim = `The passage suggests that context can strongly influence findings about ${top}.`;
+    const evidence = choice(rng, passageSentences);
+    const d1 = `Some researchers consider ${top} a settled topic and therefore avoid new studies.`;
+    const d2 = `The passage includes a definition of ${top} that is unrelated to the claim.`;
+    const d3 = `The author describes a historical origin of ${top} without discussing evidence.`;
+    const {choices, answerIndex} = makeChoices(`"${evidence}"`, [`"${d1}"`, `"${d2}"`, `"${d3}"`]);
+    return {
+      id, section:"reading", topic, difficulty:diff,
+      passage,
+      question: `${claim} Which choice provides the best evidence for this claim?`,
+      choices, answerIndex,
+      explanation:"Evidence questions ask for the line that directly supports the stated claim.",
+      visual:null,
+      meta:{ template:"rw_evidence", params:{domain, top, evidence, correct:`"${evidence}"`} }
+    };
   }
 
-  // Fallback (shouldn't happen)
-  const question = `Which choice is best?`;
-  const {choices, answerIndex} = rwChoices(rng, "A", ["B","C","D"]);
-  return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
-    explanation:"", visual:null, meta:{ template:"rw_fallback", params:{} } };
-}
+  if (topic === "Rhetorical Skills") {
+    // Transition / logical connection
+    const transitions = [
+      {t:"However,", role:"contrast"},
+      {t:"Therefore,", role:"cause_effect"},
+      {t:"For example,", role:"example"},
+      {t:"Similarly,", role:"comparison"}
+    ];
+    const correctObj = choice(rng, transitions);
 
-const TARGET=40;
-const seed = 20260224; // stable seed
-const rng = lcg(seed);
+    const p1 = `${subj} have proposed several explanations for ${top}.`;
+    const p2 = `${fin}.`;
+    const p3 = `This detail helps readers understand the author’s point.`;
+    const passage2 = `${p1} [BLANK] ${p2} ${p3}`;
 
-const mathTopics = ["Algebra","Geometry","Data Analysis","Advanced Math","Problem Solving"];
-const readingTopics = ["Main Idea","Vocabulary in Context","Evidence","Grammar","Rhetorical Skills"];
-const diffs = ["easy","medium","hard"];
+    const distractors = shuffle(rng, transitions.filter(x=>x.t!==correctObj.t)).slice(0,3).map(x=>x.t);
+    const {choices, answerIndex} = makeChoices(correctObj.t, distractors);
 
-const out=[];
-const seen = new Set();
+    return {
+      id, section:"reading", topic, difficulty:diff,
+      passage: passage2,
+      question:"Which choice best fills in the blank to create the most logical transition?",
+      choices, answerIndex,
+      explanation:"Transitions must match the logical relationship between sentences.",
+      visual:null,
+      meta:{ template:"rw_transition", params:{correctTransition:correctObj.t, correct:correctObj.t, domain, top} }
+    };
+  }
 
-function pushUnique(q){
-  const key = q.section+"|"+q.topic+"|"+q.difficulty+"|"+q.question+"|"+(q.choices||[]).join("||");
-  if(seen.has(key)) return false;
-  seen.add(key);
-  out.push(q);
-  return true;
+  // Grammar
+  if (topic === "Grammar") {
+    // Create a sentence with a common, checkable grammar issue.
+    const grammars = [
+      {
+        type:"sv_agreement",
+        stem:`The list of items ___ on the desk.`,
+        correct:"is",
+        ds:["are","were","be"]
+      },
+      {
+        type:"pronoun_antecedent",
+        stem:`When the committee finished the report, ___ was published online.`,
+        correct:"it",
+        ds:["they","them","their"]
+      },
+      {
+        type:"comma_splice",
+        stem:`The experiment ended early, ___ the equipment overheated.`,
+        correct:"because",
+        ds:["and","however","so"]
+      },
+      {
+        type:"modifier",
+        stem:`___, the results surprised the researchers.`,
+        correct:"After reviewing the data",
+        ds:["To review the data","Reviewing data is","The data was reviewed"]
+      }
+    ];
+    const g = choice(rng, grammars);
+    const question = `Which choice completes the text so that it conforms to the conventions of Standard English?`;
+    const {choices, answerIndex} = makeChoices(g.correct, g.ds);
+
+    return {
+      id, section:"reading", topic, difficulty:diff,
+      passage: g.stem,
+      question,
+      choices, answerIndex,
+      explanation:"Grammar questions test standard English conventions.",
+      visual:null,
+      meta:{ template:"rw_grammar", params:{type:g.type, correct:g.correct} }
+    };
+  }
+
+  // Fallback (should never hit)
+  const {choices, answerIndex} = makeChoices("A", ["B","C","D"]);
+  return {
+    id, section:"reading", topic, difficulty:diff,
+    passage,
+    question:"Which choice best completes the text?",
+    choices, answerIndex,
+    explanation:"Generated fallback.",
+    visual:null,
+    meta:{ template:"rw_fallback", params:{domain} }
+  };
 }
 
 function fill(topic, diff, genFns, section="math"){
