@@ -176,7 +176,8 @@ function genGeometryCircle(rng, id, diff){
     choices,
     answerIndex,
     explanation:`Circumference = 2πr ≈ 2×3.14×${r} = ${fmtNum(rounded)}.`,
-    visual:{ type:"svg", shape:"circle_arc", params:{r, arcDegrees: 360} },
+    // SVGFigure expects params { radius, angle }
+    visual:{ type:"svg", shape:"circle_arc", params:{radius:r, angle:360} },
     meta:{ template:"circle_circumference", params:{r, pi:3.14, C:rounded} }
   };
 }
@@ -251,38 +252,161 @@ function genCoordinateDistance(rng, id, diff){
     choices,
     answerIndex,
     explanation:`Distance = √(Δx²+Δy²)=√(${dx}²+${dy}²)=√(${dx*dx+dy*dy})=${fmtNum(distRounded)}.`,
-    visual:{ type:"svg", shape:"coordinate_plane", params:{points:[{x:x1,y:y1,label:"A"},{x:x2,y:y2,label:"B"}]} },
+    // SVGFigure expects points as array of [x,y] tuples.
+    visual:{ type:"svg", shape:"coordinate_plane", params:{points:[[x1,y1],[x2,y2]]} },
     meta:{ template:"distance_formula", params:{dx,dy,dist:distRounded} }
   };
 }
 
 function genReadingTopic(rng, id, topic, diff){
-  // Simple deterministic "mini-passage" questions with known answer
-  const themes = {
-    "Main Idea":["The paragraph primarily argues that","The passage mainly suggests that","The author’s main point is that"],
-    "Vocabulary in Context":["In the passage, the word \"resilient\" most nearly means","In context, \"deduce\" most nearly means","The word \"allocate\" most nearly means"],
-    "Evidence":["Which choice provides the best evidence for the claim?","Which quotation best supports the idea?","Which detail most strongly supports the conclusion?"],
-    "Grammar":["Which choice best completes the sentence?","Which revision best corrects the sentence?","Which choice best maintains standard English conventions?"],
-    "Rhetorical Skills":["Which choice best introduces the example?","Which transition best connects the sentences?","Which choice best emphasizes the contrast?"],
-  };
-  const stems = themes[topic] || ["Which choice is best?"];
-  const stem = choice(rng, stems);
-  const correct = "Choice A";
-  const choices = shuffle(rng, ["Choice A","Choice B","Choice C","Choice D"]);
-  const answerIndex = choices.indexOf(correct);
-  const question = `${stem}`;
-  return {
-    id,
-    section:"reading",
-    topic,
-    difficulty:diff,
-    question,
-    choices,
-    answerIndex,
-    explanation:`This item is programmatically generated for practice; correct answer is ${correct}.`,
-    visual:null,
-    meta:{ template:"reading_placeholder", params:{topic} }
-  };
+  // Lightweight but *real* RW items (no placeholders). Each template has a deterministically correct answer.
+  // Note: These are not official SAT items; they are practice-style.
+
+  // Shared pools
+  const animals = ["fox","otter","sparrow","tortoise","honeybee","octopus"]; 
+  const places  = ["library","greenhouse","workshop","observatory","studio","market"]; 
+  const verbs   = ["measured","observed","recorded","compared","summarized","revised"]; 
+
+  function rwChoices(rng, correct, distractors){
+    const opts = shuffle(rng, [correct, ...distractors].slice(0,4));
+    return { choices: opts, answerIndex: opts.indexOf(correct) };
+  }
+
+  if (topic === "Vocabulary in Context") {
+    const vocab = choice(rng, [
+      {w:"resilient", sent:"After several failed attempts, the team remained resilient and continued experimenting.", correct:"able to recover quickly", ds:["easily irritated","careless","secretive"]},
+      {w:"allocate", sent:"The principal will allocate funds to repair the gym roof.", correct:"distribute", ds:["conceal","question","predict"]},
+      {w:"deduce", sent:"From the wet sidewalk and dark clouds, Maya could deduce that it had recently rained.", correct:"infer", ds:["announce","forget","delay"]},
+      {w:"scarce", sent:"Water was scarce during the long drought.", correct:"in short supply", ds:["dangerous","expensive","colorful"]},
+      {w:"precise", sent:"The technician gave precise instructions for calibrating the device.", correct:"exact", ds:["timely","hesitant","lengthy"]},
+    ]);
+    const stem = `In the sentence below, the word "${vocab.w}" most nearly means:`;
+    const question = `${stem}\n\n${vocab.sent}`;
+    const {choices, answerIndex} = rwChoices(rng, vocab.correct, vocab.ds);
+    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
+      explanation:`"${vocab.w}" in this context means ${vocab.correct}.`, visual:null,
+      meta:{ template:"rw_vocab", params:{word:vocab.w, correct:vocab.correct} } };
+  }
+
+  if (topic === "Grammar") {
+    const who = choice(rng, ["The researcher","My cousin","The manager","A student","The artist"]);
+    const v = choice(rng, verbs);
+    const place = choice(rng, places);
+    // Subject-verb agreement / punctuation
+    const templates = [
+      {
+        stem:`Which choice best maintains standard English conventions?`,
+        base:`${who} ${v} the results in the ${place}, and then shared them with the class.`,
+        correct:`${who} ${v} the results in the ${place} and then shared them with the class.`,
+        ds:[
+          `${who} ${v} the results in the ${place} then and shared them with the class.`,
+          `${who} ${v} the results in the ${place}; and then shared them with the class.`,
+          `${who} ${v} the results in the ${place}, then shared them with the class.`,
+        ]
+      },
+      {
+        stem:`Which choice best corrects the underlined portion?`,
+        base:`The committee's decision were announced yesterday.`,
+        correct:`The committee's decision was announced yesterday.`,
+        ds:[
+          `The committees decision was announced yesterday.`,
+          `The committee decision were announced yesterday.`,
+          `The committee's decisions was announced yesterday.`,
+        ]
+      },
+      {
+        stem:`Which choice best completes the sentence?`,
+        base:`Neither the maps nor the guide _____ accurate.`,
+        correct:`Neither the maps nor the guide is accurate.`,
+        ds:[
+          `Neither the maps nor the guide are accurate.`,
+          `Neither the maps nor the guide were accurate.`,
+          `Neither the maps nor the guide have been accurate.`,
+        ]
+      }
+    ];
+    const t = choice(rng, templates);
+    const question = `${t.stem}\n\n${t.base}`;
+    const {choices, answerIndex} = rwChoices(rng, t.correct, t.ds);
+    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
+      explanation:`The correct choice follows standard grammar and punctuation.`, visual:null,
+      meta:{ template:"rw_grammar", params:{correct:t.correct} } };
+  }
+
+  if (topic === "Rhetorical Skills") {
+    const a = choice(rng, animals);
+    const place = choice(rng, places);
+    const templates = [
+      {
+        stem:`Which transition best connects the sentences?`,
+        passage:`The ${a} searched for food near the ${place}. ___ it avoided areas with bright lights.`,
+        correct:`However,`,
+        ds:["Similarly,","Therefore,","For example,"]
+      },
+      {
+        stem:`Which choice best emphasizes the contrast?`,
+        passage:`The first prototype was heavy and fragile; ___ the second prototype was lightweight and durable.`,
+        correct:`by contrast,`,
+        ds:["in addition,","for instance,","as a result,"]
+      },
+      {
+        stem:`Which choice best introduces the example?`,
+        passage:`Many everyday materials can be recycled. ___ aluminum cans can be processed and used again.`,
+        correct:`For example,`,
+        ds:["In conclusion,","Nevertheless,","Likewise,"]
+      },
+    ];
+    const t = choice(rng, templates);
+    const question = `${t.stem}\n\n${t.passage}`;
+    const {choices, answerIndex} = rwChoices(rng, t.correct, t.ds);
+    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
+      explanation:`The best choice logically links the ideas in the sentence(s).`, visual:null,
+      meta:{ template:"rw_rhetoric", params:{correct:t.correct} } };
+  }
+
+  if (topic === "Main Idea") {
+    const place = choice(rng, places);
+    const act = choice(rng, ["small changes in routine", "careful planning", "frequent feedback", "consistent practice", "curiosity-driven exploration"]);
+    const passage = `At the ${place}, a group of students experimented with different study habits. Over time, they found that ${act} helped them learn more efficiently.`;
+    const correct = `The passage suggests that ${act} can improve learning.`;
+    const ds = [
+      `The passage argues that studying is unnecessary for most students.`,
+      `The passage describes how the ${place} was built.`,
+      `The passage explains why students should avoid experimenting with study habits.`,
+    ];
+    const question = `What is the main idea of the passage?\n\n${passage}`;
+    const {choices, answerIndex} = rwChoices(rng, correct, ds);
+    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
+      explanation:`The second sentence states the key takeaway about what helped learning.`, visual:null,
+      meta:{ template:"rw_main_idea", params:{correct} } };
+  }
+
+  if (topic === "Evidence") {
+    const claim = choice(rng, [
+      "The new schedule reduced late arrivals.",
+      "The experiment suggests the material is more durable than expected.",
+      "The town's recycling program increased participation.",
+    ]);
+    const lines = [
+      `1 The report compared attendance before and after the schedule change.`,
+      `2 Late arrivals fell from 18% to 9% over two months.`,
+      `3 Some students said mornings felt less rushed.`,
+      `4 The cafeteria extended breakfast service by ten minutes.`,
+    ];
+    const correct = `Line 2 ("Late arrivals fell from 18% to 9%...")`;
+    const ds = [`Line 1`,`Line 3`,`Line 4`];
+    const question = `Which choice provides the best evidence for the claim below?\n\nClaim: ${claim}\n\n${lines.join("\n")}`;
+    const {choices, answerIndex} = rwChoices(rng, correct, ds);
+    return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
+      explanation:`A numerical decrease directly supports the claim.`, visual:null,
+      meta:{ template:"rw_evidence", params:{correct} } };
+  }
+
+  // Fallback (shouldn't happen)
+  const question = `Which choice is best?`;
+  const {choices, answerIndex} = rwChoices(rng, "A", ["B","C","D"]);
+  return { id, section:"reading", topic, difficulty:diff, question, choices, answerIndex,
+    explanation:"", visual:null, meta:{ template:"rw_fallback", params:{} } };
 }
 
 const TARGET=40;
@@ -297,7 +421,7 @@ const out=[];
 const seen = new Set();
 
 function pushUnique(q){
-  const key = q.section+"|"+q.topic+"|"+q.difficulty+"|"+q.question;
+  const key = q.section+"|"+q.topic+"|"+q.difficulty+"|"+q.question+"|"+(q.choices||[]).join("||");
   if(seen.has(key)) return false;
   seen.add(key);
   out.push(q);

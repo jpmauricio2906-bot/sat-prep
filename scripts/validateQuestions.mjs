@@ -43,7 +43,12 @@ function solve(q){
     case "quadratic_root": return p.p;
     case "bar_mean": return p.mean;
     case "scatter_correlation_sign": return p.sign===1 ? "Positive association" : "Negative association";
-    case "reading_placeholder": return "Choice A";
+    // Reading & Writing templates (deterministic correct choice stored in params)
+    case "rw_vocab": return p.correct;
+    case "rw_grammar": return p.correct;
+    case "rw_rhetoric": return p.correct;
+    case "rw_main_idea": return p.correct;
+    case "rw_evidence": return p.correct;
     default: return null;
   }
 }

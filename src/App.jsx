@@ -461,28 +461,135 @@ const BASE_QB = {
   },
 };
 
-// ─── QUESTION BANK PASSTHROUGH ───────────────────────────────────────────────
-// Simply returns the base bank as-is. No cloning, no placeholders.
-// The app will use real questions only. When questions.json loads successfully
-// (via loadBankFromJSON below) it will replace BANK with the full JSON bank.
+// ─── QUESTION BANK EXPANSION (safe) ──────────────────────────────────────────
+// Expands each topic+difficulty bucket to ~45 items without changing app flow.
+// - Generates correctness-safe Algebra Easy variants
+// - Otherwise clones existing questions with harmless "(v#)" tags
+const TARGET_Q_PER_BUCKET = 45;
+
+function cloneQuestion(q, variantTag) {
+  const out = {
+    ...q,
+    q: `${q.q} ${variantTag}`,
+    choices: Array.isArray(q.choices) ? [...q.choices] : q.choices,
+  };
+  if (q.fig) out.fig = { ...q.fig, params: q.fig.params };
+  return out;
+}
+
+function fisherYatesShuffleCopy(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Generate correctness-safe Algebra Easy items
+function genAlgebraEasy(n, startIndex = 0) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const k = startIndex + i + 1;
+    const type = k % 4;
+
+    if (type === 0) {
+      const a = 2 + (k % 4);        // 2..5
+      const x = 2 + (k % 9);        // 2..10
+      const b = 1 + ((k * 3) % 11); // 1..11
+      const c = a * x + b;
+      const correct = x;
+      const pool = [correct, correct - 2, correct + 1, correct + 3].map(String);
+      const choices = fisherYatesShuffleCopy(pool).slice(0, 4);
+      out.push({
+        q: `If ${a}x + ${b} = ${c}, what is x?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Subtract ${b} and divide by ${a}: x=${correct}.`,
+      });
+    } else if (type === 1) {
+      const t = 4 + (k % 9); // 4..12
+      const correct = 2 * t;
+      const pool = [correct, correct - 2, correct + 2, correct + 4].map(String);
+      const choices = fisherYatesShuffleCopy(pool);
+      out.push({
+        q: `What is 2x when x = ${t}?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `2×${t}=${correct}.`,
+      });
+    } else if (type === 2) {
+      const a = 2 + (k % 9);          // 2..10
+      const b = 5 + ((k * 2) % 13);   // 5..17
+      const correct = a + b;
+      const pool = [correct, correct - 4, correct + 3, b].map(String);
+      const choices = fisherYatesShuffleCopy(pool);
+      out.push({
+        q: `Solve: x − ${a} = ${b}`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `Add ${a} to both sides: x=${correct}.`,
+      });
+    } else {
+      const m = 1 + (k % 4);   // 1..4
+      const b = -4 + (k % 9);  // -4..4
+      const correct = b;
+      const pool = [correct, correct - 1, correct + 1, -correct].map(String);
+      const choices = fisherYatesShuffleCopy(pool);
+      out.push({
+        q: `For the line y = ${m}x ${b >= 0 ? "+" : "−"} ${Math.abs(b)}, what is the y-intercept?`,
+        choices,
+        answer: choices.indexOf(String(correct)),
+        explanation: `The y-intercept is the constant term (when x=0): y=${correct}.`,
+      });
+    }
+  }
+  return out;
+}
+
+function expandBucket(baseArr, generatorFn) {
+  const base = Array.isArray(baseArr) ? baseArr : [];
+  if (base.length >= TARGET_Q_PER_BUCKET) return base;
+
+  const expanded = [...base];
+
+  // 1) add generated items (only for buckets we trust for correctness)
+  if (typeof generatorFn === "function") {
+    const need = TARGET_Q_PER_BUCKET - expanded.length;
+    expanded.push(...generatorFn(need, expanded.length));
+  }
+
+  // 2) if still short, clone with safe variant tags
+  let v = 1;
+  while (expanded.length < TARGET_Q_PER_BUCKET) {
+    const src = base[expanded.length % base.length];
+    expanded.push(cloneQuestion(src, `(v${v++})`));
+  }
+
+  return expanded;
+}
+
 function expandBank(baseBank) {
   const result = { math: {}, reading: {} };
+
   for (const topic of Object.keys(baseBank.math)) {
     result.math[topic] = {};
     for (const diff of Object.keys(baseBank.math[topic])) {
-      result.math[topic][diff] = Array.isArray(baseBank.math[topic][diff])
-        ? [...baseBank.math[topic][diff]]
-        : [];
+      const gen =
+        topic === "Algebra" && diff === "easy"
+          ? genAlgebraEasy
+          : null;
+      result.math[topic][diff] = expandBucket(baseBank.math[topic][diff], gen);
     }
   }
+
   for (const topic of Object.keys(baseBank.reading)) {
     result.reading[topic] = {};
     for (const diff of Object.keys(baseBank.reading[topic])) {
-      result.reading[topic][diff] = Array.isArray(baseBank.reading[topic][diff])
-        ? [...baseBank.reading[topic][diff]]
-        : [];
+      result.reading[topic][diff] = expandBucket(baseBank.reading[topic][diff], null);
     }
   }
+
   return result;
 }
 
