@@ -413,7 +413,7 @@ function makePassage(domainKey){
 function genRW(id, topic, diff){
   const dom = choice(domains);
   const passageObj = makePassage(dom.key);
-  const passage = passageObj.text;
+  let passage = passageObj.text;
 
   // Vocabulary targets (pick a word we include)
   const vocabPairs = [
@@ -449,6 +449,31 @@ function genRW(id, topic, diff){
 
   if(topic==="Vocabulary in Context"){
     const [word, meaning] = choice(vocabPairs);
+    // Ensure the target word actually appears in the passage in a coherent way.
+    // We keep passages short (2–4 sentences) and SAT-like.
+    const hasWord = new RegExp(`\\b${word}\\b`, "i").test(passage);
+    if(!hasWord){
+      const inserts = {
+        "speculation": `Some critics dismissed the early conclusion as speculation rather than evidence.` ,
+        "promising": `At first, the results seemed promising, but later analysis raised doubts.` ,
+        "complicated": `Later findings complicated the initial impression, making simple conclusions harder to defend.` ,
+        "interpret": `The team debated how best to interpret the results given the limited sample.` ,
+        "overlooked": `A later review identified an overlooked variable that affected the outcome.` ,
+        "cautioned": `The authors cautioned readers against treating the pattern as definitive.` ,
+        "nuance": `A key nuance in the data suggested that context mattered more than expected.` ,
+        "reliable": `The revision produced more reliable measurements across repeated trials.` ,
+        "emphasizes": `Overall, the discussion emphasizes careful reasoning rather than quick certainty.`
+      };
+      const extra = inserts[word] || `In the discussion, the author uses the word ${word} to clarify the point.`;
+      // Insert before the final sentence if possible to keep flow.
+      const sents = passage.split(/(?<=[.!?])\s+/).filter(Boolean);
+      if(sents.length >= 2){
+        sents.splice(Math.min(2, sents.length), 0, extra);
+        passage = sents.join(" ");
+      } else {
+        passage = `${passage} ${extra}`;
+      }
+    }
     const question = `As used in the passage, what does "${word}" most nearly mean?`;
     const correct = meaning;
     const distractors = [
