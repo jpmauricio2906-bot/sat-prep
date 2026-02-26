@@ -126,9 +126,12 @@ const useTheme = () => useContext(ThemeCtx);
 
 // ─── SAT STRUCTURE ────────────────────────────────────────────────────────────
 const TEST_LENGTHS = {
-  full:    { label:"Full SAT",    total:98, rw:54, math:44, time:"2h 14min" },
-  half:    { label:"Half Length", total:49, rw:27, math:22, time:"~67min"   },
-  quarter: { label:"Quarter",     total:25, rw:14, math:11, time:"~34min"   },
+  // Real Digital SAT: 54 R&W + 44 Math = 98 questions, 64+70 = 134 min
+  full:    { label:"Full SAT",      total:98, rw:54, math:44, time:"2h 14min" },
+  // Half: one full module of each section
+  half:    { label:"Half Length",   total:49, rw:27, math:22, time:"~67min"   },
+  // Quarter: representative sample of each section
+  quarter: { label:"Quarter Length",total:25, rw:14, math:11, time:"~34min"   },
 };
 const DIFFICULTY_LEVELS = {
   easy:   { label:"Easy",   color:"#2ecc71", desc:"Build confidence with foundational questions" },
@@ -1117,9 +1120,19 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
   const [showExp,setShowExp]=useState(false);
   const [results,setResults]=useState([]);
   const [secsLeft,setSecsLeft]=useState(secondsTotal);
+  // Ref always holds the latest results so timer/submit closures are never stale
+  const resultsRef = React.useRef([]);
+  const doneCalledRef = React.useRef(false);
+
+  function safeDone(r){
+    if(doneCalledRef.current) return;
+    doneCalledRef.current = true;
+    onDone(r);
+  }
 
   useEffect(()=>{
     setSecsLeft(secondsTotal);
+    doneCalledRef.current = false;
   },[secondsTotal]);
 
   useEffect(()=>{
@@ -1129,8 +1142,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
 
   useEffect(()=>{
     if(secsLeft<=0){
-      // time up: finish section immediately
-      onDone(results);
+      safeDone(resultsRef.current);
     }
   },[secsLeft]);
 
@@ -1145,12 +1157,15 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
     if(selected!==null) return;
     setSelected(i);
     setShowExp(true);
-    setResults(r=>[...r,{section:q.section,topic:q.topic,correct:i===q.answer}]);
+    const newEntry = {section:q.section,topic:q.topic,correct:i===q.answer};
+    const updated = [...resultsRef.current, newEntry];
+    resultsRef.current = updated;
+    setResults(updated);
   }
 
   function next(){
     if(isLast){
-      onDone(results);
+      safeDone(resultsRef.current);
     } else {
       setIdx(i=>i+1);
       setSelected(null);
@@ -1170,7 +1185,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
 
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
         <span style={{color:sc,fontWeight:700,fontSize:13}}>{idx+1} / {questions.length}</span>
-        <button onClick={()=>onDone(results)} style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:10,padding:'8px 12px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:700,fontSize:12}}>Submit section</button>
+        <button onClick={()=>safeDone(resultsRef.current)} style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:10,padding:'8px 12px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:700,fontSize:12}}>Submit section</button>
       </div>
 
       <div style={{height:4,background:T.bgInput,borderRadius:4,marginBottom:28}}>
@@ -1219,14 +1234,18 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
 function MockRunner({mock,onBack,onDone}){
   const T=useTheme();
   const [secIdx,setSecIdx]=useState(0);
-  const [allResults,setAllResults]=useState([]);
+  // Use a ref so finishSection always sees the latest accumulated results
+  // even though React state updates are asynchronous
+  const allResultsRef = React.useRef([]);
 
   const sec = mock.sections[secIdx];
   const secsTotal = (sec.minutes||1)*60;
 
   function finishSection(sectionResults){
-    const merged = [...allResults, ...sectionResults.map(r=>({...r, section: sec.key}))];
-    setAllResults(merged);
+    // sectionResults already have section/topic set by TimedSectionView;
+    // accumulate into the ref immediately (synchronous)
+    const merged = [...allResultsRef.current, ...sectionResults];
+    allResultsRef.current = merged;
 
     if(secIdx === mock.sections.length-1){
       onDone(merged);
@@ -1410,6 +1429,8 @@ function QuizView({questions,onDone,onExit,headerLabel}){
   const [selected,setSelected]=useState(null);
   const [showExp,setShowExp]=useState(false);
   const [results,setResults]=useState([]);
+  // Ref keeps results in sync so onDone never receives stale state
+  const resultsRef = React.useRef([]);
   if(!questions||!questions.length) return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:32}}><p style={{color:T.textSub}}>No questions available.</p></div>);
   const q=questions[idx],isLast=idx===questions.length-1;
   const progress=((idx+1)/questions.length)*100;
@@ -1417,11 +1438,12 @@ function QuizView({questions,onDone,onExit,headerLabel}){
   function choose(i){
     if(selected!==null)return;
     setSelected(i);setShowExp(true);
-    setResults(r=>[...r,{section:q.section,topic:q.topic,correct:i===q.answer}]);
+    const updated=[...resultsRef.current,{section:q.section,topic:q.topic,correct:i===q.answer}];
+    resultsRef.current=updated;
+    setResults(updated);
   }
   function next(){
-    // Results are recorded once at selection time; do not double-count.
-    if(isLast){onDone(results);}else{setIdx(i=>i+1);setSelected(null);setShowExp(false);}
+    if(isLast){onDone(resultsRef.current);}else{setIdx(i=>i+1);setSelected(null);setShowExp(false);}
   }
   function requestExit(){
     if(!onExit) return;
