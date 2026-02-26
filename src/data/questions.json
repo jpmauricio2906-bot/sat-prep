@@ -26040,32 +26040,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Draw",
-        "Favorable",
-        "Total",
-        "Probability"
+        "Color",
+        "Count"
       ],
       "rows": [
         [
-          "1st red",
-          "5",
-          "8",
-          "5/8"
+          "Red",
+          "5"
         ],
         [
-          "2nd red (given 1st red)",
-          "4",
-          "7",
-          "4/7"
+          "Blue",
+          "3"
         ],
         [
-          "Both red",
-          "\u2014",
-          "\u2014",
-          "5/8 \u00d7 4/7 = 5/14"
+          "Total",
+          "8"
         ]
       ],
-      "caption": "Without Replacement Probability"
+      "caption": "Marble bag (drawing 2 without replacement)"
     }
   },
   {
@@ -26278,24 +26270,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Event",
-        "Probability"
+        "Die",
+        "Outcomes"
       ],
       "rows": [
         [
-          "P(no 6 on one die)",
-          "5/6"
+          "Die 1",
+          "1, 2, 3, 4, 5, 6"
         ],
         [
-          "P(no 6 on either die)",
-          "(5/6)\u00b2 = 25/36"
+          "Die 2",
+          "1, 2, 3, 4, 5, 6"
         ],
         [
-          "P(at least one 6)",
-          "1 \u2212 25/36 = 11/36"
+          "Total outcomes",
+          "36"
         ]
       ],
-      "caption": "At Least One 6 (Complement Rule)"
+      "caption": "Two fair dice \u2014 find P(at least one 6)"
     }
   },
   {
@@ -26453,28 +26445,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Draw",
-        "Event",
-        "Probability"
+        "Color",
+        "Count"
       ],
       "rows": [
         [
-          "1st",
           "Red",
-          "4/10"
+          "4"
         ],
         [
-          "2nd",
-          "Green (given 1st red)",
-          "3/9 = 1/3"
+          "Blue",
+          "3"
         ],
         [
-          "Combined",
-          "Red then Green",
-          "4/10 \u00d7 1/3 = 2/15"
+          "Green",
+          "3"
+        ],
+        [
+          "Total",
+          "10"
         ]
       ],
-      "caption": "Without Replacement: Red then Green"
+      "caption": "Marble bag (drawing 2 without replacement)"
     }
   },
   {
@@ -26727,28 +26719,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Draw",
-        "Event",
-        "Probability"
+        "Color",
+        "Count"
       ],
       "rows": [
         [
-          "1st",
+          "Red",
+          "6"
+        ],
+        [
           "Blue",
-          "4/10"
+          "4"
         ],
         [
-          "2nd",
-          "Blue (given 1st blue)",
-          "3/9"
-        ],
-        [
-          "Combined",
-          "Both Blue",
-          "4/10 \u00d7 3/9 = 2/15"
+          "Total",
+          "10"
         ]
       ],
-      "caption": "Without Replacement: Both Blue"
+      "caption": "Marble bag (drawing 2 without replacement)"
     }
   },
   {
@@ -26768,20 +26756,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Event",
-        "Probability"
+        "Flips",
+        "Total outcomes"
       ],
       "rows": [
         [
-          "P(all heads)",
-          "(1/2)\u2074 = 1/16"
+          "1 flip",
+          "2"
         ],
         [
-          "P(at least 1 tail)",
-          "1 \u2212 1/16 = 15/16"
+          "2 flips",
+          "4"
+        ],
+        [
+          "3 flips",
+          "8"
+        ],
+        [
+          "4 flips",
+          "16"
         ]
       ],
-      "caption": "Complement Rule: At Least One Tail"
+      "caption": "Fair coin: total outcomes by number of flips"
     }
   },
   {
@@ -26978,24 +26974,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Selection",
-        "Count"
+        "Group",
+        "Available"
       ],
       "rows": [
         [
-          "Choose 2 women from 4",
-          "C(4,2) = 6"
+          "Men",
+          "6"
         ],
         [
-          "Choose 2 men from 6",
-          "C(6,2) = 15"
+          "Women",
+          "4"
         ],
         [
-          "Total committees",
-          "6 \u00d7 15 = 90"
+          "Committee size",
+          "4 (exactly 2 women)"
+        ],
+        [
+          "Formula",
+          "C(n,r) = n! / (r!(n\u2212r)!)"
         ]
       ],
-      "caption": "Committee Selection with Restriction"
+      "caption": "Committee selection with restriction"
     }
   },
   {
@@ -27015,24 +27015,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Event",
-        "Probability"
+        "Rolls",
+        "Total outcomes"
       ],
       "rows": [
         [
-          "P(no 6 on one roll)",
-          "5/6"
+          "1 roll",
+          "6"
         ],
         [
-          "P(no 6 on three rolls)",
-          "(5/6)\u00b3 = 125/216"
+          "2 rolls",
+          "36"
         ],
         [
-          "P(at least one 6)",
-          "1 \u2212 125/216 = 91/216"
+          "3 rolls",
+          "216"
+        ],
+        [
+          "Outcomes with no 6 per roll",
+          "5"
         ]
       ],
-      "caption": "At Least One 6 in 3 Rolls"
+      "caption": "Rolling a die 3 times \u2014 find P(at least one 6)"
     }
   },
   {
@@ -27185,24 +27189,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Step",
-        "Count"
+        "People",
+        "Total linear arrangements"
       ],
       "rows": [
         [
-          "Treat A+B as one block",
-          "5 items \u2192 5! = 120 arrangements"
+          "6 people",
+          "6! = 720"
         ],
         [
-          "A and B can swap within block",
-          "\u00d72"
+          "Treat A+B as 1 block",
+          "5 items remain"
         ],
         [
-          "Total arrangements",
-          "120 \u00d7 2 = 240"
+          "Hint",
+          "A and B can be in 2 orders within block"
         ]
       ],
-      "caption": "Permutation with Adjacency Restriction"
+      "caption": "6 people in a row \u2014 A and B must be adjacent"
     }
   },
   {
@@ -27309,20 +27313,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Event",
-        "Probability"
+        "Flips",
+        "Total outcomes"
       ],
       "rows": [
         [
-          "P(all tails)",
-          "(1/2)\u2075 = 1/32"
+          "1 flip",
+          "2"
         ],
         [
-          "P(at least 1 head)",
-          "1 \u2212 1/32 = 31/32"
+          "3 flips",
+          "8"
+        ],
+        [
+          "4 flips",
+          "16"
+        ],
+        [
+          "5 flips",
+          "32"
         ]
       ],
-      "caption": "Complement Rule: 5 Coin Flips"
+      "caption": "Fair coin: total outcomes by number of flips"
     }
   },
   {
@@ -27383,24 +27395,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Step",
-        "Count"
+        "Position",
+        "Constraint"
       ],
       "rows": [
         [
-          "Positions for C (not ends)",
-          "3 (positions 2, 3, 4)"
+          "Position 1 (left end)",
+          "C cannot sit here"
         ],
         [
-          "Remaining 4 people in 4 seats",
-          "4! = 24"
+          "Positions 2, 3, 4",
+          "C may sit here"
         ],
         [
-          "Total arrangements",
-          "3 \u00d7 24 = 72"
+          "Position 5 (right end)",
+          "C cannot sit here"
+        ],
+        [
+          "Remaining seats",
+          "4 people, 4 seats"
         ]
       ],
-      "caption": "Permutation: C Cannot Sit at Ends"
+      "caption": "5 people in a row \u2014 C cannot sit at either end"
     }
   },
   {
@@ -27470,28 +27486,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Draw",
-        "Event",
-        "Probability"
+        "Cards",
+        "Count"
       ],
       "rows": [
         [
-          "1st",
-          "Even card (5 of 10)",
-          "5/10 = 1/2"
+          "Even (2,4,6,8,10)",
+          "5"
         ],
         [
-          "2nd",
-          "Even card (4 of 9 remaining)",
-          "4/9"
+          "Odd (1,3,5,7,9)",
+          "5"
         ],
         [
-          "Combined",
-          "Both even",
-          "1/2 \u00d7 4/9 = 2/9"
+          "Total",
+          "10"
         ]
       ],
-      "caption": "Cards Drawn Without Replacement"
+      "caption": "Deck of 10 cards (drawing 2 without replacement)"
     }
   },
   {
@@ -27557,23 +27569,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Type",
-        "Formula",
-        "Value"
+        "Arrangement type",
+        "Formula"
       ],
       "rows": [
         [
-          "Linear arrangements",
-          "8!",
-          "40320"
+          "Linear (fixed start)",
+          "n!"
         ],
         [
-          "Circular (fix one seat)",
-          "(8\u22121)! = 7!",
-          "5040"
+          "Circular (rotations same)",
+          "(n\u22121)!"
+        ],
+        [
+          "8 people linear",
+          "8! = 40320"
         ]
       ],
-      "caption": "Circular vs. Linear Permutations"
+      "caption": "Circular vs linear permutations \u2014 8 people at a round table"
     }
   },
   {
@@ -27726,19 +27739,22 @@
       "type": "table",
       "headers": [
         "Books",
-        "Arrangements"
+        "Slots",
+        "Arrangement type"
       ],
       "rows": [
         [
-          "5 books in 5 slots",
-          "5! = 120"
+          "5",
+          "5",
+          "All books used"
         ],
         [
           "Formula",
-          "nPn = n!"
+          "nPn = n!",
+          "order matters"
         ]
       ],
-      "caption": "Permutation Reference"
+      "caption": "Arranging 5 books on a shelf"
     }
   },
   {
@@ -27803,18 +27819,23 @@
     "visual": {
       "type": "table",
       "headers": [
-        "n",
-        "r",
-        "C(n,r)"
+        "Available",
+        "To choose",
+        "Order matters?"
       ],
       "rows": [
         [
-          "7",
+          "7 candidates",
           "3",
-          "35"
+          "No"
+        ],
+        [
+          "Formula",
+          "C(n,r) = n!/(r!(n\u2212r)!)",
+          "\u2014"
         ]
       ],
-      "caption": "Combination: choosing 3 from 7"
+      "caption": "Committee selection: 3 from 7"
     }
   },
   {
@@ -27916,18 +27937,23 @@
     "visual": {
       "type": "table",
       "headers": [
-        "n",
-        "r",
-        "C(n,r)"
+        "Available",
+        "To select",
+        "Order matters?"
       ],
       "rows": [
         [
-          "9",
+          "9 students",
           "4",
-          "126"
+          "No (committee)"
+        ],
+        [
+          "Formula",
+          "C(n,r) = n!/(r!(n\u2212r)!)",
+          "\u2014"
         ]
       ],
-      "caption": "Combination: 4 from 9"
+      "caption": "Committee selection: 4 from 9"
     }
   },
   {
@@ -28313,28 +28339,24 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Step",
-        "Value"
+        "Position",
+        "Choices available"
       ],
       "rows": [
         [
           "1st letter",
-          "5 choices"
+          "5 (A,B,C,D,E)"
         ],
         [
           "2nd letter",
-          "4 choices"
+          "4 (no repeats)"
         ],
         [
           "3rd letter",
-          "3 choices"
-        ],
-        [
-          "Total arrangements",
-          "5\u00d74\u00d73 = 60"
+          "3 (no repeats)"
         ]
       ],
-      "caption": "Permutation of Letters"
+      "caption": "3-letter arrangements from A,B,C,D,E (no repeats)"
     }
   },
   {
@@ -28518,18 +28540,23 @@
     "visual": {
       "type": "table",
       "headers": [
-        "n",
-        "r",
-        "C(n,r)"
+        "Available",
+        "To choose",
+        "Order matters?"
       ],
       "rows": [
         [
-          "8",
+          "8 books",
           "3",
-          "56"
+          "No"
+        ],
+        [
+          "Formula",
+          "C(n,r) = n!/(r!(n\u2212r)!)",
+          "\u2014"
         ]
       ],
-      "caption": "Combination: 3 from 8"
+      "caption": "Combination: 3 books from 8"
     }
   },
   {
@@ -28628,27 +28655,23 @@
       "type": "table",
       "headers": [
         "Place",
-        "Choices remaining"
+        "Runners available"
       ],
       "rows": [
         [
           "1st place",
-          "6 runners"
+          "6"
         ],
         [
           "2nd place",
-          "5 remaining"
+          "5 (not 1st place winner)"
         ],
         [
           "3rd place",
-          "4 remaining"
-        ],
-        [
-          "Total arrangements",
-          "6\u00d75\u00d74 = 120"
+          "4 (not 1st or 2nd)"
         ]
       ],
-      "caption": "Race Finishing Positions"
+      "caption": "Podium positions: 6 runners"
     }
   },
   {
@@ -28792,31 +28815,27 @@
       "type": "table",
       "headers": [
         "Digit position",
-        "Choices"
+        "Available digits"
       ],
       "rows": [
         [
-          "1st",
-          "9"
+          "1st digit",
+          "9 (digits 1\u20139)"
         ],
         [
-          "2nd",
-          "8"
+          "2nd digit",
+          "8 (no repeat)"
         ],
         [
-          "3rd",
-          "7"
+          "3rd digit",
+          "7 (no repeat)"
         ],
         [
-          "4th",
-          "6"
-        ],
-        [
-          "Total",
-          "9\u00d78\u00d77\u00d76 = 3024"
+          "4th digit",
+          "6 (no repeat)"
         ]
       ],
-      "caption": "PIN Code Arrangements"
+      "caption": "4-digit PIN: digits 1\u20139, no repeats"
     }
   },
   {
@@ -29004,18 +29023,23 @@
     "visual": {
       "type": "table",
       "headers": [
-        "n",
-        "r",
-        "C(n,r)"
+        "Available",
+        "Team size",
+        "Order matters?"
       ],
       "rows": [
         [
-          "7",
+          "7 people",
           "3",
-          "35"
+          "No (team)"
+        ],
+        [
+          "Formula",
+          "C(n,r) = n!/(r!(n\u2212r)!)",
+          "\u2014"
         ]
       ],
-      "caption": "Combination: 3-person team from 7"
+      "caption": "Team selection: 3 from 7"
     }
   },
   {
@@ -29127,32 +29151,28 @@
     "visual": {
       "type": "table",
       "headers": [
-        "Position",
-        "Choices"
+        "Wall position",
+        "Paintings available"
       ],
       "rows": [
         [
-          "1st",
+          "Position 1",
           "4"
         ],
         [
-          "2nd",
-          "3"
+          "Position 2",
+          "3 (remaining)"
         ],
         [
-          "3rd",
-          "2"
+          "Position 3",
+          "2 (remaining)"
         ],
         [
-          "4th",
-          "1"
-        ],
-        [
-          "Total",
-          "4! = 24"
+          "Position 4",
+          "1 (remaining)"
         ]
       ],
-      "caption": "Painting Arrangements"
+      "caption": "Hanging 4 paintings in a row"
     }
   },
   {
@@ -29250,7 +29270,7 @@
       "type": "table",
       "headers": [
         "Medal",
-        "Choices"
+        "Athletes available"
       ],
       "rows": [
         [
@@ -29259,18 +29279,14 @@
         ],
         [
           "Silver",
-          "9"
+          "9 (not gold winner)"
         ],
         [
           "Bronze",
-          "8"
-        ],
-        [
-          "Total arrangements",
-          "10\u00d79\u00d78 = 720"
+          "8 (not gold or silver)"
         ]
       ],
-      "caption": "Medal Ceremony"
+      "caption": "Medal ceremony: 10 athletes"
     }
   }
 ]
