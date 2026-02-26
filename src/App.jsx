@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, useRef, createContext, useContext } from "react";
 import {
   BarChart, Bar, LineChart, Line, ScatterChart, Scatter,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine
@@ -1121,8 +1121,8 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
   const [results,setResults]=useState([]);
   const [secsLeft,setSecsLeft]=useState(secondsTotal);
   // Ref always holds the latest results so timer/submit closures are never stale
-  const resultsRef = React.useRef([]);
-  const doneCalledRef = React.useRef(false);
+  const resultsRef = useRef([]);
+  const doneCalledRef = useRef(false);
 
   function safeDone(r){
     if(doneCalledRef.current) return;
@@ -1236,10 +1236,10 @@ function MockRunner({mock,onBack,onDone}){
   const [secIdx,setSecIdx]=useState(0);
   const [showBreak,setShowBreak]=useState(false);
   // Ref accumulates results across sections without stale-closure issues
-  const allResultsRef = React.useRef([]);
+  const allResultsRef = useRef([]);
 
   // Reset accumulator whenever this MockRunner mounts (covers retries)
-  React.useEffect(()=>{ allResultsRef.current = []; },[]);
+  useEffect(()=>{ allResultsRef.current = []; },[]);
 
   const sec = mock.sections[secIdx];
   const nextSec = mock.sections[secIdx+1];
@@ -1492,7 +1492,9 @@ function QuizView({questions,onDone,onExit,headerLabel}){
   const [showExp,setShowExp]=useState(false);
   const [results,setResults]=useState([]);
   // Ref keeps results in sync so onDone never receives stale state
-  const resultsRef = React.useRef([]);
+  // Must be declared BEFORE any early returns to satisfy Rules of Hooks
+  const resultsRef = useRef([]);
+  // Early return guard — all hooks must be above this line
   if(!questions||!questions.length) return(<div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:32}}><p style={{color:T.textSub}}>No questions available.</p></div>);
   const q=questions[idx],isLast=idx===questions.length-1;
   const progress=((idx+1)/questions.length)*100;
