@@ -20224,27 +20224,27 @@
       }
     }
   },
-  {
+{
     "id": "math_geometry_easy_039",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
     "question": "A triangle has angles x, 2x, and 3x. What is the value of x?",
     "choices": [
-      "20\u00b0",
-      "25\u00b0",
-      "30\u00b0",
-      "36\u00b0"
+      "20°",
+      "25°",
+      "30°",
+      "36°"
     ],
     "answerIndex": 2,
-    "explanation": "x + 2x + 3x = 180\u00b0 \u2192 6x = 180\u00b0 \u2192 x = 30\u00b0.",
+    "explanation": "x + 2x + 3x = 180° → 6x = 180° → x = 30°.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "general_triangle",
       "params": {
-        "a": "x",
-        "b": "2x",
-        "c": "3x"
+        "angleA": "x",
+        "angleB": "2x",
+        "angleC": "3x"
       }
     }
   },
