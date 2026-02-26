@@ -139,7 +139,7 @@ const DIFFICULTY_LEVELS = {
   hard:   { label:"Hard",   color:"#e74c3c", desc:"Challenge yourself with advanced questions"  },
 };
 const SECTIONS = {
-  math:    { label:"Math",              icon:"∑", topics:["Algebra","Geometry","Data Analysis","Advanced Math","Problem Solving"] },
+  math:    { label:"Math",              icon:"∑", topics:["Algebra","Geometry","Data Analysis","Advanced Math","Problem Solving","Statistics & Probability"] },
   reading: { label:"Reading & Writing", icon:"✦", topics:["Main Idea","Vocabulary in Context","Evidence","Grammar","Rhetorical Skills"] },
 };
 
@@ -237,6 +237,12 @@ function SVGFigure({ type, params }) {
   }
   if (type==="coordinate_plane") {
     const {points=[],lineEq,curve}=params;
+    // Grid: ±5 range, uniform 22px per unit on both axes, centered at (140,105)
+    const CX=140, CY=105, STEP=22;
+    const sx = v => CX + v*STEP;
+    const sy = v => CY - v*STEP;
+    const RANGE = [-4,-3,-2,-1,0,1,2,3,4];
+
     // Build a render function from either a legacy lineEq function or a JSON curve descriptor
     const getCurveEq = () => {
       if (typeof lineEq === "function") return lineEq;
@@ -247,30 +253,58 @@ function SVGFigure({ type, params }) {
       return null;
     };
     const curveEq = getCurveEq();
-    // Build polyline path for smooth curves (parabola)
     const buildPath = (fn) => {
-      const sx=(v)=>140+v*25, sy=(v)=>100-v*22;
       const pts=[];
-      for(let x=-4;x<=4;x+=0.25){ const y=fn(x); if(y>=-5&&y<=5) pts.push(`${sx(x)},${sy(y)}`); }
+      for(let x=-4;x<=4;x+=0.2){ const y=fn(x); if(y>=-4.5&&y<=4.5) pts.push(`${sx(x).toFixed(1)},${sy(y).toFixed(1)}`); }
       return pts.length>1 ? `M ${pts.join(" L ")}` : null;
     };
+
+    // Label offset: keep labels from overlapping the point dot
+    const labelOffset = (px, py) => {
+      // prefer above-right, but shift if near edge
+      const ox = px >= 3 ? -28 : 6;
+      const oy = py >= 3 ? 14 : -8;
+      return [ox, oy];
+    };
+
     return (<svg width={W} height={H} style={base}>
-      <line x1="20" y1="100" x2="260" y2="100" stroke={T.svgAxis} strokeWidth="1.5"/>
-      <line x1="140" y1="10" x2="140" y2="190" stroke={T.svgAxis} strokeWidth="1.5"/>
-      {[-4,-3,-2,-1,1,2,3,4].map(i=>(<g key={i}>
-        <line x1={140+i*25} y1="10" x2={140+i*25} y2="190" stroke={T.svgGrid} strokeWidth="1"/>
-        <line x1="20" y1={100+i*22} x2="260" y2={100+i*22} stroke={T.svgGrid} strokeWidth="1"/>
-        <text x={140+i*25-3} y="112" fill={T.svgAxisLabel} fontSize="9">{i}</text>
+      {/* Grid lines */}
+      {RANGE.map(i=>(<g key={i}>
+        <line x1={sx(i)} y1="10" x2={sx(i)} y2="195" stroke={T.svgGrid} strokeWidth="1"/>
+        <line x1="15" y1={sy(i)} x2="265" y2={sy(i)} stroke={T.svgGrid} strokeWidth="1"/>
       </g>))}
+      {/* Axes */}
+      <line x1="15" y1={CY} x2="265" y2={CY} stroke={T.svgAxis} strokeWidth="1.8"/>
+      <line x1={CX} y1="10" x2={CX} y2="195" stroke={T.svgAxis} strokeWidth="1.8"/>
+      {/* Axis tick labels — x */}
+      {[-4,-3,-2,-1,1,2,3,4].map(i=>(
+        <text key={i} x={sx(i)-3} y={CY+13} fill={T.svgAxisLabel} fontSize="9" textAnchor="middle">{i}</text>
+      ))}
+      {/* Axis tick labels — y */}
+      {[-4,-3,-2,-1,1,2,3,4].map(i=>(
+        <text key={i} x={CX-8} y={sy(i)+3} fill={T.svgAxisLabel} fontSize="9" textAnchor="end">{i}</text>
+      ))}
+      {/* Axis name labels */}
+      <text x="258" y={CY-5} fill={T.svgAxisLabel} fontSize="11">x</text>
+      <text x={CX+4} y="14"  fill={T.svgAxisLabel} fontSize="11">y</text>
+      {/* Curve / line */}
       {curveEq&&(curve?.type==="parabola" ? (()=>{
         const d=buildPath(curveEq);
         return d ? <path d={d} fill="none" stroke={T.svgArc} strokeWidth="2.5"/> : null;
       })() : (()=>{ const x1v=-4,x2v=4,y1v=curveEq(x1v),y2v=curveEq(x2v);
-        return <line x1={140+x1v*25} y1={100-y1v*22} x2={140+x2v*25} y2={100-y2v*22} stroke={T.svgArc} strokeWidth="2.5"/>;
+        return <line x1={sx(x1v)} y1={sy(y1v)} x2={sx(x2v)} y2={sy(y2v)} stroke={T.svgArc} strokeWidth="2.5"/>;
       })())}
-      {points.map(([px,py],i)=>(<circle key={i} cx={140+px*25} cy={100-py*22} r="5" fill={T.svgStroke} stroke={T.svgBg} strokeWidth="2"/>))}
-      <text x="255" y="96"  fill={T.svgAxisLabel} fontSize="11">x</text>
-      <text x="143" y="16"  fill={T.svgAxisLabel} fontSize="11">y</text>
+      {/* Points — dot + coordinate label */}
+      {points.map(([px,py],i)=>{
+        const [lox,loy] = labelOffset(px,py);
+        const col = i===0 ? T.svgStroke : T.svgArc;
+        return (<g key={i}>
+          <circle cx={sx(px)} cy={sy(py)} r="5" fill={col} stroke={T.svgBg} strokeWidth="2"/>
+          <text x={sx(px)+lox} y={sy(py)+loy} fill={col} fontSize="10" fontWeight="700">
+            ({px},{py})
+          </text>
+        </g>);
+      })}
     </svg>);
   }
   if (type==="cylinder") {
@@ -701,6 +735,7 @@ function fingerprintQuestion(q){
 function needsVisual(q){
   if(q.section === "math" && q.topic === "Geometry") return true;
   if(q.section === "math" && q.topic === "Data Analysis") return true;
+  if(q.section === "math" && q.topic === "Statistics & Probability") return true;
   return false;
 }
 
@@ -716,7 +751,12 @@ function isVisualAcceptable(q){
     // Data Analysis: chart or table
     if(q.visual.type === "chart") return true;
     if(q.visual.type === "table") return true;
-    // allow svg if you encoded charts as svg
+    return q.visual.type === "svg";
+  }
+  if(q.section === "math" && q.topic === "Statistics & Probability"){
+    // Statistics & Probability: chart or table
+    if(q.visual.type === "chart") return true;
+    if(q.visual.type === "table") return true;
     return q.visual.type === "svg";
   }
   return true;
