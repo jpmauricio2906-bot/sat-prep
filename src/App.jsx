@@ -190,12 +190,18 @@ function SVGFigure({ type, params }) {
   const base={ background:T.svgBg, border:`1px solid ${T.border}`, borderRadius:10, padding:12, margin:"0 auto 20px", display:"block" };
   if (type==="right_triangle") {
     const {a=3,b=4,c=5}=params;
+    const labelA = a==="?" ? "?" : String(a);
+    const labelB = b==="?" ? "?" : String(b);
+    const labelC = c==="?" ? "?" : String(c);
+    const colA = a==="?" ? T.correct : T.svgLabel;
+    const colB = b==="?" ? T.correct : T.svgLabel;
+    const colC = c==="?" ? T.correct : T.svgLabel;
     return (<svg width={W} height={H} style={base}>
       <polygon points="40,160 200,160 200,40" fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
       <rect x="188" y="148" width="12" height="12" fill="none" stroke={T.svgStroke} strokeWidth="1.5"/>
-      <text x="120" y="178" fill={T.svgLabel} fontSize="14" textAnchor="middle">{a}</text>
-      <text x="215" y="105" fill={T.svgLabel} fontSize="14">{b}</text>
-      <text x="105" y="90"  fill={T.correct}  fontSize="14">{c} ?</text>
+      <text x="120" y="178" fill={colA} fontSize="14" textAnchor="middle">{labelA}</text>
+      <text x="218" y="108" fill={colB} fontSize="14" textAnchor="start">{labelB}</text>
+      <text x="100" y="88"  fill={colC} fontSize="14" textAnchor="middle">{labelC}</text>
       <text x="48"  y="155" fill={T.svgMuted} fontSize="11">A</text>
       <text x="204" y="155" fill={T.svgMuted} fontSize="11">B</text>
       <text x="204" y="38"  fill={T.svgMuted} fontSize="11">C</text>
@@ -227,7 +233,24 @@ function SVGFigure({ type, params }) {
     </svg>);
   }
   if (type==="coordinate_plane") {
-    const {points=[],lineEq}=params;
+    const {points=[],lineEq,curve}=params;
+    // Build a render function from either a legacy lineEq function or a JSON curve descriptor
+    const getCurveEq = () => {
+      if (typeof lineEq === "function") return lineEq;
+      if (curve) {
+        if (curve.type === "line")     return x => curve.m * x + curve.b;
+        if (curve.type === "parabola") return x => curve.a * (x - curve.h) ** 2 + curve.k;
+      }
+      return null;
+    };
+    const curveEq = getCurveEq();
+    // Build polyline path for smooth curves (parabola)
+    const buildPath = (fn) => {
+      const sx=(v)=>140+v*25, sy=(v)=>100-v*22;
+      const pts=[];
+      for(let x=-4;x<=4;x+=0.25){ const y=fn(x); if(y>=-5&&y<=5) pts.push(`${sx(x)},${sy(y)}`); }
+      return pts.length>1 ? `M ${pts.join(" L ")}` : null;
+    };
     return (<svg width={W} height={H} style={base}>
       <line x1="20" y1="100" x2="260" y2="100" stroke={T.svgAxis} strokeWidth="1.5"/>
       <line x1="140" y1="10" x2="140" y2="190" stroke={T.svgAxis} strokeWidth="1.5"/>
@@ -236,23 +259,27 @@ function SVGFigure({ type, params }) {
         <line x1="20" y1={100+i*22} x2="260" y2={100+i*22} stroke={T.svgGrid} strokeWidth="1"/>
         <text x={140+i*25-3} y="112" fill={T.svgAxisLabel} fontSize="9">{i}</text>
       </g>))}
-      {lineEq&&(()=>{ const x1v=-4,x2v=4,y1v=lineEq(x1v),y2v=lineEq(x2v);
+      {curveEq&&(curve?.type==="parabola" ? (()=>{
+        const d=buildPath(curveEq);
+        return d ? <path d={d} fill="none" stroke={T.svgArc} strokeWidth="2.5"/> : null;
+      })() : (()=>{ const x1v=-4,x2v=4,y1v=curveEq(x1v),y2v=curveEq(x2v);
         return <line x1={140+x1v*25} y1={100-y1v*22} x2={140+x2v*25} y2={100-y2v*22} stroke={T.svgArc} strokeWidth="2.5"/>;
-      })()}
+      })())}
       {points.map(([px,py],i)=>(<circle key={i} cx={140+px*25} cy={100-py*22} r="5" fill={T.svgStroke} stroke={T.svgBg} strokeWidth="2"/>))}
       <text x="255" y="96"  fill={T.svgAxisLabel} fontSize="11">x</text>
       <text x="143" y="16"  fill={T.svgAxisLabel} fontSize="11">y</text>
     </svg>);
   }
   if (type==="cylinder") {
+    const {r=3, h=10}=params;
     return (<svg width={W} height={H} style={base}>
       <ellipse cx="140" cy="55"  rx="60" ry="18" fill={T.svgFill}    stroke={T.svgStroke} strokeWidth="2"/>
       <rect x="80" y="55" width="120" height="100" fill={T.svgFill} stroke="none"/>
       <line x1="80"  y1="55" x2="80"  y2="155" stroke={T.svgStroke} strokeWidth="2"/>
       <line x1="200" y1="55" x2="200" y2="155" stroke={T.svgStroke} strokeWidth="2"/>
       <ellipse cx="140" cy="155" rx="60" ry="18" fill={T.svgCylBtm} stroke={T.svgStroke} strokeWidth="2"/>
-      <text x="210" y="110" fill={T.svgLabel} fontSize="13">h=10</text>
-      <text x="140" y="48"  fill={T.svgLabel} fontSize="13" textAnchor="middle">r=3</text>
+      <text x="210" y="110" fill={T.svgLabel} fontSize="13">h={h}</text>
+      <text x="140" y="48"  fill={T.svgLabel} fontSize="13" textAnchor="middle">r={r}</text>
       <line x1="140" y1="55" x2="200" y2="55" stroke={T.svgLabel} strokeWidth="1.5" strokeDasharray="4"/>
     </svg>);
   }
@@ -775,8 +802,8 @@ function buildBankFromQuestionList(list){
       explanation: q.explanation,
       fig: q.visual,
       passage: q.passage,
-      underline: raw.underline ?? null,        // ← ADD THIS
-      choiceMode: raw.choiceMode ?? null,      // ← ADD THIS
+      underline: raw.underline ?? null,
+      choiceMode: raw.choiceMode ?? null,
     };
 
     const sec = q.section;
