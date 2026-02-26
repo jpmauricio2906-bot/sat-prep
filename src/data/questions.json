@@ -560,20 +560,20 @@
     "explanation": "The review advocates conditional use with governance safeguards."
   },
   {
-    "id": "rw_rhetorical_hard_036",
+    "id": "rw_rhetorical_hard_001",
     "section": "reading",
     "topic": "Rhetorical Skills",
     "difficulty": "hard",
-    "passage": "A psychologist analyzes how framing political messages affects voter turnout. Experiments show that emphasizing civic duty increases participation rates. Yet follow-up interviews reveal that some voters respond negatively to moralized appeals. The psychologist concludes that persuasive framing operates unevenly across audiences.",
+    "passage": "A policy analyst evaluating a carbon pricing proposal notes that its advocates emphasize market efficiency and long-term emissions reductions. Early modeling suggests the policy could reduce industrial output in the short term. Critics, however, argue that such projections underestimate firms' capacity for technological adaptation. The analyst ultimately contends that the debate hinges less on whether output will shift than on how quickly innovation can offset transitional costs.",
     "question": "Which transition would most effectively introduce the third sentence?",
     "choices": [
-      "Similarly,",
-      "However,",
       "For example,",
-      "Consequently,"
+      "Nevertheless,",
+      "Similarly,",
+      "As a result,"
     ],
     "answerIndex": 1,
-    "explanation": "The third sentence introduces a counterpoint to the experimental findings."
+    "explanation": "The third sentence introduces a partial contrast to the short-term output concern, acknowledging a counterpoint without rejecting the modeling entirely; \u201cNevertheless,\u201d best captures this concessive pivot."
   },
   {
     "id": "rw_rhetorical_hard_037",
