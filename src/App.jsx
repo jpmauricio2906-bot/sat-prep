@@ -1234,41 +1234,103 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
 function MockRunner({mock,onBack,onDone}){
   const T=useTheme();
   const [secIdx,setSecIdx]=useState(0);
-  // Use a ref so finishSection always sees the latest accumulated results
-  // even though React state updates are asynchronous
+  const [showBreak,setShowBreak]=useState(false);
+  // Ref accumulates results across sections without stale-closure issues
   const allResultsRef = React.useRef([]);
 
+  // Reset accumulator whenever this MockRunner mounts (covers retries)
+  React.useEffect(()=>{ allResultsRef.current = []; },[]);
+
   const sec = mock.sections[secIdx];
+  const nextSec = mock.sections[secIdx+1];
   const secsTotal = (sec.minutes||1)*60;
+  const totalSections = mock.sections.length;
 
   function finishSection(sectionResults){
-    // sectionResults already have section/topic set by TimedSectionView;
-    // accumulate into the ref immediately (synchronous)
     const merged = [...allResultsRef.current, ...sectionResults];
     allResultsRef.current = merged;
 
-    if(secIdx === mock.sections.length-1){
+    if(secIdx === totalSections-1){
       onDone(merged);
     } else {
-      setSecIdx(i=>i+1);
+      // Show a break screen between sections instead of jumping directly
+      setShowBreak(true);
     }
   }
+
+  function startNextSection(){
+    setShowBreak(false);
+    setSecIdx(i=>i+1);
+  }
+
+  const isReading = sec.key === 'reading';
+  const accentColor = isReading ? T.accent2 : T.accent1;
 
   const header = (
     <div style={{background:T.bgHero,border:`1px solid ${T.border}`,borderRadius:20,padding:'18px 22px',display:'flex',justifyContent:'space-between',alignItems:'center',gap:12,flexWrap:'wrap'}}>
       <div>
-        <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:6}}>TIMED MOCK</div>
-        <div style={{fontWeight:900,fontSize:18,color:T.text}}>{secIdx+1}/2 · {sec.label}</div>
-        <div style={{color:T.textSub,fontSize:12}}>Length: {TEST_LENGTHS[mock.length].label} · Difficulty: {DIFFICULTY_LEVELS[mock.difficulty].label}</div>
+        <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:accentColor,marginBottom:6}}>
+          SECTION {secIdx+1} OF {totalSections}
+        </div>
+        <div style={{fontWeight:900,fontSize:18,color:T.text}}>{sec.label}</div>
+        <div style={{color:T.textSub,fontSize:12,marginTop:3}}>
+          {TEST_LENGTHS[mock.length].label} · {DIFFICULTY_LEVELS[mock.difficulty].label} · {sec.questions.length} questions · {sec.minutes} min
+        </div>
       </div>
       <button onClick={onBack} style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:10,padding:'10px 12px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:800,fontSize:12}}>Exit</button>
     </div>
   );
 
+  // Between-section break screen
+  if(showBreak && nextSec){
+    return(
+      <div style={{display:'flex',flexDirection:'column',gap:16}}>
+        {header}
+        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:20,padding:'40px 28px',textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center',gap:20}}>
+          <div style={{fontSize:40}}>☕</div>
+          <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,textTransform:'uppercase'}}>Section Complete</div>
+          <h2 style={{fontSize:26,fontWeight:900,color:T.text,margin:0}}>Great work on {sec.label}!</h2>
+          <p style={{color:T.textSub,fontSize:14,margin:0,maxWidth:400,lineHeight:1.6}}>
+            On the real SAT, you would now take a short break before the next section.<br/>
+            When you're ready, begin <strong style={{color:T.accent1}}>{nextSec.label}</strong> — {nextSec.questions.length} questions in {nextSec.minutes} minutes.
+          </p>
+          <div style={{display:'flex',flexDirection:'column',gap:10,width:'100%',maxWidth:340}}>
+            <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:14,padding:'14px 18px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <span style={{color:T.textSub,fontSize:13}}>Next section</span>
+              <span style={{color:T.text,fontWeight:800}}>{nextSec.label}</span>
+            </div>
+            <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:14,padding:'14px 18px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <span style={{color:T.textSub,fontSize:13}}>Questions</span>
+              <span style={{color:T.text,fontWeight:800}}>{nextSec.questions.length}</span>
+            </div>
+            <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:14,padding:'14px 18px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <span style={{color:T.textSub,fontSize:13}}>Time allowed</span>
+              <span style={{color:T.text,fontWeight:800}}>{nextSec.minutes} min</span>
+            </div>
+          </div>
+          <button
+            onClick={startNextSection}
+            style={{padding:'14px 36px',borderRadius:12,border:'none',fontWeight:800,fontSize:15,cursor:'pointer',fontFamily:'inherit',color:'#fff',background:T.accent1,marginTop:8}}
+          >
+            Start {nextSec.label} →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{display:'flex',flexDirection:'column',gap:16}}>
       {header}
-      <TimedSectionView sectionLabel={sec.label} questions={sec.questions} secondsTotal={secsTotal} onDone={finishSection}/>
+      {/* key={secIdx} forces a full remount when section changes,
+          resetting all internal state (idx, timer, results) cleanly */}
+      <TimedSectionView
+        key={secIdx}
+        sectionLabel={sec.label}
+        questions={sec.questions}
+        secondsTotal={secsTotal}
+        onDone={finishSection}
+      />
     </div>
   );
 }
