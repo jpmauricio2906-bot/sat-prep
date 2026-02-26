@@ -143,24 +143,42 @@ const SECTIONS = {
 // Only show the passage box for Reading & Writing question types that require a passage.
 const PASSAGE_TOPICS = new Set(["Main Idea","Evidence","Vocabulary in Context","Rhetorical Skills"]);
 
-function renderPassage(passage, underline, T){
-  // If underline is provided and found in passage, underline the first occurrence.
+function renderPassage(passage, underline, choiceMode){
+  // For Grammar-style items (choiceMode: "replace_underline"), hide the underlined text in the passage
+  // and show an underlined blank instead. For other items, just underline the target text if found.
   if(!passage) return null;
+
+  const shouldHide = choiceMode === "replace_underline";
+
   if(underline && typeof underline === "string"){
     const i = passage.indexOf(underline);
     if(i !== -1){
       const before = passage.slice(0,i);
-      const mid = passage.slice(i, i + underline.length);
       const after = passage.slice(i + underline.length);
+
+      if(shouldHide){
+        return (
+          <span>
+            {before}
+            <span style={{ textDecoration: "underline", textDecorationThickness: "2px" }}>
+              {"_____"}{/* hidden target */}
+            </span>
+            {after}
+          </span>
+        );
+      }
+
+      // Otherwise, underline the actual target
       return (
         <span>
           {before}
-          <span style={{ textDecoration: "underline", textDecorationThickness: "2px" }}>{mid}</span>
+          <span style={{ textDecoration: "underline", textDecorationThickness: "2px" }}>{underline}</span>
           {after}
         </span>
       );
     }
   }
+
   return <span>{passage}</span>;
 }
 
@@ -1075,7 +1093,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
 
       {(q.section==="reading" && q.passage) && (
       <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
-        {renderPassage(q.passage, q.underline, T)}
+        {renderPassage(q.passage, q.underline, q.choiceMode)}
       </div>
     )}
     {q.fig&&<Figure fig={q.fig}/>}
@@ -1245,7 +1263,7 @@ function QuizView({questions,onDone,onExit,headerLabel}){
     </div>
     {(q.section==="reading" && q.passage) && (
       <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
-        {renderPassage(q.passage, q.underline, T)}
+        {renderPassage(q.passage, q.underline, q.choiceMode)}
       </div>
     )}
     {q.fig&&<Figure fig={q.fig}/>}
