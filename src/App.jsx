@@ -143,12 +143,14 @@ const SECTIONS = {
 // Only show the passage box for Reading & Writing question types that require a passage.
 const PASSAGE_TOPICS = new Set(["Main Idea","Evidence","Vocabulary in Context","Rhetorical Skills"]);
 
-function renderPassage(passage, underline, choiceMode){
-  // For Grammar-style items (choiceMode: "replace_underline"), hide the underlined text in the passage
-  // and show an underlined blank instead. For other items, just underline the target text if found.
+function renderPassage(q, T){
+  // Grammar questions use "replace the underlined portion" behavior.
+  // Some banks omit q.choiceMode, so we treat topic==="Grammar" as replace_underline too.
+  const passage = q?.passage;
+  const underline = q?.underline;
   if(!passage) return null;
 
-  const shouldHide = choiceMode === "replace_underline";
+  const shouldHide = (q?.choiceMode === "replace_underline") || (q?.topic === "Grammar");
 
   if(underline && typeof underline === "string"){
     const i = passage.indexOf(underline);
@@ -168,7 +170,6 @@ function renderPassage(passage, underline, choiceMode){
         );
       }
 
-      // Otherwise, underline the actual target
       return (
         <span>
           {before}
@@ -1093,7 +1094,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
 
       {(q.section==="reading" && q.passage) && (
       <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
-        {renderPassage(q.passage, q.underline, q.choiceMode)}
+        {renderPassage(q, T)}
       </div>
     )}
     {q.fig&&<Figure fig={q.fig}/>}
@@ -1263,7 +1264,7 @@ function QuizView({questions,onDone,onExit,headerLabel}){
     </div>
     {(q.section==="reading" && q.passage) && (
       <div style={{background:T.bgAlt,border:`1px solid ${T.border}`,borderRadius:12,padding:"14px 16px",marginBottom:18,color:T.text,lineHeight:1.6,fontSize:14}}>
-        {renderPassage(q.passage, q.underline, q.choiceMode)}
+        {renderPassage(q, T)}
       </div>
     )}
     {q.fig&&<Figure fig={q.fig}/>}
