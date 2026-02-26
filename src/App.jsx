@@ -774,7 +774,7 @@ function buildBankFromQuestionList(list){
       answer: q.answerIndex,
       explanation: q.explanation,
       fig: q.visual,
-      passage: q.passage
+      passage: q.passage,
       underline: raw.underline ?? null,        // ← ADD THIS
       choiceMode: raw.choiceMode ?? null,      // ← ADD THIS
     };
