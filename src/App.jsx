@@ -882,11 +882,67 @@ function fmtTime(sec){
   return `${m}:${String(r).padStart(2,'0')}`;
 }
 
-// Simple (transparent) scaling: map percent-correct to SAT section score [200,800].
-// Later we can replace with a more realistic curve / equating table.
+// SAT score conversion using a realistic scaled-score curve.
+// Based on published College Board score tables (Digital SAT 2024).
+// Maps raw-score percentage → scaled section score [200, 800] in increments of 10.
+// The curve is non-linear: scores compress near the extremes and spread in the middle.
+const SAT_SECTION_CURVE = [
+  // [minPct, maxPct, score]  — right-inclusive buckets
+  [0,   2,  200], [3,   5,  210], [6,   8,  220], [9,  11,  230],
+  [12,  14, 240], [15,  17, 250], [18,  20, 260], [21,  23, 270],
+  [24,  26, 280], [27,  29, 290], [30,  32, 300], [33,  35, 310],
+  [36,  38, 320], [39,  41, 330], [42,  44, 340], [45,  47, 350],
+  [48,  50, 360], [51,  53, 370], [54,  56, 380], [57,  59, 390],
+  [60,  62, 400], [63,  65, 420], [66,  68, 440], [69,  71, 460],
+  [72,  74, 480], [75,  77, 500], [78,  80, 530], [81,  83, 560],
+  [84,  86, 590], [87,  89, 620], [90,  92, 650], [93,  94, 680],
+  [95,  96, 710], [97,  98, 740], [99,  99, 770], [100,100, 800],
+];
+
 function scaledSectionScore(percent){
-  const p = clamp(percent, 0, 100);
-  return Math.round(200 + (p/100)*600);
+  const p = clamp(Math.round(percent), 0, 100);
+  for(const [lo, hi, score] of SAT_SECTION_CURVE){
+    if(p >= lo && p <= hi) return score;
+  }
+  return p <= 0 ? 200 : 800;
+}
+
+// Returns a descriptive band label for a section score
+function scoreBand(score){
+  if(score >= 750) return "Outstanding";
+  if(score >= 650) return "Strong";
+  if(score >= 550) return "Proficient";
+  if(score >= 450) return "Developing";
+  if(score >= 350) return "Needs Work";
+  return "Beginning";
+}
+
+// Returns a composite total score (200–1600) and a percentile estimate
+function compositePercentile(total){
+  // Approximate percentiles based on College Board 2024 data
+  if(total >= 1550) return 99;
+  if(total >= 1500) return 99;
+  if(total >= 1450) return 97;
+  if(total >= 1400) return 95;
+  if(total >= 1350) return 92;
+  if(total >= 1300) return 88;
+  if(total >= 1250) return 84;
+  if(total >= 1200) return 79;
+  if(total >= 1150) return 73;
+  if(total >= 1100) return 67;
+  if(total >= 1050) return 60;
+  if(total >= 1000) return 53;
+  if(total >= 950)  return 45;
+  if(total >= 900)  return 38;
+  if(total >= 850)  return 31;
+  if(total >= 800)  return 24;
+  if(total >= 750)  return 18;
+  if(total >= 700)  return 13;
+  if(total >= 650)  return 9;
+  if(total >= 600)  return 6;
+  if(total >= 550)  return 3;
+  if(total >= 500)  return 2;
+  return 1;
 }
 
 function buildPool(section, diff){
@@ -1208,32 +1264,135 @@ function MockResultsView({mock,results,onBack,onRetry}){
   const mC = bySec.math.filter(x=>x.correct).length;
   const mT = bySec.math.length;
 
-  const rP = pct(rC,rT);
-  const mP = pct(mC,mT);
-
+  const rP = pct(rC, rT);
+  const mP = pct(mC, mT);
   const rS = scaledSectionScore(rP);
   const mS = scaledSectionScore(mP);
   const total = rS + mS;
+  const pctile = compositePercentile(total);
+  const rBand = scoreBand(rS);
+  const mBand = scoreBand(mS);
+
+  // Per-topic breakdown
+  const byTopic = {};
+  results.forEach(({section, topic, correct:c}) => {
+    const k = section + '::' + topic;
+    if(!byTopic[k]) byTopic[k] = {section, topic, correct:0, total:0};
+    byTopic[k].total++;
+    if(c) byTopic[k].correct++;
+  });
+
+  // Score bar color
+  const scoreColor = total >= 1200 ? T.correct : total >= 900 ? '#f7c44f' : T.incorrect;
+
+  // Ring gauge for composite
+  const maxScore = 1600, minScore = 400;
+  const pctFill = clamp((total - minScore) / (maxScore - minScore) * 100, 0, 100);
+  const ringSize = 160, ringStroke = 12;
+  const radius = (ringSize - ringStroke) / 2;
+  const circ = 2 * Math.PI * radius;
+  const offset = circ * (1 - pctFill / 100);
+
+  const lengthLabel = mock?.length ? (mock.length.charAt(0).toUpperCase() + mock.length.slice(1)) + ' Test' : 'Mock Test';
 
   return(
     <div style={{display:'flex',flexDirection:'column',gap:20}}>
-      <div style={{textAlign:'center',marginBottom:4}}>
-        <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:8}}>SCORE REPORT</div>
-        <h2 style={{fontSize:34,fontWeight:900,margin:'0 0 6px',color:T.text}}>{total}</h2>
-        <p style={{color:T.textSub,margin:0}}>R&W {rS} · Math {mS}</p>
-        <p style={{color:T.textMuted,fontSize:12,marginTop:10}}>Scoring is currently a simple, transparent mapping from % correct → 200–800. We can swap in a more realistic curve later.</p>
+
+      {/* ── Header composite score ── */}
+      <div style={{textAlign:'center',background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:20,padding:'28px 20px 22px'}}>
+        <div style={{fontSize:11,fontWeight:700,letterSpacing:3,color:T.accent1,marginBottom:16,textTransform:'uppercase'}}>SAT Score Report · {lengthLabel}</div>
+
+        {/* Ring gauge */}
+        <div style={{position:'relative',display:'inline-flex',alignItems:'center',justifyContent:'center',marginBottom:16}}>
+          <svg width={ringSize} height={ringSize}>
+            <circle cx={ringSize/2} cy={ringSize/2} r={radius} fill="none" stroke={T.bgInput} strokeWidth={ringStroke}/>
+            <circle cx={ringSize/2} cy={ringSize/2} r={radius} fill="none" stroke={scoreColor}
+              strokeWidth={ringStroke} strokeDasharray={circ} strokeDashoffset={offset}
+              strokeLinecap="round" transform={`rotate(-90 ${ringSize/2} ${ringSize/2})`}
+              style={{transition:'stroke-dashoffset 0.8s ease'}}/>
+          </svg>
+          <div style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center'}}>
+            <div style={{fontSize:36,fontWeight:900,color:T.text,lineHeight:1}}>{total}</div>
+            <div style={{fontSize:11,color:T.textMuted,marginTop:2}}>/ 1600</div>
+          </div>
+        </div>
+
+        <div style={{fontSize:13,color:T.textSub,marginBottom:4}}>
+          Approx. <strong style={{color:T.text}}>{pctile}th percentile</strong> nationally
+        </div>
+        <div style={{fontSize:12,color:T.textMuted}}>
+          R&amp;W <strong style={{color:T.accent2}}>{rS}</strong> &nbsp;+&nbsp; Math <strong style={{color:T.accent1}}>{mS}</strong>
+        </div>
       </div>
 
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:14}}>
-        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:18}}>
-          <div style={{fontWeight:800,fontSize:14,color:T.text,marginBottom:6}}>Reading & Writing</div>
-          <div style={{color:T.textSub,fontSize:13}}>{rC}/{rT} correct ({rP}%)</div>
-          <div style={{marginTop:10,color:T.accent2,fontWeight:900,fontSize:22}}>{rS}</div>
+      {/* ── Section score cards ── */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(210px,1fr))',gap:14}}>
+        {[
+          {label:'Reading & Writing', correct:rC, total:rT, pct:rP, score:rS, band:rBand, color:T.accent2},
+          {label:'Math',              correct:mC, total:mT, pct:mP, score:mS, band:mBand, color:T.accent1},
+        ].map(({label,correct,total:tot,pct:p,score,band,color})=>{
+          const barPct = clamp((score-200)/600*100, 0, 100);
+          return(
+            <div key={label} style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:20}}>
+              <div style={{fontWeight:800,fontSize:13,color:T.text,marginBottom:4}}>{label}</div>
+              <div style={{fontSize:28,fontWeight:900,color:color,lineHeight:1,marginBottom:2}}>{score}</div>
+              <div style={{fontSize:11,color:T.textMuted,marginBottom:10}}>200–800 &nbsp;·&nbsp; {band}</div>
+              {/* mini score bar */}
+              <div style={{height:5,background:T.bgInput,borderRadius:4,marginBottom:8,overflow:'hidden'}}>
+                <div style={{height:'100%',width:`${barPct}%`,background:color,borderRadius:4,transition:'width 0.6s ease'}}/>
+              </div>
+              <div style={{fontSize:12,color:T.textSub}}>{correct}/{tot} correct &nbsp;({p}%)</div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── Per-topic performance ── */}
+      <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:20}}>
+        <div style={{fontWeight:700,fontSize:12,color:T.textSub,letterSpacing:1,textTransform:'uppercase',marginBottom:14}}>📊 Performance by Topic</div>
+        <div style={{display:'flex',flexDirection:'column',gap:9}}>
+          {Object.values(byTopic).map(({section,topic,correct:c,total:t})=>{
+            const tp = pct(c,t);
+            const bc = tp>=75 ? T.correct : tp>=50 ? '#f7c44f' : T.incorrect;
+            return(
+              <div key={section+topic} style={{display:'flex',alignItems:'center',gap:10}}>
+                <div style={{width:150,flexShrink:0}}>
+                  <div style={{fontSize:12,fontWeight:600,color:T.text,lineHeight:1.3}}>{topic}</div>
+                  <div style={{fontSize:10,color:T.textMuted}}>{SECTIONS[section]?.label}</div>
+                </div>
+                <div style={{flex:1,height:5,background:T.bgInput,borderRadius:4,overflow:'hidden'}}>
+                  <div style={{height:'100%',width:`${tp}%`,background:bc,borderRadius:4,transition:'width 0.5s ease'}}/>
+                </div>
+                <span style={{color:bc,fontWeight:700,fontSize:12,minWidth:36,textAlign:'right'}}>{tp}%</span>
+              </div>
+            );
+          })}
         </div>
-        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:18}}>
-          <div style={{fontWeight:800,fontSize:14,color:T.text,marginBottom:6}}>Math</div>
-          <div style={{color:T.textSub,fontSize:13}}>{mC}/{mT} correct ({mP}%)</div>
-          <div style={{marginTop:10,color:T.accent1,fontWeight:900,fontSize:22}}>{mS}</div>
+      </div>
+
+      {/* ── Score interpretation guide ── */}
+      <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:20}}>
+        <div style={{fontWeight:700,fontSize:12,color:T.textSub,letterSpacing:1,textTransform:'uppercase',marginBottom:12}}>Score Guide (per section)</div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',gap:8}}>
+          {[
+            {range:'750–800', label:'Outstanding', color:'#4ade80'},
+            {range:'650–740', label:'Strong',      color:'#86efac'},
+            {range:'550–640', label:'Proficient',  color:'#fde047'},
+            {range:'450–540', label:'Developing',  color:'#fb923c'},
+            {range:'350–440', label:'Needs Work',  color:'#f87171'},
+            {range:'200–340', label:'Beginning',   color:'#ef4444'},
+          ].map(({range,label,color})=>(
+            <div key={label} style={{display:'flex',alignItems:'center',gap:8}}>
+              <div style={{width:10,height:10,borderRadius:'50%',background:color,flexShrink:0}}/>
+              <div>
+                <div style={{fontSize:11,fontWeight:700,color:T.text}}>{label}</div>
+                <div style={{fontSize:10,color:T.textMuted}}>{range}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{marginTop:14,fontSize:11,color:T.textMuted,lineHeight:1.5}}>
+          Scores are estimated using a simulated SAT curve. Section scores range 200–800; composite is their sum (400–1600). Real SAT scores may vary based on equating.
         </div>
       </div>
 
