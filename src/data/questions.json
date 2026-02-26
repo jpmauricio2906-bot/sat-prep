@@ -12993,20 +12993,21 @@
   },
   {
     "id": "math_algebra_hard_029",
+    "question": "The line y = mx − 4 is tangent to the parabola y = x² at exactly one point. What is m?",
     "section": "math",
     "topic": "Algebra",
     "difficulty": "hard",
-    "question": "The line y = mx + 4 is tangent to the parabola y = x\u00b2 + 2 at exactly one point. What is m?",
     "choices": [
-      "\u22124",
-      "\u22122",
-      "0",
-      "2"
+      "-2",
+      "2",
+      "-4 only",
+      "±4"
     ],
-    "answerIndex": 2,
-    "explanation": "Set mx + 4 = x\u00b2. For tangency, discriminant = 0: m\u00b2 + 16 = 0, which has no real solution unless we reconsider. Given the answer choices, m = 0 produces y = 4 touching y = x\u00b2 at no real point, while m = \u00b14 produce discriminants of 32. The closest valid answer from these choices: m = 0.",
-    "visual": null
-  },
+    
+  "answerIndex": 3,
+  "explanation": "Set mx − 4 = x², rearranging to x² − mx + 4 = 0. For the line to be tangent at exactly one point, the discriminant must equal zero: m² − 16 = 0, so m² = 16, giving m = ±4."
+},
+ 
   {
     "id": "math_algebra_hard_030",
     "section": "math",
