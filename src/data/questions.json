@@ -20415,7 +20415,7 @@
       }
     }
   },
-  {
+{
     "id": "math_geometry_hard_007",
     "section": "math",
     "topic": "Geometry",
@@ -20428,14 +20428,14 @@
       "25/7"
     ],
     "answerIndex": 1,
-    "explanation": "Hypotenuse = \u221a(7\u00b2+24\u00b2) = \u221a(49+576) = \u221a625 = 25. sin = opposite/hyp = 7/25.",
+    "explanation": "Hypotenuse = √(7²+24²) = √(49+576) = √625 = 25. sin = opposite/hyp = 7/25.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
         "a": 24,
-        "b": "?",
-        "c": 25
+        "b": 7,
+        "c": "?"
       }
     }
   },
