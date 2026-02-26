@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, createContext, useContext } from "react";
+import { useState, useEffect, useRef, useMemo, createContext, useContext } from "react";
 import {
   BarChart, Bar, LineChart, Line, ScatterChart, Scatter,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine
@@ -1606,9 +1606,94 @@ function QuizView({questions,onDone,onExit,headerLabel}){
   </div>);
 }
 
-function TopicQuizView({section,topic,difficulty,onDone,onExit}){
-  const pool=(BANK[section]?.[topic]?.[difficulty]??[]).sort(()=>Math.random()-0.5);
-  return <QuizView questions={pool.map(q=>({...q,section,topic}))} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
+function TopicQuizView({section,topic,difficulty,count,onDone,onExit}){
+  // Shuffle once on mount, then slice to requested count
+  const questions = useMemo(()=>{
+    const pool=(BANK[section]?.[topic]?.[difficulty]??[]).slice();
+    // Fisher-Yates shuffle
+    for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+    return pool.slice(0, count ?? pool.length).map(q=>({...q,section,topic}));
+  },[]);
+  return <QuizView questions={questions} onDone={onDone} onExit={onExit} headerLabel={`${topic} · ${DIFFICULTY_LEVELS[difficulty]?.label ?? difficulty}`}/>;
+}
+
+// ─── QUESTION COUNT PICKER ────────────────────────────────────────────────────
+function QuestionCountPicker({section, topic, difficulty, onStart, onBack}){
+  const T=useTheme();
+  const poolSize=(BANK[section]?.[topic]?.[difficulty]??[]).length;
+  const dv=DIFFICULTY_LEVELS[difficulty];
+
+  // Preset options: filter to only those ≤ poolSize
+  const presets=[5,10,15,20,30,40].filter(n=>n<=poolSize);
+  // If poolSize itself isn't in presets, add it
+  if(!presets.includes(poolSize)) presets.push(poolSize);
+
+  // Pick a random default between 10 and min(20, poolSize)
+  const randomDefault=useMemo(()=>{
+    const min=Math.min(10,poolSize), max=Math.min(20,poolSize);
+    return min===max ? min : min+Math.floor(Math.random()*(max-min+1));
+  },[]);
+
+  const [selected,setSelected]=useState(randomDefault);
+
+  return(
+    <div style={{display:"flex",flexDirection:"column",gap:0}}>
+      {/* Header */}
+      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:28}}>
+        <button onClick={onBack} style={{background:"transparent",border:"none",cursor:"pointer",color:T.textSub,fontSize:18,padding:0,lineHeight:1}}>←</button>
+        <div>
+          <div style={{fontWeight:800,fontSize:18,color:T.text}}>{topic}</div>
+          <div style={{fontSize:12,color:dv?.color,fontWeight:700,marginTop:2}}>{dv?.label} difficulty</div>
+        </div>
+      </div>
+
+      {/* Card */}
+      <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:20,padding:"28px 24px",display:"flex",flexDirection:"column",gap:24}}>
+        <div>
+          <div style={{fontWeight:700,fontSize:15,color:T.text,marginBottom:4}}>How many questions?</div>
+          <div style={{fontSize:12,color:T.textSub}}>{poolSize} available · randomized each session</div>
+        </div>
+
+        {/* Preset chips */}
+        <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+          {presets.map(n=>(
+            <button key={n} onClick={()=>setSelected(n)}
+              style={{
+                padding:"10px 20px",borderRadius:12,fontWeight:700,fontSize:14,
+                cursor:"pointer",fontFamily:"inherit",transition:"all 0.15s",
+                border: selected===n ? "none" : `1.5px solid ${T.border}`,
+                background: selected===n ? dv?.color : "transparent",
+                color: selected===n ? "#fff" : T.textSub,
+                transform: selected===n ? "scale(1.05)" : "scale(1)",
+              }}>
+              {n}
+            </button>
+          ))}
+        </div>
+
+        {/* Visual feedback: estimated time */}
+        <div style={{display:"flex",alignItems:"center",gap:10,padding:"12px 16px",background:T.bgInput,borderRadius:12}}>
+          <span style={{fontSize:18}}>⏱️</span>
+          <div>
+            <div style={{fontSize:13,fontWeight:600,color:T.text}}>
+              ~{Math.round(selected*1.5)} – {Math.round(selected*2)} minutes
+            </div>
+            <div style={{fontSize:11,color:T.textSub}}>estimated at 1.5–2 min per question</div>
+          </div>
+        </div>
+
+        {/* Start button */}
+        <button onClick={()=>onStart(selected)}
+          style={{
+            padding:"14px",borderRadius:14,border:"none",fontWeight:800,fontSize:16,
+            cursor:"pointer",fontFamily:"inherit",color:"#fff",background:T.accent1,
+            letterSpacing:0.3,
+          }}>
+          Start {selected} Questions →
+        </button>
+      </div>
+    </div>
+  );
 }
 
 // ─── RESULTS ──────────────────────────────────────────────────────────────────
@@ -1632,7 +1717,7 @@ function ResultsView({results,length,difficulty,onBack,onRetry}){
         </div>
       </div>
       <h2 style={{fontSize:26,fontWeight:800,marginBottom:8,color:T.text}}>{grade}</h2>
-      <p style={{color:T.textSub}}>{TEST_LENGTHS[length].label} · <span style={{color:dv.color}}>{dv.label}</span></p>
+      <p style={{color:T.textSub}}>{TEST_LENGTHS[length]?.label ?? topic} · <span style={{color:dv.color}}>{dv.label}</span></p>
       <p style={{color:T.text,fontSize:18,fontWeight:700,marginTop:8}}>{correct} / {total} correct</p>
     </div>
     <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:24}}>
@@ -1841,7 +1926,7 @@ export default function App(){
         <div style={{maxWidth:700,margin:"0 auto"}}>
           {view==="dashboard"&&(<>
             <Dashboard progress={progress}
-              onStartTopic={(sec,topic,diff)=>{setActive({section:sec,topic,difficulty:diff,mode:"topic"});setView("quiz");}}
+              onStartTopic={(sec,topic,diff)=>{setActive({section:sec,topic,difficulty:diff,mode:"topic"});setView("topicPicker");}}
               onPracticeTest={()=>setView("practiceTest")}
               onMockTest={()=>setView("mockSetup")}
               bankIssues={bankIssues}
@@ -1853,6 +1938,15 @@ export default function App(){
               Reset All Progress
             </button>
           </>)}
+          {view==="topicPicker"&&(
+            <QuestionCountPicker
+              section={active.section}
+              topic={active.topic}
+              difficulty={active.difficulty}
+              onBack={()=>setView("dashboard")}
+              onStart={(count)=>{setActive(a=>({...a,count}));setView("quiz");}}
+            />
+          )}
           {view==="practiceTest"&&(
             <PracticeTestPage
               onBack={()=>setView("dashboard")}
@@ -1869,6 +1963,7 @@ export default function App(){
               section={active.section}
               topic={active.topic}
               difficulty={active.difficulty}
+              count={active.count}
               onDone={finish}
               onExit={()=>{setActive({});setView("dashboard");}}
             />
@@ -1891,7 +1986,18 @@ export default function App(){
               length={active.length??"quarter"}
               difficulty={active.difficulty??"medium"}
               onBack={()=>setView("dashboard")}
-              onRetry={()=>{if(active.mode==="practice"){const qs=getPracticeQs(active.length,active.difficulty);setActive({...active,questions:qs});}setView("quiz");}}/>
+              onRetry={()=>{
+                if(active.mode==="topic"){
+                  // Go back to picker so count can be changed and questions re-randomized
+                  setView("topicPicker");
+                } else if(active.mode==="practice"){
+                  const qs=getPracticeQs(active.length,active.difficulty);
+                  setActive({...active,questions:qs});
+                  setView("quiz");
+                } else {
+                  setView("quiz");
+                }
+              }}/>
           )}
           {view==="mockResults"&&lastResults?.mode==="mock"&&(
             <MockResultsView
