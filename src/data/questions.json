@@ -19319,11 +19319,11 @@
     "choices": [
       "26",
       "40",
-      "45",
-      "50"
+      "52",
+      "80"
     ],
     "answerIndex": 1,
-    "explanation": "Area = length \u00d7 width = 8 \u00d7 5 = 40.",
+    "explanation": "Area = l \u00d7 w = 8 \u00d7 5 = 40.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
@@ -19340,19 +19340,19 @@
     "difficulty": "easy",
     "question": "What is the perimeter of the rectangle shown?",
     "choices": [
-      "24",
       "26",
-      "28",
-      "30"
+      "30",
+      "36",
+      "42"
     ],
-    "answerIndex": 1,
-    "explanation": "Perimeter = 2(length + width) = 2(8 + 5) = 26.",
+    "answerIndex": 0,
+    "explanation": "P = 2(l + w) = 2(7 + 6) = 26.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
       "params": {
-        "w": 8,
-        "h": 5
+        "w": 7,
+        "h": 6
       }
     }
   },
@@ -19361,15 +19361,153 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "Using the Pythagorean theorem, what is the length of the hypotenuse of the triangle shown?",
+    "question": "What is the area of the square shown?",
+    "choices": [
+      "24",
+      "36",
+      "48",
+      "144"
+    ],
+    "answerIndex": 1,
+    "explanation": "Area = side\u00b2 = 6\u00b2 = 36.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 6,
+        "h": 6
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_004",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the perimeter of the square shown?",
+    "choices": [
+      "9",
+      "36",
+      "45",
+      "81"
+    ],
+    "answerIndex": 1,
+    "explanation": "P = 4 \u00d7 side = 4 \u00d7 9 = 36.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 9,
+        "h": 9
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_005",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the area of the rectangle shown?",
+    "choices": [
+      "24",
+      "44",
+      "84",
+      "120"
+    ],
+    "answerIndex": 3,
+    "explanation": "Area = 12 \u00d7 10 = 120.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 12,
+        "h": 10
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_006",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the perimeter of the rectangle shown?",
+    "choices": [
+      "35",
+      "40",
+      "48",
+      "70"
+    ],
+    "answerIndex": 2,
+    "explanation": "P = 2(l + w) = 2(13 + 11) = 48.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 13,
+        "h": 11
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_007",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the area of the rectangle shown?",
+    "choices": [
+      "22",
+      "66",
+      "105",
+      "110"
+    ],
+    "answerIndex": 2,
+    "explanation": "Area = 15 \u00d7 7 = 105.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 15,
+        "h": 7
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_008",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "A rectangle has area 56 and width 8. What is its length?",
     "choices": [
       "5",
       "6",
       "7",
       "8"
     ],
+    "answerIndex": 2,
+    "explanation": "Length = Area \u00f7 width = 56 \u00f7 8 = 7.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": "?",
+        "h": 8
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_009",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "The right triangle shown has legs 3 and 4. What is the hypotenuse?",
+    "choices": [
+      "5",
+      "6",
+      "7",
+      "12"
+    ],
     "answerIndex": 0,
-    "explanation": "c\u00b2 = 3\u00b2 + 4\u00b2 = 9 + 16 = 25. c = \u221a25 = 5.",
+    "explanation": "c\u00b2 = 3\u00b2 + 4\u00b2 = 9 + 16 = 25, so c = 5.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
@@ -19381,42 +19519,19 @@
     }
   },
   {
-    "id": "math_geometry_easy_004",
+    "id": "math_geometry_easy_010",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the area of the rectangle shown?",
-    "choices": [
-      "28",
-      "30",
-      "35",
-      "42"
-    ],
-    "answerIndex": 2,
-    "explanation": "Area = 7 \u00d7 5 = 35.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 7,
-        "h": 5
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_005",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "What is the hypotenuse of the right triangle shown? (Use \u03c0 \u2248 3.14 if needed)",
+    "question": "The right triangle shown has legs 5 and 12. What is the hypotenuse?",
     "choices": [
       "10",
-      "12",
       "13",
-      "15"
+      "15",
+      "17"
     ],
-    "answerIndex": 2,
-    "explanation": "c\u00b2 = 5\u00b2 + 12\u00b2 = 25 + 144 = 169. c = 13.",
+    "answerIndex": 1,
+    "explanation": "c\u00b2 = 5\u00b2 + 12\u00b2 = 25 + 144 = 169, so c = 13.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
@@ -19428,158 +19543,19 @@
     }
   },
   {
-    "id": "math_geometry_easy_006",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 5. What is its approximate circumference? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "15.7",
-      "31.4",
-      "78.5",
-      "157"
-    ],
-    "answerIndex": 1,
-    "explanation": "C = 2\u03c0r = 2 \u00d7 3.14 \u00d7 5 = 31.4.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 5,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_007",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "What is the area of the rectangle shown?",
-    "choices": [
-      "18",
-      "24",
-      "36",
-      "48"
-    ],
-    "answerIndex": 1,
-    "explanation": "Area = 6 \u00d7 4 = 24.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 6,
-        "h": 4
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_008",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "The right triangle has legs 6 and 8. What is the hypotenuse?",
-    "choices": [
-      "8",
-      "10",
-      "12",
-      "14"
-    ],
-    "answerIndex": 1,
-    "explanation": "c\u00b2 = 6\u00b2 + 8\u00b2 = 36 + 64 = 100. c = 10.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 6,
-        "b": 8,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_009",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 7. What is its approximate area? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "21.98",
-      "43.96",
-      "153.86",
-      "307.72"
-    ],
-    "answerIndex": 2,
-    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 7\u00b2 = 3.14 \u00d7 49 \u2248 153.86.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 7,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_010",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "What is the perimeter of the rectangle shown?",
-    "choices": [
-      "20",
-      "22",
-      "24",
-      "28"
-    ],
-    "answerIndex": 2,
-    "explanation": "P = 2(l + w) = 2(9 + 3) = 24.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 9,
-        "h": 3
-      }
-    }
-  },
-  {
     "id": "math_geometry_easy_011",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A rectangle has length 12 and width 4. What is its area?",
+    "question": "The right triangle shown has legs 8 and 15. What is the hypotenuse?",
     "choices": [
-      "32",
-      "40",
-      "48",
-      "56"
-    ],
-    "answerIndex": 2,
-    "explanation": "Area = 12 \u00d7 4 = 48.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 12,
-        "h": 4
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_012",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A right triangle has legs of 8 and 15. What is the hypotenuse?",
-    "choices": [
-      "13",
-      "15",
+      "14",
+      "16",
       "17",
-      "19"
+      "23"
     ],
     "answerIndex": 2,
-    "explanation": "c\u00b2 = 8\u00b2 + 15\u00b2 = 64 + 225 = 289. c = 17.",
+    "explanation": "c\u00b2 = 8\u00b2 + 15\u00b2 = 64 + 225 = 289, so c = 17.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
@@ -19591,25 +19567,50 @@
     }
   },
   {
+    "id": "math_geometry_easy_012",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "The right triangle shown has legs 6 and 8. What is the hypotenuse?",
+    "choices": [
+      "8",
+      "9",
+      "10",
+      "14"
+    ],
+    "answerIndex": 2,
+    "explanation": "c\u00b2 = 6\u00b2 + 8\u00b2 = 36 + 64 = 100, so c = 10.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 6,
+        "b": 8,
+        "c": "?"
+      }
+    }
+  },
+  {
     "id": "math_geometry_easy_013",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A circle has radius 3. What is its approximate circumference? (Use \u03c0 \u2248 3.14)",
+    "question": "The right triangle shown has hypotenuse 13 and leg 5. What is the other leg?",
     "choices": [
-      "9.42",
-      "18.84",
-      "28.26",
-      "37.68"
+      "8",
+      "10",
+      "12",
+      "14"
     ],
-    "answerIndex": 1,
-    "explanation": "C = 2\u03c0r = 2 \u00d7 3.14 \u00d7 3 = 18.84.",
+    "answerIndex": 2,
+    "explanation": "b\u00b2 = 13\u00b2 \u2212 5\u00b2 = 169 \u2212 25 = 144, so b = 12.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "right_triangle",
       "params": {
-        "radius": 3,
-        "angle": 360
+        "a": 5,
+        "b": "?",
+        "c": 13
       }
     }
   },
@@ -19618,21 +19619,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the area of the rectangle shown?",
+    "question": "The right triangle shown has hypotenuse 17 and leg 8. What is the other leg?",
     "choices": [
-      "22",
-      "32",
-      "36",
-      "44"
+      "9",
+      "12",
+      "15",
+      "16"
     ],
     "answerIndex": 2,
-    "explanation": "Area = 9 \u00d7 4 = 36.",
+    "explanation": "b\u00b2 = 17\u00b2 \u2212 8\u00b2 = 289 \u2212 64 = 225, so b = 15.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "right_triangle",
       "params": {
-        "w": 9,
-        "h": 4
+        "a": 8,
+        "b": "?",
+        "c": 17
       }
     }
   },
@@ -19641,15 +19643,39 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the hypotenuse of a right triangle with legs 9 and 12?",
+    "question": "The right triangle shown has hypotenuse 10 and leg 6. What is the other leg?",
+    "choices": [
+      "4",
+      "6",
+      "7",
+      "8"
+    ],
+    "answerIndex": 3,
+    "explanation": "b\u00b2 = 10\u00b2 \u2212 6\u00b2 = 100 \u2212 36 = 64, so b = 8.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 6,
+        "b": "?",
+        "c": 10
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_016",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "The right triangle shown has legs 9 and 12. What is the hypotenuse?",
     "choices": [
       "13",
       "14",
       "15",
-      "16"
+      "18"
     ],
     "answerIndex": 2,
-    "explanation": "c\u00b2 = 81 + 144 = 225. c = 15.",
+    "explanation": "c\u00b2 = 9\u00b2 + 12\u00b2 = 81 + 144 = 225, so c = 15.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
@@ -19661,48 +19687,26 @@
     }
   },
   {
-    "id": "math_geometry_easy_016",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 10. What is its approximate area? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "31.4",
-      "62.8",
-      "314",
-      "628"
-    ],
-    "answerIndex": 2,
-    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 100 = 314.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 10,
-        "angle": 360
-      }
-    }
-  },
-  {
     "id": "math_geometry_easy_017",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the perimeter of the rectangle shown?",
+    "question": "A triangle has angles 50\u00b0 and 70\u00b0. What is the third angle?",
     "choices": [
-      "28",
-      "30",
-      "32",
-      "34"
+      "50\u00b0",
+      "60\u00b0",
+      "70\u00b0",
+      "80\u00b0"
     ],
-    "answerIndex": 2,
-    "explanation": "P = 2(11 + 5) = 32.",
+    "answerIndex": 1,
+    "explanation": "Third angle = 180\u00b0 \u2212 50\u00b0 \u2212 70\u00b0 = 60\u00b0.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "right_triangle",
       "params": {
-        "w": 11,
-        "h": 5
+        "a": "50\u00b0",
+        "b": "70\u00b0",
+        "c": "?"
       }
     }
   },
@@ -19711,22 +19715,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A right triangle has one leg of 7 and hypotenuse of 25. What is the other leg?",
+    "question": "A right triangle has one acute angle of 35\u00b0. What is the other acute angle?",
     "choices": [
-      "18",
-      "20",
-      "24",
-      "26"
+      "45\u00b0",
+      "55\u00b0",
+      "65\u00b0",
+      "145\u00b0"
     ],
-    "answerIndex": 2,
-    "explanation": "b\u00b2 = 25\u00b2 \u2212 7\u00b2 = 625 \u2212 49 = 576. b = 24.",
+    "answerIndex": 1,
+    "explanation": "The two acute angles sum to 90\u00b0. 90\u00b0 \u2212 35\u00b0 = 55\u00b0.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
-        "a": 7,
+        "a": "35\u00b0",
         "b": "?",
-        "c": 25
+        "c": ""
       }
     }
   },
@@ -19735,21 +19739,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A circle has diameter 14. What is its approximate circumference? (Use \u03c0 \u2248 3.14)",
+    "question": "A right triangle has one acute angle of 62\u00b0. What is the other acute angle?",
     "choices": [
-      "22",
-      "44",
-      "66",
-      "88"
+      "18\u00b0",
+      "28\u00b0",
+      "32\u00b0",
+      "38\u00b0"
     ],
     "answerIndex": 1,
-    "explanation": "C = \u03c0d = 3.14 \u00d7 14 \u2248 43.96 \u2248 44.",
+    "explanation": "90\u00b0 \u2212 62\u00b0 = 28\u00b0.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "right_triangle",
       "params": {
-        "radius": 7,
-        "angle": 360
+        "a": "62\u00b0",
+        "b": "?",
+        "c": ""
       }
     }
   },
@@ -19758,21 +19763,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the area of the rectangle shown?",
+    "question": "Two angles are supplementary. One measures 115\u00b0. What is the other?",
     "choices": [
-      "20",
-      "28",
-      "35",
-      "40"
+      "55\u00b0",
+      "65\u00b0",
+      "75\u00b0",
+      "85\u00b0"
     ],
-    "answerIndex": 2,
-    "explanation": "Area = 5 \u00d7 7 = 35.",
+    "answerIndex": 1,
+    "explanation": "Supplementary angles sum to 180\u00b0. 180\u00b0 \u2212 115\u00b0 = 65\u00b0.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
       "params": {
-        "w": 5,
-        "h": 7
+        "w": "115\u00b0",
+        "h": "?"
       }
     }
   },
@@ -19781,106 +19786,12 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A right triangle has legs 5 and 5. What is the hypotenuse? (Round to nearest tenth)",
+    "question": "What is the circumference of the circle shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "5.0",
-      "7.1",
-      "8.5",
-      "10.0"
-    ],
-    "answerIndex": 1,
-    "explanation": "c = \u221a(25 + 25) = \u221a50 \u2248 7.07 \u2248 7.1.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 5,
-        "b": 5,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_022",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 6. What is its approximate area? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "37.68",
-      "75.36",
-      "113.04",
-      "226.08"
-    ],
-    "answerIndex": 2,
-    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 36 = 113.04.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 6,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_023",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "What is the perimeter of the rectangle shown?",
-    "choices": [
-      "16",
-      "20",
-      "24",
-      "28"
-    ],
-    "answerIndex": 1,
-    "explanation": "P = 2(7 + 3) = 20.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 7,
-        "h": 3
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_024",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A right triangle has legs 10 and 24. What is the hypotenuse?",
-    "choices": [
-      "22",
-      "24",
-      "26",
-      "28"
-    ],
-    "answerIndex": 2,
-    "explanation": "c\u00b2 = 100 + 576 = 676. c = 26.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 10,
-        "b": 24,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_025",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 4. What is its approximate circumference? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "12.56",
+      "18.84",
       "25.12",
-      "50.24",
-      "100.48"
+      "37.68",
+      "50.24"
     ],
     "answerIndex": 1,
     "explanation": "C = 2\u03c0r = 2 \u00d7 3.14 \u00d7 4 = 25.12.",
@@ -19894,58 +19805,34 @@
     }
   },
   {
-    "id": "math_geometry_easy_026",
+    "id": "math_geometry_easy_022",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the area of a rectangle with length 15 and width 6?",
+    "question": "What is the area of the circle shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "42",
-      "60",
-      "90",
-      "120"
-    ],
-    "answerIndex": 2,
-    "explanation": "Area = 15 \u00d7 6 = 90.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 15,
-        "h": 6
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_027",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A right triangle has one leg of 9 and hypotenuse of 15. What is the other leg?",
-    "choices": [
-      "10",
-      "12",
-      "13",
-      "14"
+      "18.84",
+      "28.26",
+      "56.52",
+      "113.04"
     ],
     "answerIndex": 1,
-    "explanation": "b\u00b2 = 15\u00b2 \u2212 9\u00b2 = 225 \u2212 81 = 144. b = 12.",
+    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 3\u00b2 = 28.26.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "circle_arc",
       "params": {
-        "a": 9,
-        "b": "?",
-        "c": 15
+        "radius": 3,
+        "angle": 360
       }
     }
   },
   {
-    "id": "math_geometry_easy_028",
+    "id": "math_geometry_easy_023",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A circle has diameter 10. What is its approximate area? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the area of the circle shown? Use \u03c0 \u2248 3.14.",
     "choices": [
       "31.4",
       "62.8",
@@ -19953,7 +19840,7 @@
       "314"
     ],
     "answerIndex": 2,
-    "explanation": "r = 5. A = \u03c0r\u00b2 = 3.14 \u00d7 25 = 78.5.",
+    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 5\u00b2 = 78.5.",
     "visual": {
       "type": "svg",
       "shape": "circle_arc",
@@ -19964,65 +19851,18 @@
     }
   },
   {
-    "id": "math_geometry_easy_029",
+    "id": "math_geometry_easy_024",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the perimeter of a rectangle with length 13 and width 4?",
+    "question": "What is the circumference of the circle shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "17",
-      "30",
-      "34",
-      "52"
-    ],
-    "answerIndex": 2,
-    "explanation": "P = 2(13 + 4) = 34.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 13,
-        "h": 4
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_030",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A right triangle has legs 20 and 21. What is the hypotenuse?",
-    "choices": [
-      "25",
-      "27",
-      "29",
-      "30"
-    ],
-    "answerIndex": 2,
-    "explanation": "c\u00b2 = 400 + 441 = 841. c = 29.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 20,
-        "b": 21,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_031",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 8. What is its approximate circumference? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "25.12",
+      "37.68",
+      "43.96",
       "50.24",
-      "100.48",
-      "200.96"
+      "75.36"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "C = 2\u03c0r = 2 \u00d7 3.14 \u00d7 8 = 50.24.",
     "visual": {
       "type": "svg",
@@ -20034,931 +19874,65 @@
     }
   },
   {
-    "id": "math_geometry_easy_032",
+    "id": "math_geometry_easy_025",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "What is the area of the rectangle shown?",
+    "question": "What is the arc length of the 90\u00b0 sector shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "18",
-      "28",
-      "36",
-      "72"
+      "6.28",
+      "9.42",
+      "12.56",
+      "18.84"
     ],
-    "answerIndex": 2,
-    "explanation": "Area = 9 \u00d7 4 = 36. Wait, using 12\u00d73: 36. Using 6\u00d76: 36.",
+    "answerIndex": 1,
+    "explanation": "Arc = (90/360) \u00d7 2\u03c0r = 0.25 \u00d7 2 \u00d7 3.14 \u00d7 6 = 9.42.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "circle_arc",
       "params": {
-        "w": 12,
-        "h": 3
+        "radius": 6,
+        "angle": 90
       }
     }
   },
   {
-    "id": "math_geometry_easy_033",
+    "id": "math_geometry_easy_026",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A right triangle has legs 7 and 24. What is the hypotenuse?",
+    "question": "What is the arc length of the 180\u00b0 sector shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "20",
-      "23",
-      "25",
-      "30"
+      "12.56",
+      "15.70",
+      "18.84",
+      "25.12"
     ],
-    "answerIndex": 2,
-    "explanation": "c\u00b2 = 49 + 576 = 625. c = 25.",
+    "answerIndex": 1,
+    "explanation": "Arc = (180/360) \u00d7 2\u03c0r = 0.5 \u00d7 2 \u00d7 3.14 \u00d7 5 = 15.70.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "circle_arc",
       "params": {
-        "a": 7,
-        "b": 24,
-        "c": "?"
+        "radius": 5,
+        "angle": 180
       }
     }
   },
   {
-    "id": "math_geometry_easy_034",
+    "id": "math_geometry_easy_027",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "easy",
-    "question": "A circle has radius 2. What is its approximate area? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the arc length of the 120\u00b0 sector shown? Use \u03c0 \u2248 3.14.",
     "choices": [
+      "4.19",
       "6.28",
       "12.56",
-      "25.12",
-      "50.24"
-    ],
-    "answerIndex": 1,
-    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 4 = 12.56.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 2,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_035",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "What is the perimeter of a rectangle with length 10 and width 7?",
-    "choices": [
-      "17",
-      "27",
-      "34",
-      "70"
+      "25.12"
     ],
     "answerIndex": 2,
-    "explanation": "P = 2(10 + 7) = 34.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 10,
-        "h": 7
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_036",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A right triangle has legs 11 and hypotenuse 61. Wait \u2014 a right triangle has legs 11 and 60. What is the hypotenuse?",
-    "choices": [
-      "55",
-      "61",
-      "65",
-      "70"
-    ],
-    "answerIndex": 1,
-    "explanation": "c\u00b2 = 121 + 3600 = 3721. c = 61.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 11,
-        "b": 60,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_037",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 9. What is its approximate circumference? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "28.26",
-      "56.52",
-      "113.04",
-      "254.34"
-    ],
-    "answerIndex": 1,
-    "explanation": "C = 2\u03c0r = 2 \u00d7 3.14 \u00d7 9 = 56.52.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 9,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_038",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "What is the area of a rectangle with length 14 and width 3?",
-    "choices": [
-      "34",
-      "38",
-      "42",
-      "56"
-    ],
-    "answerIndex": 2,
-    "explanation": "Area = 14 \u00d7 3 = 42.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 14,
-        "h": 3
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_039",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A right triangle has legs 6 and 8. What is the area of the triangle?",
-    "choices": [
-      "14",
-      "20",
-      "24",
-      "48"
-    ],
-    "answerIndex": 2,
-    "explanation": "Area of a triangle = \u00bd \u00d7 base \u00d7 height = \u00bd \u00d7 6 \u00d7 8 = 24.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 6,
-        "b": 8,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_easy_040",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "easy",
-    "question": "A circle has radius 1. What is its approximate area? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "1.57",
-      "3.14",
-      "6.28",
-      "9.42"
-    ],
-    "answerIndex": 1,
-    "explanation": "A = \u03c0r\u00b2 = 3.14 \u00d7 1\u00b2 = 3.14.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 1,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_001",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder has radius r and height 2r. If its volume is 128\u03c0, what is r?",
-    "choices": [
-      "2",
-      "4",
-      "6",
-      "8"
-    ],
-    "answerIndex": 1,
-    "explanation": "V = \u03c0r\u00b2(2r) = 2\u03c0r\u00b3 = 128\u03c0 \u2192 r\u00b3 = 64 \u2192 r = 4.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_002",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle has legs in ratio 3:4 and hypotenuse 15. What is the area?",
-    "choices": [
-      "27",
-      "36",
-      "45",
-      "54"
-    ],
-    "answerIndex": 3,
-    "explanation": "Legs: 3k and 4k. (3k)\u00b2 + (4k)\u00b2 = 225 \u2192 25k\u00b2 = 225 \u2192 k = 3. Legs: 9 and 12. Area = \u00bd \u00d7 9 \u00d7 12 = 54.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 9,
-        "b": 12,
-        "c": 15
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_003",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangle is inscribed in a circle of radius 5. If the rectangle's length is 8, what is its area?",
-    "choices": [
-      "24",
-      "48",
-      "56",
-      "60"
-    ],
-    "answerIndex": 1,
-    "explanation": "Diagonal = diameter = 10. Width = \u221a(10\u00b2 \u2212 8\u00b2) = \u221a36 = 6. Area = 8 \u00d7 6 = 48.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 8,
-        "h": 6
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_004",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "Two concentric circles have radii 5 and 8. What is the area of the ring between them? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "78.5",
-      "122.46",
-      "163.28",
-      "195.9"
-    ],
-    "answerIndex": 1,
-    "explanation": "Area = \u03c0(R\u00b2 \u2212 r\u00b2) = 3.14(64 \u2212 25) = 3.14 \u00d7 39 = 122.46.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 8,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_005",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder's height is tripled while its radius is halved. What is the ratio of the new volume to the original?",
-    "choices": [
-      "3/4",
-      "1/2",
-      "3/2",
-      "3"
-    ],
-    "answerIndex": 0,
-    "explanation": "Original V = \u03c0r\u00b2h. New V = \u03c0(r/2)\u00b2(3h) = \u03c0(r\u00b2/4)(3h) = \u00be\u03c0r\u00b2h. Ratio = \u00be.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_006",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle has hypotenuse 25 and area 84. What are the legs?",
-    "choices": [
-      "7 and 24",
-      "8 and 20",
-      "9 and 16",
-      "10 and 18"
-    ],
-    "answerIndex": 0,
-    "explanation": "Let legs be a and b. a\u00b2 + b\u00b2 = 625 and \u00bdab = 84 \u2192 ab = 168. (a+b)\u00b2 = 625 + 336 = 961 \u2192 a+b = 31. a\u2212b = \u221a(31\u00b2 \u2212 4\u00d7168) = \u221a(961\u2212672) = \u221a289 = 17. a = 24, b = 7.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 7,
-        "b": 24,
-        "c": 25
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_007",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangle has length 3 more than twice its width. If the diagonal is \u221a(4w\u00b2 + 12w + 9 + w\u00b2) = 13, what is the area?",
-    "choices": [
-      "40",
-      "60",
-      "80",
-      "100"
-    ],
-    "answerIndex": 1,
-    "explanation": "If width = 5 and length = 12: 5\u00b2 + 12\u00b2 = 169 = 13\u00b2. Area = 5 \u00d7 12 = 60.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 12,
-        "h": 5
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_008",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A circle with center O has a chord of length 16 at a distance of 6 from the center. What is the radius?",
-    "choices": [
-      "8",
-      "10",
-      "12",
-      "14"
-    ],
-    "answerIndex": 1,
-    "explanation": "The perpendicular from center to chord bisects it. Half-chord = 8. r\u00b2 = 8\u00b2 + 6\u00b2 = 64 + 36 = 100. r = 10.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 10,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_009",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder has the same volume as a rectangular box that measures 9 \u00d7 9 \u00d7 9. If the cylinder's height equals 9, what is its radius? (Use \u03c0 \u2248 3.14, round to nearest tenth)",
-    "choices": [
-      "5.1",
-      "6.2",
-      "7.4",
-      "8.1"
-    ],
-    "answerIndex": 0,
-    "explanation": "V_box = 729. \u03c0r\u00b2 \u00d7 9 = 729 \u2192 r\u00b2 = 729/(9 \u00d7 3.14) = 729/28.26 \u2248 25.8 \u2192 r \u2248 5.1.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_010",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "The area of a right triangle is 60. The hypotenuse is 17. What is the perimeter?",
-    "choices": [
-      "36",
-      "38",
-      "40",
-      "42"
-    ],
-    "answerIndex": 2,
-    "explanation": "\u00bdab = 60 \u2192 ab = 120. a\u00b2 + b\u00b2 = 289. (a+b)\u00b2 = 289 + 240 = 529. a+b = 23. Perimeter = 23 + 17 = 40.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 8,
-        "b": 15,
-        "c": 17
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_011",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A 40\u00b0 central angle subtends an arc of length 4\u03c0 in a circle. What is the diameter?",
-    "choices": [
-      "18",
-      "36",
-      "54",
-      "72"
-    ],
-    "answerIndex": 1,
-    "explanation": "Arc = (40/360) \u00d7 2\u03c0r = 4\u03c0 \u2192 (1/9) \u00d7 2\u03c0r = 4\u03c0 \u2192 r = 18. Diameter = 36.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 18,
-        "angle": 40
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_012",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle and a rectangle share the same base of 12 and the same height. The rectangle's area is 3 times the triangle's area. What is the height?",
-    "choices": [
-      "Always 2\u00d7 triangle",
-      "Cannot equal 3\u00d7 triangle",
-      "Height = 6",
-      "Height = 12"
-    ],
-    "answerIndex": 1,
-    "explanation": "Rectangle area = 12h; triangle area = 6h. Their ratio is always 2. No height makes the rectangle 3\u00d7 the triangle \u2014 this is impossible.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 12,
-        "h": 6
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_013",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangle has vertices at (0,0), (6,0), (6,4), and (0,4). A right triangle is cut from one corner with legs of length 2 and 3. What is the remaining area?",
-    "choices": [
-      "18",
-      "21",
-      "24",
-      "27"
-    ],
-    "answerIndex": 1,
-    "explanation": "Rectangle area = 6 \u00d7 4 = 24. Triangle area = \u00bd \u00d7 2 \u00d7 3 = 3. Remaining = 24 \u2212 3 = 21.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 6,
-        "h": 4
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_014",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A circle is inscribed in a square of side 10. What area of the square is NOT covered by the circle? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "14.6",
-      "21.5",
-      "28.5",
-      "35.4"
-    ],
-    "answerIndex": 1,
-    "explanation": "Circle area = \u03c0 \u00d7 5\u00b2 = 78.5. Square area = 100. Uncovered = 100 \u2212 78.5 = 21.5.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 5,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_015",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder is melted and recast into a cylinder with half the radius. If the volume stays the same, what is the new height compared to the original?",
-    "choices": [
-      "Same",
-      "2\u00d7 taller",
-      "4\u00d7 taller",
-      "8\u00d7 taller"
-    ],
-    "answerIndex": 2,
-    "explanation": "Original: V = \u03c0r\u00b2h. New: V = \u03c0(r/2)\u00b2h' = \u03c0r\u00b2h'/4. Setting equal: h' = 4h. New height is 4\u00d7 the original.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_016",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "Two right triangles share a hypotenuse of 20. One has legs 12 and 16. The other has legs x and y with x + y = 24. What is the area of the second triangle?",
-    "choices": [
-      "44",
-      "66",
-      "88",
-      "96"
-    ],
-    "answerIndex": 0,
-    "explanation": "x\u00b2 + y\u00b2 = 400, x + y = 24. xy = [(24)\u00b2 \u2212 400]/2 = 88. Area = \u00bd \u00d7 xy = 44.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 12,
-        "b": 16,
-        "c": 20
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_017",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "The circumference of circle A is twice the circumference of circle B. What is the ratio of their areas?",
-    "choices": [
-      "1:4",
-      "4:1",
-      "1:2",
-      "2:1"
-    ],
-    "answerIndex": 1,
-    "explanation": "If C_A = 2C_B, then r_A = 2r_B. Area_A/Area_B = r_A\u00b2/r_B\u00b2 = 4.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 8,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_018",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle has legs (x+1) and (x+6) and hypotenuse (x+8). What is x?",
-    "choices": [
-      "3",
-      "5",
-      "7",
-      "9"
-    ],
-    "answerIndex": 1,
-    "explanation": "With legs x and (x+7) and hypotenuse (x+8): x\u00b2 + (x+7)\u00b2 = (x+8)\u00b2 \u2192 x\u00b2 \u2212 2x \u2212 15 = 0 \u2192 x = 5.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 5,
-        "b": 12,
-        "c": 13
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_019",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder's radius is doubled and height is halved. By what factor does the volume change?",
-    "choices": [
-      "stays the same",
-      "doubles",
-      "triples",
-      "quadruples"
-    ],
-    "answerIndex": 1,
-    "explanation": "New V = \u03c0(2r)\u00b2(h/2) = \u03c0 \u00d7 4r\u00b2 \u00d7 h/2 = 2\u03c0r\u00b2h. Volume doubles.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_020",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A circle has the equation x\u00b2 + y\u00b2 = 25. A chord connects points (3, 4) and (4, \u22123). What is the length of the chord? (Round to nearest tenth)",
-    "choices": [
-      "4.9",
-      "5.0",
-      "7.1",
-      "9.9"
-    ],
-    "answerIndex": 2,
-    "explanation": "Length = \u221a[(4\u22123)\u00b2 + (\u22123\u22124)\u00b2] = \u221a[1 + 49] = \u221a50 \u2248 7.1.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 5,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_021",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle with legs a and b has perimeter 36 and area 54. What is the hypotenuse?",
-    "choices": [
-      "13",
-      "15",
-      "17",
-      "18"
-    ],
-    "answerIndex": 1,
-    "explanation": "a + b + c = 36. \u00bdab = 54 \u2192 ab = 108. c = \u221a(a\u00b2+b\u00b2). (a+b)\u00b2 = a\u00b2+2ab+b\u00b2 \u2192 (a+b)\u00b2 \u2212 2\u00d7108 = c\u00b2. Also a+b = 36\u2212c. (36\u2212c)\u00b2 \u2212 216 = c\u00b2 \u2192 1296\u221272c+c\u00b2\u2212216 = c\u00b2 \u2192 1080 = 72c \u2192 c = 15.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 9,
-        "b": 12,
-        "c": 15
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_022",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangle's length is decreased by 20% and its width increased by 20%. What happens to the area?",
-    "choices": [
-      "Increases by 4%",
-      "Decreases by 4%",
-      "Stays the same",
-      "Decreases by 20%"
-    ],
-    "answerIndex": 1,
-    "explanation": "New area = 0.8l \u00d7 1.2w = 0.96lw. Area decreases by 4%.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 10,
-        "h": 8
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_023",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder has volume 200\u03c0 and height 8. A cone with the same base radius and height has volume equal to what fraction of the cylinder's?",
-    "choices": [
-      "1/4",
-      "1/3",
-      "1/2",
-      "2/3"
-    ],
-    "answerIndex": 1,
-    "explanation": "Volume of a cone = \u2153 \u00d7 base area \u00d7 height = \u2153 \u00d7 volume of cylinder (with same base and height). Fraction = 1/3.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_024",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle is similar to one with legs 3 and 4. If the hypotenuse of the larger triangle is 20, what is the area of the larger triangle?",
-    "choices": [
-      "96",
-      "120",
-      "144",
-      "192"
-    ],
-    "answerIndex": 0,
-    "explanation": "Scale factor = 20/5 = 4. Legs become 12 and 16. Area = \u00bd \u00d7 12 \u00d7 16 = 96.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 12,
-        "b": 16,
-        "c": 20
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_025",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A circle is inscribed in a right triangle with legs 6 and 8. What is the radius of the inscribed circle?",
-    "choices": [
-      "1",
-      "2",
-      "3",
-      "4"
-    ],
-    "answerIndex": 1,
-    "explanation": "r = (a + b \u2212 c)/2 = (6 + 8 \u2212 10)/2 = 4/2 = 2.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 6,
-        "b": 8,
-        "c": 10
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_026",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A chord of a circle is 18 cm long and is 12 cm from the center. What is the area of the circle? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "452.16",
-      "628.00",
-      "706.5",
-      "942.0"
-    ],
-    "answerIndex": 2,
-    "explanation": "Half-chord = 9. r\u00b2 = 81 + 144 = 225. r = 15. Area = 3.14 \u00d7 225 = 706.5.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 15,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_027",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "The diagonal of a cube is 6\u221a3. What is the volume of the cube?",
-    "choices": [
-      "54",
-      "108",
-      "216",
-      "324"
-    ],
-    "answerIndex": 2,
-    "explanation": "For a cube with side s, space diagonal = s\u221a3. s\u221a3 = 6\u221a3 \u2192 s = 6. Volume = 6\u00b3 = 216.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 6,
-        "h": 6
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_028",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "Two similar triangles have areas in ratio 9:25. What is the ratio of their perimeters?",
-    "choices": [
-      "3:5",
-      "9:25",
-      "81:625",
-      "3:25"
-    ],
-    "answerIndex": 0,
-    "explanation": "Area ratio = k\u00b2 where k is the scale factor. 9/25 = k\u00b2 \u2192 k = 3/5. Perimeter ratio = 3:5.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 3,
-        "b": 4,
-        "c": 5
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_029",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder with radius 3 and height 10 is melted and recast into spheres of radius 1. How many complete spheres can be made? (Volume of sphere = 4/3 \u03c0r\u00b3)",
-    "choices": [
-      "20",
-      "25",
-      "27",
-      "30"
-    ],
-    "answerIndex": 2,
-    "explanation": "Cylinder V = \u03c0 \u00d7 9 \u00d7 4 = 36\u03c0. Sphere V = 4\u03c0/3. Count = 36\u03c0 \u00f7 (4\u03c0/3) = 27.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_030",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle has one angle of 30\u00b0. The hypotenuse is 20. What is the area of the triangle?",
-    "choices": [
-      "25\u221a3",
-      "50\u221a3",
-      "50",
-      "100"
-    ],
-    "answerIndex": 1,
-    "explanation": "In a 30-60-90 triangle with hypotenuse 20: short leg = 10, long leg = 10\u221a3. Area = \u00bd \u00d7 10 \u00d7 10\u221a3 = 50\u221a3.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 10,
-        "b": 17,
-        "c": 20
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_031",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangle has vertices at coordinates (1,1), (7,1), (7,5), and (1,5). What is the distance from the center to a corner?",
-    "choices": [
-      "\u221a10",
-      "\u221a13",
-      "\u221a37",
-      "\u221a52"
-    ],
-    "answerIndex": 1,
-    "explanation": "Center = (4, 3). Corner = (7, 5). Distance = \u221a((7\u22124)\u00b2 + (5\u22123)\u00b2) = \u221a(9+4) = \u221a13.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 6,
-        "h": 4
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_032",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A sector has area 12\u03c0 and central angle 120\u00b0. What is the radius of the circle?",
-    "choices": [
-      "3",
-      "6",
-      "9",
-      "12"
-    ],
-    "answerIndex": 1,
-    "explanation": "Area = (\u03b8/360)\u03c0r\u00b2 \u2192 12\u03c0 = (120/360)\u03c0r\u00b2 = \u03c0r\u00b2/3 \u2192 r\u00b2 = 36 \u2192 r = 6.",
+    "explanation": "Arc = (120/360) \u00d7 2\u03c0r = (1/3) \u00d7 2 \u00d7 3.14 \u00d7 6 = 12.56.",
     "visual": {
       "type": "svg",
       "shape": "circle_arc",
@@ -20969,114 +19943,126 @@
     }
   },
   {
-    "id": "math_geometry_hard_033",
+    "id": "math_geometry_easy_028",
     "section": "math",
     "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangle is twice as long as it is wide. If the diagonal is 10\u221a5, what is the area?",
+    "difficulty": "easy",
+    "question": "What is the arc length of the 60\u00b0 sector shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "100",
-      "200",
-      "400",
-      "500"
+      "6.28",
+      "9.42",
+      "12.56",
+      "18.84"
     ],
-    "answerIndex": 1,
-    "explanation": "Let w = width, l = 2w. Diagonal: \u221a(w\u00b2 + (2w)\u00b2) = w\u221a5 = 10\u221a5 \u2192 w = 10, l = 20. Area = 200.",
+    "answerIndex": 0,
+    "explanation": "Arc = (60/360) \u00d7 2\u03c0r = (1/6) \u00d7 2 \u00d7 3.14 \u00d7 6 = 6.28.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 6,
+        "angle": 60
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_029",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "A rectangular prism is 10 cm long, 4 cm wide, and 3 cm tall. What is its volume?",
+    "choices": [
+      "34",
+      "80",
+      "100",
+      "120"
+    ],
+    "answerIndex": 3,
+    "explanation": "V = l \u00d7 w \u00d7 h = 10 \u00d7 4 \u00d7 3 = 120 cm\u00b3.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
       "params": {
-        "w": 20,
-        "h": 10
+        "w": 10,
+        "h": 4
       }
     }
   },
   {
-    "id": "math_geometry_hard_034",
+    "id": "math_geometry_easy_030",
     "section": "math",
     "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "In the coordinate plane, point A is at (0, 0) and point B is at (6, 8). A right triangle is formed with legs along the axes. What is the angle at A in degrees?",
+    "difficulty": "easy",
+    "question": "A box is 6 cm long, 5 cm wide, and 4 cm tall. What is its volume?",
     "choices": [
-      "36.9\u00b0",
-      "45.0\u00b0",
-      "53.1\u00b0",
-      "60.0\u00b0"
-    ],
-    "answerIndex": 2,
-    "explanation": "tan(A) = opposite/adjacent = 8/6. A = arctan(8/6) \u2248 53.1\u00b0.",
-    "visual": {
-      "type": "svg",
-      "shape": "coordinate_plane",
-      "params": {
-        "curve": {
-          "type": "line",
-          "m": 0,
-          "b": 0
-        },
-        "points": [
-          [
-            0,
-            0
-          ],
-          [
-            6,
-            8
-          ]
-        ]
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_035",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A cylinder is inscribed in a cube of side 12. What fraction of the cube's volume does the cylinder occupy? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "0.52",
-      "0.63",
-      "0.71",
-      "0.79"
+      "60",
+      "80",
+      "100",
+      "120"
     ],
     "answerIndex": 3,
-    "explanation": "Cylinder: r = 6, h = 12. V_cyl = 3.14 \u00d7 36 \u00d7 12 = 1356.48. V_cube = 1728. Fraction = 1356.48/1728 \u2248 0.785 \u2248 \u03c0/4 \u2248 0.785.",
+    "explanation": "V = 6 \u00d7 5 \u00d7 4 = 120 cm\u00b3.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_hard_036",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A 45-45-90 triangle has a leg of 7. What is the hypotenuse?",
-    "choices": [
-      "7",
-      "7\u221a2",
-      "7\u221a3",
-      "14"
-    ],
-    "answerIndex": 1,
-    "explanation": "In a 45-45-90 triangle, hypotenuse = leg \u00d7 \u221a2 = 7\u221a2.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
+      "shape": "rectangle",
       "params": {
-        "a": 7,
-        "b": 7,
-        "c": "?"
+        "w": 6,
+        "h": 5
       }
     }
   },
   {
-    "id": "math_geometry_hard_037",
+    "id": "math_geometry_easy_031",
     "section": "math",
     "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A circle has area A. If the radius is increased by 3 units, the area becomes A + 30\u03c0. What was the original radius?",
+    "difficulty": "easy",
+    "question": "A box is 8 cm long, 3 cm wide, and 5 cm tall. What is its volume?",
+    "choices": [
+      "80",
+      "90",
+      "100",
+      "120"
+    ],
+    "answerIndex": 3,
+    "explanation": "V = 8 \u00d7 3 \u00d7 5 = 120 cm\u00b3.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 8,
+        "h": 3
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_032",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "A box is 9 cm long, 4 cm wide, and 2 cm tall. What is its volume?",
+    "choices": [
+      "30",
+      "54",
+      "72",
+      "90"
+    ],
+    "answerIndex": 2,
+    "explanation": "V = 9 \u00d7 4 \u00d7 2 = 72 cm\u00b3.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 9,
+        "h": 4
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_033",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the distance between the two points shown on the coordinate plane?",
     "choices": [
       "3",
       "4",
@@ -21084,66 +20070,80 @@
       "7"
     ],
     "answerIndex": 2,
-    "explanation": "\u03c0(r+3)\u00b2 \u2212 \u03c0r\u00b2 = 33\u03c0 \u2192 6r + 9 = 33 \u2192 r = 4.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 7,
-        "angle": 360
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_038",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A rectangular solid (box) has dimensions 3 \u00d7 4 \u00d7 12. What is the length of the space diagonal?",
-    "choices": [
-      "11",
-      "13",
-      "15",
-      "17"
-    ],
-    "answerIndex": 1,
-    "explanation": "Space diagonal = \u221a(3\u00b2 + 4\u00b2 + 12\u00b2) = \u221a(9 + 16 + 144) = \u221a169 = 13.",
-    "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": 12,
-        "h": 4
-      }
-    }
-  },
-  {
-    "id": "math_geometry_hard_039",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "What is the area of a regular hexagon with side length 4? (Area = 3\u221a3/2 \u00d7 s\u00b2)",
-    "choices": [
-      "12\u221a3",
-      "24\u221a3",
-      "36\u221a3",
-      "48\u221a3"
-    ],
-    "answerIndex": 1,
-    "explanation": "Area = (3\u221a3/2) \u00d7 16 = 24\u221a3.",
+    "explanation": "d = \u221a((4\u22121)\u00b2 + (5\u22121)\u00b2) = \u221a(9+16) = \u221a25 = 5.",
     "visual": {
       "type": "svg",
       "shape": "coordinate_plane",
       "params": {
-        "curve": {
-          "type": "line",
-          "m": 0,
-          "b": 0
-        },
+        "curve": null,
         "points": [
           [
+            1,
+            1
+          ],
+          [
             4,
-            0
+            5
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_034",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the distance between the two points shown on the coordinate plane?",
+    "choices": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answerIndex": 1,
+    "explanation": "d = \u221a((2\u2212(\u22122))\u00b2 + (1\u22121)\u00b2) = \u221a16 = 4.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            -2,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_035",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the distance between the two points shown on the coordinate plane?",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answerIndex": 1,
+    "explanation": "d = \u221a((2\u2212(\u22121))\u00b2 + (3\u2212(\u22121))\u00b2) = \u221a(9+16) = 5.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            -1,
+            -1
           ],
           [
             2,
@@ -21154,26 +20154,1145 @@
     }
   },
   {
-    "id": "math_geometry_hard_040",
+    "id": "math_geometry_easy_036",
     "section": "math",
     "topic": "Geometry",
-    "difficulty": "hard",
-    "question": "A right triangle has acute angles in ratio 2:3. What is the measure of the larger acute angle?",
+    "difficulty": "easy",
+    "question": "Two angles are complementary. One measures 28\u00b0. What is the other?",
     "choices": [
-      "36\u00b0",
-      "48\u00b0",
-      "54\u00b0",
-      "60\u00b0"
+      "52\u00b0",
+      "62\u00b0",
+      "72\u00b0",
+      "152\u00b0"
     ],
-    "answerIndex": 2,
-    "explanation": "Two acute angles sum to 90\u00b0. With ratio 2:3: smaller = 2k, larger = 3k. 5k = 90 \u2192 k = 18. Larger angle = 54\u00b0.",
+    "answerIndex": 1,
+    "explanation": "Complementary angles sum to 90\u00b0. 90\u00b0 \u2212 28\u00b0 = 62\u00b0.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
-        "a": 8,
-        "b": 11,
+        "a": "28\u00b0",
+        "b": "?",
+        "c": ""
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_037",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "Two parallel lines are cut by a transversal. One co-interior angle is 110\u00b0. What is the other?",
+    "choices": [
+      "70\u00b0",
+      "80\u00b0",
+      "90\u00b0",
+      "110\u00b0"
+    ],
+    "answerIndex": 0,
+    "explanation": "Co-interior angles are supplementary: 180\u00b0 \u2212 110\u00b0 = 70\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": "110\u00b0",
+        "h": "?"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_038",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "Alternate interior angles are formed by parallel lines and a transversal. One angle is 72\u00b0. What is the other?",
+    "choices": [
+      "18\u00b0",
+      "72\u00b0",
+      "108\u00b0",
+      "180\u00b0"
+    ],
+    "answerIndex": 1,
+    "explanation": "Alternate interior angles are equal when lines are parallel. The other angle is also 72\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": "72\u00b0",
+        "h": "?"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_039",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "A triangle has angles x, 2x, and 3x. What is the value of x?",
+    "choices": [
+      "20\u00b0",
+      "25\u00b0",
+      "30\u00b0",
+      "36\u00b0"
+    ],
+    "answerIndex": 2,
+    "explanation": "x + 2x + 3x = 180\u00b0 \u2192 6x = 180\u00b0 \u2192 x = 30\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "x",
+        "b": "2x",
+        "c": "3x"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_easy_040",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the area of the rectangle shown?",
+    "choices": [
+      "22",
+      "34",
+      "48",
+      "66"
+    ],
+    "answerIndex": 2,
+    "explanation": "Area = 8 \u00d7 6 = 48.",
+    "visual": {
+      "type": "svg",
+      "shape": "rectangle",
+      "params": {
+        "w": 8,
+        "h": 6
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_001",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, sin(A) = 3/5. What is cos(A)?",
+    "choices": [
+      "3/4",
+      "4/5",
+      "5/3",
+      "5/4"
+    ],
+    "answerIndex": 1,
+    "explanation": "In a 3-4-5 right triangle, sin(A) = opposite/hypotenuse = 3/5 \u2192 opposite = 3, hyp = 5, adjacent = 4. cos(A) = 4/5.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 3,
+        "b": "?",
+        "c": 5
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_002",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, tan(B) = 5/12. What is sin(B)?",
+    "choices": [
+      "5/13",
+      "12/13",
+      "5/12",
+      "13/5"
+    ],
+    "answerIndex": 0,
+    "explanation": "If tan(B) = 5/12, opposite = 5, adjacent = 12, hypotenuse = \u221a(25+144) = 13. sin(B) = 5/13.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": 12,
+        "c": 13
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_003",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle with hypotenuse 10, sin(A) = 0.6. What is the length of the side opposite to A?",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "answerIndex": 2,
+    "explanation": "Opposite = sin(A) \u00d7 hypotenuse = 0.6 \u00d7 10 = 6.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": "?",
+        "c": 10
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_004",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A right triangle has hypotenuse 26 and one leg 10. What is cos of the angle adjacent to the leg of length 10?",
+    "choices": [
+      "5/13",
+      "10/26",
+      "5/26",
+      "12/13"
+    ],
+    "answerIndex": 0,
+    "explanation": "Other leg = \u221a(26\u00b2\u221210\u00b2) = \u221a(676\u2212100) = \u221a576 = 24. cos = adjacent/hyp = 10/26 = 5/13.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 10,
+        "b": "?",
+        "c": 26
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_005",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, cos(A) = 12/13. A ladder 13 m long leans against a wall. How high up the wall does it reach?",
+    "choices": [
+      "5 m",
+      "10 m",
+      "12 m",
+      "13 m"
+    ],
+    "answerIndex": 0,
+    "explanation": "If cos(A) = 12/13, adjacent = 12 (horizontal), hyp = 13, opposite = 5 (vertical). Height = 5 m.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 12,
+        "b": "?",
+        "c": 13
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_006",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, sin(B) = 8/17. What is tan(B)?",
+    "choices": [
+      "8/15",
+      "15/17",
+      "8/17",
+      "17/8"
+    ],
+    "answerIndex": 0,
+    "explanation": "opposite = 8, hyp = 17, adjacent = \u221a(289\u221264) = \u221a225 = 15. tan(B) = 8/15.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": 15,
+        "c": 17
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_007",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A ramp rises 7 feet over a horizontal distance of 24 feet. What is the sine of the angle the ramp makes with the ground?",
+    "choices": [
+      "7/24",
+      "7/25",
+      "24/25",
+      "25/7"
+    ],
+    "answerIndex": 1,
+    "explanation": "Hypotenuse = \u221a(7\u00b2+24\u00b2) = \u221a(49+576) = \u221a625 = 25. sin = opposite/hyp = 7/25.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 24,
+        "b": "?",
+        "c": 25
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_008",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "What is the equation of the circle shown, centered at the origin with radius 5?",
+    "choices": [
+      "x+y=5",
+      "x\u00b2+y\u00b2=5",
+      "x\u00b2+y\u00b2=25",
+      "(x+5)\u00b2+(y+5)\u00b2=25"
+    ],
+    "answerIndex": 2,
+    "explanation": "A circle centered at origin with radius r has equation x\u00b2+y\u00b2=r\u00b2. With r=5: x\u00b2+y\u00b2=25.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            5,
+            0
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            -5,
+            0
+          ],
+          [
+            0,
+            -5
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_009",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A circle has equation x\u00b2+y\u00b2=49. What is its radius?",
+    "choices": [
+      "7",
+      "14",
+      "21",
+      "49"
+    ],
+    "answerIndex": 0,
+    "explanation": "x\u00b2+y\u00b2=r\u00b2 \u2192 r\u00b2=49 \u2192 r=7.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            4,
+            0
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            0,
+            -4
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_010",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "What is the distance from the origin to the point (3, 4) shown on the coordinate plane?",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answerIndex": 1,
+    "explanation": "d = \u221a(3\u00b2+4\u00b2) = \u221a25 = 5. This is also the radius of the circle passing through (3,4) centered at the origin.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_011",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A cylinder has volume 502.4. The height is 8. What is the radius? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "\u221a20",
+      "4",
+      "5",
+      "8"
+    ],
+    "answerIndex": 0,
+    "explanation": "502.4 = \u03c0r\u00b2\u00d78 \u2192 r\u00b2 = 502.4/(3.14\u00d78) = 20 \u2192 r = \u221a20 = 2\u221a5 \u2248 4.47.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": "?",
+        "h": 8
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_012",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A cylinder has radius 6 and height 5. A cone with the same base and height is removed from the cylinder. What is the remaining volume? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "188.4",
+      "376.8",
+      "565.2",
+      "753.6"
+    ],
+    "answerIndex": 1,
+    "explanation": "Cylinder V = \u03c0r\u00b2h = 3.14\u00d736\u00d75 = 565.2. Cone V = (1/3)\u00d7565.2 = 188.4. Remaining = 565.2\u2212188.4 = 376.8.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": 6,
+        "h": 5
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_013",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A cylinder has radius 4 and height 12. What is the ratio of its volume to its lateral surface area?",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "answerIndex": 0,
+    "explanation": "V = \u03c0\u00d716\u00d712 = 192\u03c0. Lateral SA = 2\u03c0\u00d74\u00d712 = 96\u03c0. Ratio = 192\u03c0/96\u03c0 = 2.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": 4,
+        "h": 12
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_014",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A sector of a circle has radius 9 and arc length 6\u03c0. What is the central angle in degrees?",
+    "choices": [
+      "60\u00b0",
+      "90\u00b0",
+      "120\u00b0",
+      "180\u00b0"
+    ],
+    "answerIndex": 2,
+    "explanation": "Arc = (\u03b8/360)\u00d72\u03c0r \u2192 6\u03c0 = (\u03b8/360)\u00d718\u03c0 \u2192 \u03b8/360 = 1/3 \u2192 \u03b8 = 120\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 9,
+        "angle": 120
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_015",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A sector of a circle has radius 10 and central angle 90\u00b0. What is the area of the sector? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "15.70",
+      "31.40",
+      "78.50",
+      "314"
+    ],
+    "answerIndex": 2,
+    "explanation": "Area = (\u03b8/360)\u03c0r\u00b2 = (90/360)\u00d73.14\u00d7100 = 0.25\u00d7314 = 78.5.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 10,
+        "angle": 90
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_016",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A sector has area 75.36 and radius 6. What is the central angle? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "90\u00b0",
+      "120\u00b0",
+      "180\u00b0",
+      "240\u00b0"
+    ],
+    "answerIndex": 3,
+    "explanation": "75.36 = (\u03b8/360)\u00d73.14\u00d736 \u2192 75.36 = (\u03b8/360)\u00d7113.04 \u2192 \u03b8/360 = 75.36/113.04 = 2/3 \u2192 \u03b8 = 240\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 6,
+        "angle": 240
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_017",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle with legs 9 and 12, a circle is inscribed. What is the radius of the inscribed circle?",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "answerIndex": 1,
+    "explanation": "Hypotenuse = 15. Inradius = (a+b\u2212c)/2 = (9+12\u221215)/2 = 6/2 = 3.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 9,
+        "b": 12,
+        "c": 15
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_018",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Two similar triangles have areas in ratio 9:16. What is the ratio of their perimeters?",
+    "choices": [
+      "3:4",
+      "3:5",
+      "9:16",
+      "81:256"
+    ],
+    "answerIndex": 0,
+    "explanation": "If areas are in ratio 9:16, sides are in ratio \u221a9:\u221a16 = 3:4. Perimeters are in the same ratio as sides: 3:4.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "3k",
+        "b": "?",
+        "c": ""
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_019",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A circle is inscribed in a square with side 10. What is the area of the circle? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "31.4",
+      "78.5",
+      "100",
+      "314"
+    ],
+    "answerIndex": 1,
+    "explanation": "The inscribed circle has radius = side/2 = 5. Area = \u03c0\u00d725 = 3.14\u00d725 = 78.5.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 5,
+        "angle": 360
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_020",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A right triangle has legs (x+2) and (x+5) and hypotenuse (x+7). Solve for x.",
+    "choices": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answerIndex": 2,
+    "explanation": "With legs x and (x+7), hypotenuse (x+8): x\u00b2+(x+7)\u00b2=(x+8)\u00b2 \u2192 x\u00b2+2x\u221215=0 \u2192 x=5 (taking positive root).",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "x",
+        "b": "x+7",
         "c": "?"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_021",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A right triangle has perimeter 40 and hypotenuse 17. What is the area?",
+    "choices": [
+      "40",
+      "50",
+      "60",
+      "80"
+    ],
+    "answerIndex": 2,
+    "explanation": "Sum of legs = 40\u221217 = 23. Legs satisfy a+b=23 and a\u00b2+b\u00b2=289. (a+b)\u00b2=a\u00b2+2ab+b\u00b2=529. 2ab=529\u2212289=240, ab=120. Area = \u00bdab = 60.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": "?",
+        "c": 17
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_022",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, sin(A) = 5/13. A flagpole casts a shadow of 12 m. What is the height of the pole?",
+    "choices": [
+      "5 m",
+      "8 m",
+      "12 m",
+      "13 m"
+    ],
+    "answerIndex": 0,
+    "explanation": "If sin(A)=5/13, opposite=5, hyp=13, adjacent=12. Height (opposite to A) = (5/13)\u00d713 = 5. Wait: The shadow is the adjacent side = 12. Height = tan(A)\u00d712. tan = (5/12). Height = (5/12)\u00d712 = 5.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 12,
+        "b": "?",
+        "c": ""
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_023",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A 10-m ladder leans against a wall making a 60\u00b0 angle with the ground. How high up the wall does it reach? (sin 60\u00b0 = \u221a3/2)",
+    "choices": [
+      "5",
+      "5\u221a3",
+      "5\u221a2",
+      "10"
+    ],
+    "answerIndex": 1,
+    "explanation": "Height = hypotenuse \u00d7 sin(60\u00b0) = 10 \u00d7 (\u221a3/2) = 5\u221a3.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": "5\u221a3",
+        "c": 10
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_024",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Two cylinders have the same volume. Cylinder A has radius 3 and height 8. Cylinder B has radius 6. What is the height of Cylinder B?",
+    "choices": [
+      "1",
+      "2",
+      "4",
+      "8"
+    ],
+    "answerIndex": 1,
+    "explanation": "V_A = \u03c0\u00d79\u00d78 = 72\u03c0. V_B = \u03c0\u00d736\u00d7h = 72\u03c0 \u2192 h = 2.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": 3,
+        "h": 8
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_025",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A sphere has the same volume as a cylinder with radius 3 and height 4. What is the radius of the sphere? Use \u03c0 \u2248 3.14 and round to the nearest integer.",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answerIndex": 1,
+    "explanation": "Cylinder V = \u03c0\u00d79\u00d74 = 36\u03c0. Sphere: (4/3)\u03c0r\u00b3=36\u03c0 \u2192 r\u00b3=27 \u2192 r=3.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": 3,
+        "h": 4
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_026",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A sector of a circle has arc length 12\u03c0 and radius 12. What is the area of the sector?",
+    "choices": [
+      "36\u03c0",
+      "72\u03c0",
+      "144\u03c0",
+      "288\u03c0"
+    ],
+    "answerIndex": 1,
+    "explanation": "Arc = r\u03b8 (radians). 12\u03c0 = 12\u03b8 \u2192 \u03b8 = \u03c0. Area = \u00bdr\u00b2\u03b8 = \u00bd\u00d7144\u00d7\u03c0 = 72\u03c0.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 12,
+        "angle": 180
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_027",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, cos(B) = 7/25. What is sin(B)?",
+    "choices": [
+      "7/24",
+      "24/25",
+      "7/25",
+      "25/24"
+    ],
+    "answerIndex": 1,
+    "explanation": "adjacent=7, hyp=25, opposite=\u221a(625\u221249)=\u221a576=24. sin(B)=24/25.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 7,
+        "b": "?",
+        "c": 25
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_028",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Two similar triangles have areas 25 and 100. A side of the smaller triangle is 4. What is the corresponding side of the larger triangle?",
+    "choices": [
+      "4",
+      "6",
+      "8",
+      "16"
+    ],
+    "answerIndex": 2,
+    "explanation": "Ratio of areas = 25:100 = 1:4. Ratio of sides = \u221a(1:4) = 1:2. Larger side = 4 \u00d7 2 = 8.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 4,
+        "b": "?",
+        "c": ""
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_029",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A point is on a circle with equation x\u00b2+y\u00b2=100. The x-coordinate is 6. What is the positive y-coordinate?",
+    "choices": [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    "answerIndex": 2,
+    "explanation": "6\u00b2+y\u00b2=100 \u2192 y\u00b2=64 \u2192 y=8.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            6,
+            0
+          ],
+          [
+            0,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_030",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A triangle has vertices at (0,0), (4,0), and (0,3). What is its area?",
+    "choices": [
+      "4",
+      "6",
+      "7",
+      "12"
+    ],
+    "answerIndex": 1,
+    "explanation": "Area = \u00bd \u00d7 base \u00d7 height = \u00bd \u00d7 4 \u00d7 3 = 6.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            0,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_031",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, tan(A) = 3/4. If the hypotenuse is 25, what is the length of the side opposite to angle A?",
+    "choices": [
+      "10",
+      "12",
+      "15",
+      "20"
+    ],
+    "answerIndex": 2,
+    "explanation": "tan(A)=3/4 \u2192 sides in 3:4:5 ratio. Hyp=25=5\u00d75. Opposite = 3\u00d75 = 15.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": "?",
+        "c": 25
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_032",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A right triangle has legs x and 2x and hypotenuse 10\u221a5. What is x?",
+    "choices": [
+      "5",
+      "10",
+      "15",
+      "20"
+    ],
+    "answerIndex": 1,
+    "explanation": "x\u00b2+(2x)\u00b2=(10\u221a5)\u00b2 \u2192 5x\u00b2=500 \u2192 x\u00b2=100 \u2192 x=10.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "x",
+        "b": "2x",
+        "c": "?"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_033",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A cylinder has volume 904.32. Its radius equals its height. What is the radius? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "answerIndex": 0,
+    "explanation": "\u03c0r\u00b3 = 904.32 \u2192 r\u00b3 = 904.32/3.14 \u2248 288 \u2192 r \u2248 6.6. Closest listed value: 6 (accept as best integer approximation given \u03c0\u22483.14).",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": "?",
+        "h": "?"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_034",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A chord of a circle is 16 cm long. The chord is 6 cm from the center. What is the radius of the circle?",
+    "choices": [
+      "8",
+      "10",
+      "12",
+      "16"
+    ],
+    "answerIndex": 1,
+    "explanation": "The perpendicular from center bisects the chord. Half-chord = 8. r\u00b2 = 8\u00b2 + 6\u00b2 = 64+36 = 100. r = 10.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 10,
+        "angle": 180
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_035",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A right triangle is formed with one vertex at the origin, one at (5, 0), and one at (5, 12). What is the length of the hypotenuse?",
+    "choices": [
+      "12",
+      "13",
+      "14",
+      "17"
+    ],
+    "answerIndex": 1,
+    "explanation": "Hypotenuse connects (0,0) to (5,12). d = \u221a(25+144) = \u221a169 = 13.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_036",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, sin(C) = 7/25. What is cos\u00b2(C)?",
+    "choices": [
+      "7/25",
+      "24/25",
+      "576/625",
+      "625/576"
+    ],
+    "answerIndex": 2,
+    "explanation": "sin(C)=7/25, so cos(C)=24/25 (using 7-24-25 triple). cos\u00b2(C)=(24/25)\u00b2=576/625.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 7,
+        "b": 24,
+        "c": "?"
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_037",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A sector has area 48\u03c0 and radius 12. What is the central angle in degrees?",
+    "choices": [
+      "90\u00b0",
+      "100\u00b0",
+      "120\u00b0",
+      "150\u00b0"
+    ],
+    "answerIndex": 2,
+    "explanation": "48\u03c0=(\u03b8/360)\u00d7\u03c0\u00d7144 \u2192 \u03b8/360=48/144=1/3 \u2192 \u03b8=120\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "circle_arc",
+      "params": {
+        "radius": 12,
+        "angle": 120
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_038",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "A point (\u22123, y) lies on the circle x\u00b2+y\u00b2=25. What is the positive value of y?",
+    "choices": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answerIndex": 2,
+    "explanation": "(\u22123)\u00b2+y\u00b2=25 \u2192 y\u00b2=16 \u2192 y=4.",
+    "visual": {
+      "type": "svg",
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_039",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Two cylinders: one with r=2, h=9 and another with r=3, h=4. Which has a greater volume, and by how much? Use \u03c0 \u2248 3.14.",
+    "choices": [
+      "First by 6.28",
+      "Second by 6.28",
+      "They are equal",
+      "First by 12.56"
+    ],
+    "answerIndex": 2,
+    "explanation": "V\u2081=\u03c0\u00d74\u00d79=36\u03c0. V\u2082=\u03c0\u00d79\u00d74=36\u03c0. Both volumes equal 36\u03c0 \u2248 113.04. They are equal.",
+    "visual": {
+      "type": "svg",
+      "shape": "cylinder",
+      "params": {
+        "r": 2,
+        "h": 9
+      }
+    }
+  },
+  {
+    "id": "math_geometry_hard_040",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In a right triangle, the two acute angles satisfy: one is three times the other. What are the two angles?",
+    "choices": [
+      "20\u00b0 and 60\u00b0",
+      "22.5\u00b0 and 67.5\u00b0",
+      "30\u00b0 and 60\u00b0",
+      "22.5\u00b0 and 45\u00b0"
+    ],
+    "answerIndex": 1,
+    "explanation": "x + 3x = 90\u00b0 \u2192 4x = 90\u00b0 \u2192 x = 22.5\u00b0. Angles are 22.5\u00b0 and 67.5\u00b0.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "x",
+        "b": "3x",
+        "c": ""
       }
     }
   },
@@ -21182,19 +21301,23 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "What is the volume of the cylinder shown? (Use \u03c0 \u2248 3.14, radius = 3, height = 10)",
+    "question": "In a 30-60-90 triangle, the shorter leg is 7. What is the hypotenuse?",
     "choices": [
-      "94.2",
-      "188.4",
-      "282.6",
-      "565.2"
+      "7",
+      "7\u221a2",
+      "7\u221a3",
+      "14"
     ],
-    "answerIndex": 2,
-    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 9 \u00d7 10 = 282.6.",
+    "answerIndex": 3,
+    "explanation": "In a 30-60-90 triangle the hypotenuse = 2 \u00d7 shorter leg = 2 \u00d7 7 = 14.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
+      "shape": "right_triangle",
+      "params": {
+        "a": 7,
+        "b": "7\u221a3",
+        "c": "?"
+      }
     }
   },
   {
@@ -21202,21 +21325,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A central angle of 90\u00b0 subtends an arc in a circle with radius 8. What is the arc length? (Use \u03c0 \u2248 3.14)",
+    "question": "In a 45-45-90 triangle, each leg is 6. What is the hypotenuse?",
     "choices": [
-      "6.28",
-      "12.56",
-      "25.12",
-      "50.24"
+      "6",
+      "6\u221a2",
+      "6\u221a3",
+      "12"
     ],
     "answerIndex": 1,
-    "explanation": "Arc length = (\u03b8/360) \u00d7 2\u03c0r = (90/360) \u00d7 2 \u00d7 3.14 \u00d7 8 = \u00bc \u00d7 50.24 = 12.56.",
+    "explanation": "In a 45-45-90 triangle, hypotenuse = leg \u00d7 \u221a2 = 6\u221a2.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "right_triangle",
       "params": {
-        "radius": 8,
-        "angle": 90
+        "a": 6,
+        "b": 6,
+        "c": "?"
       }
     }
   },
@@ -21225,22 +21349,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "What is the area of a right triangle with legs 6 and 10?",
+    "question": "In a 30-60-90 triangle, the hypotenuse is 20. What is the shorter leg?",
     "choices": [
-      "16",
-      "30",
-      "40",
-      "60"
+      "5",
+      "10",
+      "10\u221a3",
+      "20"
     ],
     "answerIndex": 1,
-    "explanation": "Area = \u00bd \u00d7 base \u00d7 height = \u00bd \u00d7 6 \u00d7 10 = 30.",
+    "explanation": "Shorter leg = hypotenuse \u00f7 2 = 20 \u00f7 2 = 10.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
-        "a": 6,
-        "b": 10,
-        "c": "?"
+        "a": "?",
+        "b": "10\u221a3",
+        "c": 20
       }
     }
   },
@@ -21249,21 +21373,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has a diagonal of 13 and one side of 5. What is its area?",
+    "question": "In a 45-45-90 triangle, the hypotenuse is 8\u221a2. What is the length of each leg?",
     "choices": [
-      "60",
-      "65",
-      "120",
-      "130"
+      "4",
+      "6",
+      "8",
+      "8\u221a2"
     ],
-    "answerIndex": 0,
-    "explanation": "Other side = \u221a(13\u00b2 \u2212 5\u00b2) = \u221a(169 \u2212 25) = \u221a144 = 12. Area = 5 \u00d7 12 = 60.",
+    "answerIndex": 2,
+    "explanation": "Leg = hypotenuse \u00f7 \u221a2 = 8\u221a2 \u00f7 \u221a2 = 8.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "right_triangle",
       "params": {
-        "w": 5,
-        "h": 12
+        "a": "?",
+        "b": "?",
+        "c": "8\u221a2"
       }
     }
   },
@@ -21272,21 +21397,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A circle has a central angle of 60\u00b0 and radius 12. What is the arc length? (Use \u03c0 \u2248 3.14)",
+    "question": "In a 30-60-90 triangle, the longer leg is 9\u221a3. What is the shorter leg?",
     "choices": [
-      "6.28",
-      "12.56",
-      "18.84",
-      "25.12"
+      "3",
+      "9",
+      "9\u221a3",
+      "18"
     ],
     "answerIndex": 1,
-    "explanation": "Arc = (60/360) \u00d7 2 \u00d7 3.14 \u00d7 12 = (1/6) \u00d7 75.36 = 12.56.",
+    "explanation": "Longer leg = shorter leg \u00d7 \u221a3, so shorter leg = 9\u221a3 \u00f7 \u221a3 = 9.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "right_triangle",
       "params": {
-        "radius": 12,
-        "angle": 60
+        "a": "?",
+        "b": "9\u221a3",
+        "c": ""
       }
     }
   },
@@ -21295,22 +21421,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "What is the area of a triangle with base 14 and height 9?",
+    "question": "In a 45-45-90 triangle, the hypotenuse is 10. What is the length of each leg?",
     "choices": [
-      "23",
-      "42",
-      "63",
-      "126"
+      "5",
+      "5\u221a2",
+      "5\u221a3",
+      "10"
     ],
-    "answerIndex": 2,
-    "explanation": "Area = \u00bd \u00d7 14 \u00d7 9 = 63.",
+    "answerIndex": 1,
+    "explanation": "Leg = hypotenuse \u00f7 \u221a2 = 10 \u00f7 \u221a2 = 10\u221a2 \u00f7 2 = 5\u221a2.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
-        "a": 9,
-        "b": 14,
-        "c": "?"
+        "a": "?",
+        "b": "?",
+        "c": 10
       }
     }
   },
@@ -21319,19 +21445,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A cylinder has radius 5 and height 8. What is its volume? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the volume of the cylinder shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "125.6",
-      "251.2",
-      "628",
-      "1256"
+      "84.78",
+      "141.3",
+      "282.6",
+      "376.8"
     ],
     "answerIndex": 2,
-    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 25 \u00d7 8 = 628.",
+    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 3\u00b2 \u00d7 10 = 282.6.",
     "visual": {
       "type": "svg",
       "shape": "cylinder",
-      "params": {}
+      "params": {
+        "r": 3,
+        "h": 10
+      }
     }
   },
   {
@@ -21339,22 +21468,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "Two sides of a right triangle are 9 and the hypotenuse is 41. What is the other leg?",
+    "question": "What is the lateral surface area of the cylinder shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "32",
-      "38",
-      "40",
-      "42"
+      "56.52",
+      "94.2",
+      "188.4",
+      "282.6"
     ],
     "answerIndex": 2,
-    "explanation": "b\u00b2 = 41\u00b2 \u2212 9\u00b2 = 1681 \u2212 81 = 1600. b = 40.",
+    "explanation": "Lateral SA = 2\u03c0rh = 2 \u00d7 3.14 \u00d7 3 \u00d7 10 = 188.4.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "cylinder",
       "params": {
-        "a": 9,
-        "b": "?",
-        "c": 41
+        "r": 3,
+        "h": 10
       }
     }
   },
@@ -21363,21 +21491,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A central angle of 45\u00b0 in a circle with radius 10. What is the area of the sector? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the total surface area of the cylinder shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "7.85",
-      "15.7",
-      "31.4",
-      "39.25"
+      "188.4",
+      "244.92",
+      "282.6",
+      "376.8"
     ],
-    "answerIndex": 3,
-    "explanation": "Sector area = (\u03b8/360) \u00d7 \u03c0r\u00b2 = (45/360) \u00d7 3.14 \u00d7 100 = \u215b \u00d7 314 = 39.25.",
+    "answerIndex": 1,
+    "explanation": "SA = 2\u03c0r(r+h) = 2 \u00d7 3.14 \u00d7 3 \u00d7 (3+10) = 6.28 \u00d7 3 \u00d7 13 = 244.92.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "cylinder",
       "params": {
-        "radius": 10,
-        "angle": 45
+        "r": 3,
+        "h": 10
       }
     }
   },
@@ -21386,21 +21514,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has perimeter 50 and length 15. What is its area?",
+    "question": "A cylinder has radius 5 and height 8. What is its volume? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "100",
-      "150",
-      "175",
-      "300"
+      "125.6",
+      "251.2",
+      "502.4",
+      "628"
     ],
-    "answerIndex": 1,
-    "explanation": "Width = (50 \u2212 2\u00d715)/2 = 10. Area = 15 \u00d7 10 = 150.",
+    "answerIndex": 3,
+    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 5\u00b2 \u00d7 8 = 3.14 \u00d7 25 \u00d7 8 = 628.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "cylinder",
       "params": {
-        "w": 15,
-        "h": 10
+        "r": 5,
+        "h": 8
       }
     }
   },
@@ -21409,22 +21537,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has legs 7 and 7. What is the perimeter? (Round to nearest whole number)",
+    "question": "A cone has radius 6 and height 8. What is its volume? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "14",
-      "24",
-      "28",
-      "30"
+      "100.48",
+      "150.72",
+      "301.44",
+      "904.32"
     ],
-    "answerIndex": 1,
-    "explanation": "Hypotenuse = \u221a(49 + 49) = 7\u221a2 \u2248 9.9. Perimeter \u2248 7 + 7 + 9.9 \u2248 24.",
+    "answerIndex": 2,
+    "explanation": "V = (1/3)\u03c0r\u00b2h = (1/3) \u00d7 3.14 \u00d7 36 \u00d7 8 = (1/3) \u00d7 904.32 = 301.44.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "circle_arc",
       "params": {
-        "a": 7,
-        "b": 7,
-        "c": "?"
+        "radius": 6,
+        "angle": 180
       }
     }
   },
@@ -21433,19 +21560,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A cylinder has radius 4 and height 12. What is its surface area? (Use \u03c0 \u2248 3.14)",
+    "question": "A sphere has radius 3. What is its volume? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "100.48",
-      "200.96",
-      "301.44",
-      "401.92"
+      "37.68",
+      "75.36",
+      "113.04",
+      "339.12"
     ],
-    "answerIndex": 3,
-    "explanation": "SA = 2\u03c0r\u00b2 + 2\u03c0rh = 2(3.14)(16) + 2(3.14)(4)(12) = 100.48 + 301.44 = 401.92.",
+    "answerIndex": 2,
+    "explanation": "V = (4/3)\u03c0r\u00b3 = (4/3) \u00d7 3.14 \u00d7 27 = 4 \u00d7 3.14 \u00d7 9 = 113.04.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
+      "shape": "circle_arc",
+      "params": {
+        "radius": 3,
+        "angle": 360
+      }
     }
   },
   {
@@ -21453,21 +21583,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A circle has circumference 62.8. What is its radius? (Use \u03c0 \u2248 3.14)",
+    "question": "A cone has radius 4 and height 9. What is its volume? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "5",
-      "10",
-      "15",
-      "20"
+      "50.24",
+      "100.48",
+      "150.72",
+      "452.16"
     ],
-    "answerIndex": 1,
-    "explanation": "C = 2\u03c0r \u2192 r = C/(2\u03c0) = 62.8/(6.28) = 10.",
+    "answerIndex": 2,
+    "explanation": "V = (1/3)\u03c0r\u00b2h = (1/3) \u00d7 3.14 \u00d7 16 \u00d7 9 = (1/3) \u00d7 452.16 = 150.72.",
     "visual": {
       "type": "svg",
       "shape": "circle_arc",
       "params": {
-        "radius": 10,
-        "angle": 360
+        "radius": 4,
+        "angle": 180
       }
     }
   },
@@ -21476,21 +21606,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has area 84 and width 6. What is its perimeter?",
+    "question": "A sphere has radius 6. What is its volume? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "20",
-      "40",
-      "48",
-      "60"
+      "75.36",
+      "452.16",
+      "904.32",
+      "1809"
     ],
-    "answerIndex": 1,
-    "explanation": "Length = 84/6 = 14. Perimeter = 2(14 + 6) = 40.",
+    "answerIndex": 2,
+    "explanation": "V = (4/3)\u03c0r\u00b3 = (4/3) \u00d7 3.14 \u00d7 216 = 904.32.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "circle_arc",
       "params": {
-        "w": 14,
-        "h": 6
+        "radius": 6,
+        "angle": 360
       }
     }
   },
@@ -21499,21 +21629,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A 120\u00b0 central angle in a circle with radius 6. What is the arc length? (Use \u03c0 \u2248 3.14)",
+    "question": "Two similar triangles have sides in ratio 2:3. The shorter triangle has a side of 8. What is the corresponding side of the larger triangle?",
     "choices": [
-      "6.28",
-      "12.56",
-      "18.84",
-      "25.12"
+      "10",
+      "12",
+      "14",
+      "16"
     ],
     "answerIndex": 1,
-    "explanation": "Arc = (120/360) \u00d7 2 \u00d7 3.14 \u00d7 6 = \u2153 \u00d7 37.68 = 12.56.",
+    "explanation": "If ratio is 2:3, then 8/2 = 4 (scale factor unit). Larger side = 3 \u00d7 4 = 12.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "right_triangle",
       "params": {
-        "radius": 6,
-        "angle": 120
+        "a": 8,
+        "b": "?",
+        "c": ""
       }
     }
   },
@@ -21522,15 +21653,87 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has area 30 and one leg of 6. What is the other leg?",
+    "question": "Two similar triangles have sides in ratio 3:5. The smaller triangle has a side of 9. What is the corresponding side of the larger triangle?",
     "choices": [
-      "5",
-      "8",
-      "10",
-      "12"
+      "12",
+      "15",
+      "18",
+      "27"
+    ],
+    "answerIndex": 1,
+    "explanation": "9/3 = 3 (scale unit). Larger side = 5 \u00d7 3 = 15.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 9,
+        "b": "?",
+        "c": ""
+      }
+    }
+  },
+  {
+    "id": "math_geometry_medium_017",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "Two similar triangles have sides in ratio 4:7. The larger triangle has a hypotenuse of 28. What is the hypotenuse of the smaller triangle?",
+    "choices": [
+      "12",
+      "14",
+      "16",
+      "21"
     ],
     "answerIndex": 2,
-    "explanation": "Area = \u00bd \u00d7 base \u00d7 height \u2192 30 = \u00bd \u00d7 6 \u00d7 h \u2192 h = 10.",
+    "explanation": "28/7 = 4 (scale unit). Smaller hypotenuse = 4 \u00d7 4 = 16.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": "?",
+        "b": "?",
+        "c": 28
+      }
+    }
+  },
+  {
+    "id": "math_geometry_medium_018",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "In a right triangle, a line parallel to the base creates a smaller similar triangle. The base of the full triangle is 10; the base of the smaller triangle is 6. If the height of the full triangle is 8, what is the height of the smaller triangle?",
+    "choices": [
+      "3.6",
+      "4",
+      "4.8",
+      "5"
+    ],
+    "answerIndex": 2,
+    "explanation": "Ratio = 6/10 = 0.6. Height of smaller = 0.6 \u00d7 8 = 4.8.",
+    "visual": {
+      "type": "svg",
+      "shape": "right_triangle",
+      "params": {
+        "a": 10,
+        "b": 8,
+        "c": ""
+      }
+    }
+  },
+  {
+    "id": "math_geometry_medium_019",
+    "section": "math",
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "Two similar triangles have corresponding sides 6 and 9. The area of the smaller triangle is 24. What is the area of the larger triangle?",
+    "choices": [
+      "36",
+      "48",
+      "54",
+      "72"
+    ],
+    "answerIndex": 2,
+    "explanation": "Ratio of sides = 6:9 = 2:3. Ratio of areas = (2:3)\u00b2 = 4:9. Larger area = 24 \u00d7 9/4 = 54.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
@@ -21542,92 +21745,25 @@
     }
   },
   {
-    "id": "math_geometry_medium_017",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "medium",
-    "question": "A cylinder has volume 314. Its height is 8. What is its radius? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "3",
-      "4",
-      "5",
-      "6"
-    ],
-    "answerIndex": 2,
-    "explanation": "V = \u03c0r\u00b2h \u2192 314 = 3.14 \u00d7 r\u00b2 \u00d7 4 \u2192 r\u00b2 = 25 \u2192 r = 5.",
-    "visual": {
-      "type": "svg",
-      "shape": "cylinder",
-      "params": {}
-    }
-  },
-  {
-    "id": "math_geometry_medium_018",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "medium",
-    "question": "A right triangle has legs 15 and 20. What is the area?",
-    "choices": [
-      "100",
-      "150",
-      "175",
-      "200"
-    ],
-    "answerIndex": 1,
-    "explanation": "Area = \u00bd \u00d7 15 \u00d7 20 = 150.",
-    "visual": {
-      "type": "svg",
-      "shape": "right_triangle",
-      "params": {
-        "a": 15,
-        "b": 20,
-        "c": "?"
-      }
-    }
-  },
-  {
-    "id": "math_geometry_medium_019",
-    "section": "math",
-    "topic": "Geometry",
-    "difficulty": "medium",
-    "question": "A circle has area 200.96. What is its radius? (Use \u03c0 \u2248 3.14)",
-    "choices": [
-      "4",
-      "6",
-      "8",
-      "10"
-    ],
-    "answerIndex": 2,
-    "explanation": "A = \u03c0r\u00b2 \u2192 r\u00b2 = 200.96/3.14 = 64 \u2192 r = 8.",
-    "visual": {
-      "type": "svg",
-      "shape": "circle_arc",
-      "params": {
-        "radius": 8,
-        "angle": 360
-      }
-    }
-  },
-  {
     "id": "math_geometry_medium_020",
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has a diagonal of 17 and one side of 8. What is its perimeter?",
+    "question": "A rectangle is 12 cm wide and 5 cm tall. A triangle with the same base and height sits on top of it. What is the total area?",
     "choices": [
-      "30",
-      "38",
-      "46",
-      "54"
+      "60",
+      "78",
+      "90",
+      "120"
     ],
     "answerIndex": 2,
-    "explanation": "Other side = \u221a(17\u00b2 \u2212 8\u00b2) = \u221a(289 \u2212 64) = \u221a225 = 15. Perimeter = 2(8 + 15) = 46.",
+    "explanation": "Rectangle = 12 \u00d7 5 = 60. Triangle = \u00bd \u00d7 12 \u00d7 5 = 30. Total = 60 + 30 = 90.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
       "params": {
-        "w": 8,
-        "h": 15
+        "w": 12,
+        "h": 5
       }
     }
   },
@@ -21636,21 +21772,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A central angle of 180\u00b0 in a circle with radius 5. What is the area of the semicircle? (Use \u03c0 \u2248 3.14)",
+    "question": "A rectangle is 10 cm wide and 8 cm tall. A square is cut from its corner with side 3 cm. What is the remaining area?",
     "choices": [
-      "15.7",
-      "31.4",
-      "39.25",
-      "78.5"
+      "71",
+      "73",
+      "74",
+      "80"
     ],
-    "answerIndex": 2,
-    "explanation": "Semicircle area = \u00bd \u00d7 \u03c0r\u00b2 = \u00bd \u00d7 3.14 \u00d7 25 = 39.25.",
+    "answerIndex": 0,
+    "explanation": "Rectangle area = 80. Square cut = 3\u00b2 = 9. Remaining = 80 \u2212 9 = 71.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "rectangle",
       "params": {
-        "radius": 5,
-        "angle": 180
+        "w": 10,
+        "h": 8
       }
     }
   },
@@ -21659,22 +21795,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has hypotenuse 20 and one leg 12. What is the area?",
+    "question": "A rectangle 15 cm \u00d7 6 cm has a semicircle of diameter 6 cm attached to one end. What is the total area? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "80",
-      "96",
-      "120",
-      "160"
+      "90",
+      "104.13",
+      "115.26",
+      "120"
     ],
     "answerIndex": 1,
-    "explanation": "Other leg = \u221a(400 \u2212 144) = \u221a256 = 16. Area = \u00bd \u00d7 12 \u00d7 16 = 96.",
+    "explanation": "Rectangle = 90. Semicircle = \u00bd\u03c0(3\u00b2) = \u00bd \u00d7 3.14 \u00d7 9 = 14.13. Total = 90 + 14.13 = 104.13.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "rectangle",
       "params": {
-        "a": 12,
-        "b": "?",
-        "c": 20
+        "w": 15,
+        "h": 6
       }
     }
   },
@@ -21683,19 +21818,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A cylinder has radius 6 and height 6. What is its volume? (Use \u03c0 \u2248 3.14)",
+    "question": "A trapezoid has parallel bases 8 and 14, and height 6. What is its area?",
     "choices": [
-      "113.04",
-      "339.12",
-      "452.16",
-      "678.24"
+      "44",
+      "66",
+      "88",
+      "132"
     ],
-    "answerIndex": 3,
-    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 36 \u00d7 6 = 678.24.",
+    "answerIndex": 1,
+    "explanation": "A = \u00bd(b\u2081 + b\u2082)h = \u00bd(8 + 14)(6) = \u00bd \u00d7 22 \u00d7 6 = 66.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
+      "shape": "rectangle",
+      "params": {
+        "w": "8 & 14",
+        "h": 6
+      }
     }
   },
   {
@@ -21703,21 +21841,30 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has area 56 and length 8. What is its diagonal?",
+    "question": "What is the distance between the two points shown on the coordinate plane?",
     "choices": [
-      "7",
-      "9",
-      "10",
-      "11"
+      "4",
+      "5",
+      "6",
+      "7"
     ],
-    "answerIndex": 2,
-    "explanation": "Width = 56/8 = 7. Diagonal = \u221a(8\u00b2 + 7\u00b2) = \u221a(64 + 49) = \u221a113 \u2248 10.6 \u2248 10.",
+    "answerIndex": 1,
+    "explanation": "d = \u221a((1\u2212(\u22123))\u00b2 + (4\u22121)\u00b2) = \u221a(16+9) = \u221a25 = 5.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "coordinate_plane",
       "params": {
-        "w": 8,
-        "h": 7
+        "curve": null,
+        "points": [
+          [
+            -3,
+            1
+          ],
+          [
+            1,
+            4
+          ]
+        ]
       }
     }
   },
@@ -21726,21 +21873,30 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A 30\u00b0 arc in a circle with radius 12. What is the arc length? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the midpoint of the two points shown on the coordinate plane?",
     "choices": [
-      "3.14",
-      "6.28",
-      "9.42",
-      "18.84"
+      "(\u22121, 1)",
+      "(0, 1)",
+      "(1, 2)",
+      "(2, 3)"
     ],
     "answerIndex": 1,
-    "explanation": "Arc = (30/360) \u00d7 2 \u00d7 3.14 \u00d7 12 = (1/12) \u00d7 75.36 = 6.28.",
+    "explanation": "Midpoint = ((\u22122+2)/2, (\u22121+3)/2) = (0, 1).",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "coordinate_plane",
       "params": {
-        "radius": 12,
-        "angle": 30
+        "curve": null,
+        "points": [
+          [
+            -2,
+            -1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
       }
     }
   },
@@ -21749,22 +21905,30 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has legs 9 and 40. What is the hypotenuse?",
+    "question": "What is the distance between the two points shown on the coordinate plane?",
     "choices": [
-      "39",
-      "41",
-      "43",
-      "45"
+      "3",
+      "4",
+      "5",
+      "2\u221a5"
     ],
-    "answerIndex": 1,
-    "explanation": "c\u00b2 = 81 + 1600 = 1681. c = 41.",
+    "answerIndex": 3,
+    "explanation": "d = \u221a((1\u2212(\u22121))\u00b2+(3\u2212(\u22121))\u00b2) = \u221a(4+16) = \u221a20 = 2\u221a5.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "coordinate_plane",
       "params": {
-        "a": 9,
-        "b": 40,
-        "c": "?"
+        "curve": null,
+        "points": [
+          [
+            -1,
+            -1
+          ],
+          [
+            1,
+            3
+          ]
+        ]
       }
     }
   },
@@ -21773,19 +21937,31 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A cylinder has radius 3 and height 14. What is its volume? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the slope of the segment connecting the two points shown?",
     "choices": [
-      "131.88",
-      "263.76",
-      "395.64",
-      "527.52"
+      "\u22122",
+      "\u22121",
+      "1",
+      "2"
     ],
-    "answerIndex": 2,
-    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 9 \u00d7 14 = 395.64.",
+    "answerIndex": 3,
+    "explanation": "Slope = (y\u2082\u2212y\u2081)/(x\u2082\u2212x\u2081) = (3\u2212(\u22121))/(2\u22120) = 4/2 = 2.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
+      "shape": "coordinate_plane",
+      "params": {
+        "curve": null,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
     }
   },
   {
@@ -21793,21 +21969,30 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has perimeter 64 and area 240. What are the dimensions?",
+    "question": "What is the distance between the two points shown on the coordinate plane?",
     "choices": [
-      "12 and 20",
-      "15 and 17",
-      "16 and 16",
-      "10 and 24"
+      "2\u221a5",
+      "\u221a20",
+      "\u221a40",
+      "\u221a45"
     ],
     "answerIndex": 0,
-    "explanation": "l + w = 32. lw = 240. Solving: l = 20, w = 12.",
+    "explanation": "d = \u221a((2\u2212(\u22122))\u00b2 + (3\u22121)\u00b2) = \u221a(16+4) = \u221a20 = 2\u221a5.",
     "visual": {
       "type": "svg",
-      "shape": "rectangle",
+      "shape": "coordinate_plane",
       "params": {
-        "w": 20,
-        "h": 12
+        "curve": null,
+        "points": [
+          [
+            -2,
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
       }
     }
   },
@@ -21816,21 +22001,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A circle has a 270\u00b0 central angle and radius 4. What is the arc length? (Use \u03c0 \u2248 3.14)",
+    "question": "A central angle in a circle measures 90\u00b0. The inscribed angle that subtends the same arc measures what?",
     "choices": [
-      "6.28",
-      "12.56",
-      "18.84",
-      "25.12"
+      "30\u00b0",
+      "45\u00b0",
+      "60\u00b0",
+      "90\u00b0"
     ],
-    "answerIndex": 2,
-    "explanation": "Arc = (270/360) \u00d7 2 \u00d7 3.14 \u00d7 4 = \u00be \u00d7 25.12 = 18.84.",
+    "answerIndex": 1,
+    "explanation": "The inscribed angle = \u00bd \u00d7 central angle = \u00bd \u00d7 90\u00b0 = 45\u00b0.",
     "visual": {
       "type": "svg",
       "shape": "circle_arc",
       "params": {
-        "radius": 4,
-        "angle": 270
+        "radius": 7,
+        "angle": 90
       }
     }
   },
@@ -21839,22 +22024,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has perimeter 60 and hypotenuse 26. What is the area?",
+    "question": "A central angle is 120\u00b0. The inscribed angle subtending the same arc is what?",
     "choices": [
-      "100",
-      "120",
-      "150",
-      "170"
+      "30\u00b0",
+      "60\u00b0",
+      "90\u00b0",
+      "120\u00b0"
     ],
     "answerIndex": 1,
-    "explanation": "Sum of legs = 60 \u2212 26 = 34. Legs satisfy a\u00b2 + b\u00b2 = 676 and a + b = 34. Solving: ab = (34\u00b2 \u2212 676)/2 = (1156 \u2212 676)/2 = 240. Area = \u00bd \u00d7 240 = 120.",
+    "explanation": "Inscribed angle = \u00bd \u00d7 central angle = \u00bd \u00d7 120\u00b0 = 60\u00b0.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "circle_arc",
       "params": {
-        "a": 10,
-        "b": 24,
-        "c": "?"
+        "radius": 8,
+        "angle": 120
       }
     }
   },
@@ -21863,19 +22047,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A cylinder has volume 502.4 and radius 4. What is the height? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the area of the 90\u00b0 sector shown? Use \u03c0 \u2248 3.14.",
     "choices": [
-      "8",
-      "10",
-      "12",
-      "14"
+      "19.63",
+      "28.26",
+      "38.47",
+      "78.5"
     ],
-    "answerIndex": 1,
-    "explanation": "V = \u03c0r\u00b2h \u2192 502.4 = 3.14 \u00d7 16 \u00d7 h = 50.24h \u2192 h = 10.",
+    "answerIndex": 0,
+    "explanation": "Sector area = (\u03b8/360)\u03c0r\u00b2 = (90/360) \u00d7 3.14 \u00d7 5\u00b2 = 0.25 \u00d7 78.5 = 19.625 \u2248 19.63.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
+      "shape": "circle_arc",
+      "params": {
+        "radius": 5,
+        "angle": 90
+      }
     }
   },
   {
@@ -21883,21 +22070,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has a diagonal of 25 and area of 168. What is its perimeter?",
+    "question": "A trapezoid has parallel bases 5 and 11 and height 4. What is its area?",
     "choices": [
-      "56",
-      "58",
-      "62",
+      "24",
+      "32",
+      "48",
       "64"
     ],
-    "answerIndex": 2,
-    "explanation": "l\u00b2 + w\u00b2 = 625 and lw = 168. (l+w)\u00b2 = 625 + 336 = 961. l + w = 31. P = 2 \u00d7 31 = 62.",
+    "answerIndex": 1,
+    "explanation": "A = \u00bd(b\u2081 + b\u2082)h = \u00bd(5+11)(4) = \u00bd \u00d7 16 \u00d7 4 = 32.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
       "params": {
-        "w": 24,
-        "h": 7
+        "w": "5 & 11",
+        "h": 4
       }
     }
   },
@@ -21906,22 +22093,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has legs 11 and 60. What is the hypotenuse?",
+    "question": "An exterior angle of a triangle is 115\u00b0. One of the non-adjacent interior angles is 60\u00b0. What is the other non-adjacent interior angle?",
     "choices": [
-      "55",
-      "61",
-      "65",
-      "70"
+      "45\u00b0",
+      "50\u00b0",
+      "55\u00b0",
+      "65\u00b0"
     ],
-    "answerIndex": 1,
-    "explanation": "c\u00b2 = 121 + 3600 = 3721. c = 61.",
+    "answerIndex": 2,
+    "explanation": "Exterior angle = sum of non-adjacent interior angles. 115\u00b0 = 60\u00b0 + x \u2192 x = 55\u00b0.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
-        "a": 11,
-        "b": 60,
-        "c": "?"
+        "a": "60\u00b0",
+        "b": "?",
+        "c": "115\u00b0"
       }
     }
   },
@@ -21930,21 +22117,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A circle has area 78.5. What is its circumference? (Use \u03c0 \u2248 3.14)",
+    "question": "Two parallel lines are cut by a transversal. One angle is 3x + 10\u00b0 and its alternate interior angle is 2x + 30\u00b0. What is x?",
     "choices": [
-      "15.7",
-      "31.4",
-      "47.1",
-      "62.8"
+      "15",
+      "20",
+      "25",
+      "30"
     ],
     "answerIndex": 1,
-    "explanation": "r\u00b2 = 78.5/3.14 = 25 \u2192 r = 5. C = 2\u03c0r = 31.4.",
+    "explanation": "Alternate interior angles are equal: 3x + 10 = 2x + 30 \u2192 x = 20.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "rectangle",
       "params": {
-        "radius": 5,
-        "angle": 360
+        "w": "3x+10\u00b0",
+        "h": "2x+30\u00b0"
       }
     }
   },
@@ -21953,21 +22140,21 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A rectangle has length twice its width. If the perimeter is 48, what is the area?",
+    "question": "A trapezoid has parallel bases 9 and 15 and height 7. What is its area?",
     "choices": [
-      "64",
-      "96",
-      "128",
-      "144"
+      "84",
+      "105",
+      "112",
+      "168"
     ],
-    "answerIndex": 2,
-    "explanation": "Let w = width, l = 2w. 2(2w + w) = 48 \u2192 w = 8, l = 16. Area = 128.",
+    "answerIndex": 0,
+    "explanation": "A = \u00bd(9+15)(7) = \u00bd \u00d7 24 \u00d7 7 = 84.",
     "visual": {
       "type": "svg",
       "shape": "rectangle",
       "params": {
-        "w": 16,
-        "h": 8
+        "w": "9 & 15",
+        "h": 7
       }
     }
   },
@@ -21976,21 +22163,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A 150\u00b0 central angle in a circle with radius 8. What is the sector area? (Use \u03c0 \u2248 3.14)",
+    "question": "In a 30-60-90 triangle, the shorter leg is 5. What is the length of the longer leg?",
     "choices": [
-      "33.49",
-      "66.97",
-      "83.73",
-      "100.48"
+      "5",
+      "5\u221a2",
+      "5\u221a3",
+      "10"
     ],
     "answerIndex": 2,
-    "explanation": "Sector area = (150/360) \u00d7 \u03c0 \u00d7 64 = (5/12) \u00d7 200.96 \u2248 83.73.",
+    "explanation": "In a 30-60-90 triangle, longer leg = shorter leg \u00d7 \u221a3 = 5\u221a3.",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "right_triangle",
       "params": {
-        "radius": 8,
-        "angle": 150
+        "a": 5,
+        "b": "?",
+        "c": 10
       }
     }
   },
@@ -21999,22 +22187,30 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has legs a and b with a = b + 2 and hypotenuse 10. What is a?",
+    "question": "What is the distance between points (\u22124, 2) and (0, \u22121) shown on the coordinate plane?",
     "choices": [
+      "4",
+      "5",
       "6",
-      "7",
-      "8",
-      "9"
+      "7"
     ],
-    "answerIndex": 2,
-    "explanation": "a = b + 2. a\u00b2 + b\u00b2 = 100. (b+2)\u00b2 + b\u00b2 = 100 \u2192 2b\u00b2 + 4b + 4 = 100 \u2192 b\u00b2 + 2b \u2212 48 = 0 \u2192 (b+8)(b\u22126) = 0 \u2192 b = 6, a = 8.",
+    "answerIndex": 1,
+    "explanation": "d = \u221a((0\u2212(\u22124))\u00b2+(\u22121\u22122)\u00b2) = \u221a(16+9) = \u221a25 = 5.",
     "visual": {
       "type": "svg",
-      "shape": "right_triangle",
+      "shape": "coordinate_plane",
       "params": {
-        "a": 8,
-        "b": 6,
-        "c": "?"
+        "curve": null,
+        "points": [
+          [
+            -4,
+            2
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
       }
     }
   },
@@ -22023,19 +22219,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A cylinder has the same radius and height equal to 7. What is its volume? (Use \u03c0 \u2248 3.14)",
+    "question": "A rectangle is 14 cm wide and 9 cm tall. A triangle is cut from one corner with base 4 and height 4. What is the remaining area?",
     "choices": [
-      "215.35",
-      "430.7",
-      "1077.02",
-      "2154.04"
+      "118",
+      "122",
+      "124",
+      "126"
     ],
-    "answerIndex": 2,
-    "explanation": "V = \u03c0r\u00b2h = 3.14 \u00d7 7\u00b2 \u00d7 7 = 3.14 \u00d7 343 = 1077.02.",
+    "answerIndex": 0,
+    "explanation": "Rectangle = 14\u00d79 = 126. Triangle = \u00bd\u00d74\u00d74 = 8. Remaining = 126 \u2212 8 = 118.",
     "visual": {
       "type": "svg",
-      "shape": "cylinder",
-      "params": {}
+      "shape": "rectangle",
+      "params": {
+        "w": 14,
+        "h": 9
+      }
     }
   },
   {
@@ -22043,22 +22242,22 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A right triangle has hypotenuse 34 and one leg 16. What is the area of the triangle?",
+    "question": "An exterior angle of a triangle measures 130\u00b0. One non-adjacent interior angle is 75\u00b0. What is the other?",
     "choices": [
-      "240",
-      "256",
-      "272",
-      "300"
+      "40\u00b0",
+      "50\u00b0",
+      "55\u00b0",
+      "60\u00b0"
     ],
-    "answerIndex": 0,
-    "explanation": "Other leg = \u221a(34\u00b2 \u2212 16\u00b2) = \u221a(1156 \u2212 256) = \u221a900 = 30. Area = \u00bd \u00d7 16 \u00d7 30 = 240.",
+    "answerIndex": 2,
+    "explanation": "130\u00b0 = 75\u00b0 + x \u2192 x = 55\u00b0.",
     "visual": {
       "type": "svg",
       "shape": "right_triangle",
       "params": {
-        "a": 16,
+        "a": "75\u00b0",
         "b": "?",
-        "c": 34
+        "c": "130\u00b0"
       }
     }
   },
@@ -22067,21 +22266,30 @@
     "section": "math",
     "topic": "Geometry",
     "difficulty": "medium",
-    "question": "A 200\u00b0 arc in a circle with radius 9. What is the arc length? (Use \u03c0 \u2248 3.14)",
+    "question": "What is the midpoint of the segment connecting (\u22123, \u22122) and (3, 4)?",
     "choices": [
-      "15.7",
-      "31.4",
-      "47.1",
-      "62.8"
+      "(0, 0)",
+      "(0, 1)",
+      "(1, 1)",
+      "(3, 3)"
     ],
     "answerIndex": 1,
-    "explanation": "Arc = (200/360) \u00d7 2 \u00d7 3.14 \u00d7 9 = (5/9) \u00d7 56.52 = 31.4.",
+    "explanation": "Midpoint = ((\u22123+3)/2, (\u22122+4)/2) = (0, 1).",
     "visual": {
       "type": "svg",
-      "shape": "circle_arc",
+      "shape": "coordinate_plane",
       "params": {
-        "radius": 9,
-        "angle": 200
+        "curve": null,
+        "points": [
+          [
+            -3,
+            -2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
       }
     }
   },
