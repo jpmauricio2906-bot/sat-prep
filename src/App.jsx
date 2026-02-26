@@ -775,6 +775,8 @@ function buildBankFromQuestionList(list){
       explanation: q.explanation,
       fig: q.visual,
       passage: q.passage
+      underline: raw.underline ?? null,        // ← ADD THIS
+      choiceMode: raw.choiceMode ?? null,      // ← ADD THIS
     };
 
     const sec = q.section;
