@@ -22848,10 +22848,10 @@
       "3/7",
       "3/5",
       "15/35",
-      "3/7"
+      "4/7"
     ],
     "answerIndex": 0,
-    "explanation": "Fraction = 15/(20+15) = 15/35 = 3/7.",
+    "explanation": "Fraction = 15/(20+15) = 15/35 = 3/7. Response should be simplified",
     "visual": null
   },
   {
