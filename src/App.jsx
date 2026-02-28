@@ -200,15 +200,32 @@ function SVGFigure({ type, params }) {
     const colA = a==="?" ? T.correct : T.svgLabel;
     const colB = b==="?" ? T.correct : T.svgLabel;
     const colC = c==="?" ? T.correct : T.svgLabel;
+    // Derive missing side from the two known sides using Pythagorean theorem
+    // a = horizontal leg, b = vertical leg, c = hypotenuse
+    const knownA = a!=="?", knownB = b!=="?", knownC = c!=="?" && c!=null;
+    const rawA = knownA ? Number(a) : null;
+    const rawB = knownB ? Number(b) : null;
+    const rawC = knownC ? Number(c) : null;
+    let numA, numB;
+    if (knownA && knownB)       { numA=rawA; numB=rawB; }
+    else if (knownA && knownC)  { numA=rawA; numB=Math.sqrt(Math.max(0, rawC**2 - rawA**2)); }
+    else if (knownB && knownC)  { numA=Math.sqrt(Math.max(0, rawC**2 - rawB**2)); numB=rawB; }
+    else if (knownA)            { numA=rawA; numB=rawA*Math.sqrt(3); } // fallback
+    else if (knownB)            { numA=rawB/Math.sqrt(3); numB=rawB; } // fallback
+    else                        { numA=1; numB=Math.sqrt(3); }         // full fallback
+    const maxPx = 155, scale = maxPx / Math.max(numA, numB);
+    const pxA = Math.round(numA * scale);
+    const pxB = Math.round(numB * scale);
+    const Ax=40, Ay=165, Bx=40+pxA, By=165, Cx=40+pxA, Cy=165-pxB;
     return (<svg width={W} height={H} style={base}>
-      <polygon points="40,160 200,160 200,40" fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
-      <rect x="188" y="148" width="12" height="12" fill="none" stroke={T.svgStroke} strokeWidth="1.5"/>
-      <text x="120" y="178" fill={colA} fontSize="14" textAnchor="middle">{labelA}</text>
-      <text x="218" y="108" fill={colB} fontSize="14" textAnchor="start">{labelB}</text>
-      <text x="100" y="88"  fill={colC} fontSize="14" textAnchor="middle">{labelC}</text>
-      <text x="48"  y="155" fill={T.svgMuted} fontSize="11">A</text>
-      <text x="204" y="155" fill={T.svgMuted} fontSize="11">B</text>
-      <text x="204" y="38"  fill={T.svgMuted} fontSize="11">C</text>
+      <polygon points={`${Ax},${Ay} ${Bx},${By} ${Cx},${Cy}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      <rect x={Bx-12} y={By-12} width="12" height="12" fill="none" stroke={T.svgStroke} strokeWidth="1.5"/>
+      <text x={(Ax+Bx)/2} y={Ay+18} fill={colA} fontSize="14" textAnchor="middle">{labelA}</text>
+      <text x={Bx+14} y={(By+Cy)/2+5} fill={colB} fontSize="14" textAnchor="start">{labelB}</text>
+      <text x={(Ax+Cx)/2-14} y={(Ay+Cy)/2} fill={colC} fontSize="14" textAnchor="middle">{labelC}</text>
+      <text x={Ax-14} y={Ay+4} fill={T.svgMuted} fontSize="11">A</text>
+      <text x={Bx+4} y={By+4} fill={T.svgMuted} fontSize="11">B</text>
+      <text x={Cx+4} y={Cy-4} fill={T.svgMuted} fontSize="11">C</text>
     </svg>);
   }
   if (type==="circle_arc") {
