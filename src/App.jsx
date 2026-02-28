@@ -253,6 +253,27 @@ function SVGFigure({ type, params }) {
       <line x1="230" y1="50"  x2="230" y2="170" stroke={T.svgStroke} strokeWidth="1" strokeDasharray="4"/>
     </svg>);
   }
+  if (type==="trapezoid") {
+    const {b1=9, b2=15, h=7} = params;
+    const maxB = Math.max(b1, b2);
+    const scale = 160 / maxB;
+    const pw1 = b1 * scale, pw2 = b2 * scale;
+    const margin = 40;
+    const yTop = 35, yBot = yTop + Math.round(h * scale);
+    const xBot = margin, xBotR = xBot + pw2;
+    const xTop = margin + (pw2 - pw1) / 2, xTopR = xTop + pw1;
+    const cx = margin + pw2 / 2;
+    return (<svg width={W} height={H} style={base}>
+      <polygon points={`${xBot},${yBot} ${xBotR},${yBot} ${xTopR},${yTop} ${xTop},${yTop}`}
+        fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      <line x1={xBotR+12} y1={yBot} x2={xBotR+12} y2={yTop} stroke={T.svgMuted} strokeWidth="1.5" strokeDasharray="4"/>
+      <line x1={xBotR+7}  y1={yBot} x2={xBotR+17} y2={yBot} stroke={T.svgMuted} strokeWidth="1.5"/>
+      <line x1={xBotR+7}  y1={yTop} x2={xBotR+17} y2={yTop} stroke={T.svgMuted} strokeWidth="1.5"/>
+      <text x={xBotR+22} y={(yBot+yTop)/2+5} fill={T.svgLabel} fontSize="13" textAnchor="start">{h}</text>
+      <text x={cx} y={yBot+18} fill={T.svgLabel} fontSize="14" textAnchor="middle">{b2}</text>
+      <text x={cx} y={yTop-8}  fill={T.svgLabel} fontSize="14" textAnchor="middle">{b1}</text>
+    </svg>);
+  }
   if (type==="coordinate_plane") {
     const {points=[],lineEq,curve}=params;
     // Grid: ±5 range, uniform 22px per unit on both axes, centered at (140,105)
