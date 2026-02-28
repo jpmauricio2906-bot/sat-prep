@@ -22153,13 +22153,14 @@
     "answerIndex": 0,
     "explanation": "A = \u00bd(9+15)(7) = \u00bd \u00d7 24 \u00d7 7 = 84.",
     "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": "9 & 15",
-        "h": 7
-      }
-    }
+  "type": "svg",
+  "shape": "trapezoid",
+  "params": {
+    "b1": 9,
+    "b2": 15,
+    "h": 7
+     }
+   }
   },
   {
     "id": "math_geometry_medium_036",
