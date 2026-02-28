@@ -15629,7 +15629,7 @@
       "8/60",
       "5/35"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "Female students who prefer Art: 8. Total female students: 25+8=33... Using table: Female totals = 35. Female Art = 8. P(Art | Female) = 8/35.",
     "visual": {
       "type": "table",
@@ -18560,7 +18560,7 @@
       "10",
       "12"
     ],
-    "answerIndex": 2,
+    "answerIndex": 3,
     "explanation": "Sorted: 10, 14, 18, 22, 26, 30, 34. Q1 = 14, Q3 = 30. IQR = 30 \u2212 14 = 16. Use: 5,8,12,15,18,20,25: Q1=8, Q3=20, IQR=12.",
     "visual": {
       "type": "table",
