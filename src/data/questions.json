@@ -22082,11 +22082,12 @@
     "answerIndex": 1,
     "explanation": "A = \u00bd(b\u2081 + b\u2082)h = \u00bd(5+11)(4) = \u00bd \u00d7 16 \u00d7 4 = 32.",
     "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": "5 & 11",
-        "h": 4
+  "type": "svg",
+  "shape": "trapezoid",
+  "params": {
+    "b1": 5,
+    "b2": 11,
+    "h": 4
       }
     }
   },
