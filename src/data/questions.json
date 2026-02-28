@@ -20453,27 +20453,11 @@
     "explanation": "A circle centered at origin with radius r has equation x²+y²=r². With r=5: x²+y²=25.",
     "visual": {
       "type": "svg",
-      "shape": "coordinate_plane",
+      "shape": "circle_with_point",
       "params": {
-        "curve": null,
-        "points": [
-          [
-            3,
-            4
-          ],
-          [
-            -3,
-            4
-          ],
-          [
-            -3,
-            -4
-          ],
-          [
-            3,
-            -4
-          ]
-        ]
+        "radius": 5,
+        "px": null,
+        "py": null
       }
     }
   },
@@ -20493,27 +20477,11 @@
     "explanation": "x²+y²=r² → r²=49 → r=7.",
     "visual": {
       "type": "svg",
-      "shape": "coordinate_plane",
+      "shape": "circle_with_point",
       "params": {
-        "curve": null,
-        "points": [
-          [
-            7,
-            0
-          ],
-          [
-            0,
-            7
-          ],
-          [
-            -7,
-            0
-          ],
-          [
-            0,
-            -7
-          ]
-        ]
+        "radius": 7,
+        "px": null,
+        "py": null
       }
     }
   },
@@ -20992,19 +20960,11 @@
     "explanation": "3²+y²=25 → y²=16 → y=4.",
     "visual": {
       "type": "svg",
-      "shape": "coordinate_plane",
+      "shape": "circle_with_point",
       "params": {
-        "curve": null,
-        "points": [
-          [
-            3,
-            0
-          ],
-          [
-            0,
-            4
-          ]
-        ]
+        "radius": 5,
+        "px": 3,
+        "py": "?"
       }
     }
   },
@@ -21238,19 +21198,11 @@
     "explanation": "(−3)²+y²=25 → y²=16 → y=4.",
     "visual": {
       "type": "svg",
-      "shape": "coordinate_plane",
+      "shape": "circle_with_point",
       "params": {
-        "curve": null,
-        "points": [
-          [
-            -3,
-            0
-          ],
-          [
-            0,
-            4
-          ]
-        ]
+        "radius": 5,
+        "px": -3,
+        "py": "?"
       }
     }
   },
