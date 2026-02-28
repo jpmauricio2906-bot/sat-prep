@@ -1160,6 +1160,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
   const [showExp,setShowExp]=useState(false);
   const [results,setResults]=useState([]);
   const [secsLeft,setSecsLeft]=useState(secondsTotal);
+  const [paused,setPaused]=useState(false);
   // Ref always holds the latest results so timer/submit closures are never stale
   const resultsRef = useRef([]);
   const doneCalledRef = useRef(false);
@@ -1173,12 +1174,14 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
   useEffect(()=>{
     setSecsLeft(secondsTotal);
     doneCalledRef.current = false;
+    setPaused(false);
   },[secondsTotal]);
 
   useEffect(()=>{
+    if(paused) return;
     const t = setInterval(()=>setSecsLeft(s=>s-1), 1000);
     return ()=>clearInterval(t);
-  },[]);
+  },[paused]);
 
   useEffect(()=>{
     if(secsLeft<=0){
@@ -1214,10 +1217,33 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
   }
 
   return(
-    <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:'32px 28px'}}>
+    <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:'32px 28px',position:'relative'}}>
+
+      {/* ── Pause Overlay ── */}
+      {paused&&(
+        <div style={{position:'absolute',inset:0,borderRadius:16,background:'rgba(0,0,0,0.72)',backdropFilter:'blur(6px)',zIndex:10,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:20}}>
+          <div style={{fontSize:48}}>⏸</div>
+          <div style={{fontWeight:900,fontSize:22,color:'#fff'}}>Test Paused</div>
+          <div style={{color:'rgba(255,255,255,0.6)',fontSize:13,maxWidth:260,textAlign:'center',lineHeight:1.5}}>
+            Timer is stopped. Questions are hidden until you resume.
+          </div>
+          <button
+            onClick={()=>setPaused(false)}
+            style={{marginTop:8,padding:'14px 36px',borderRadius:12,border:'none',fontWeight:800,fontSize:15,cursor:'pointer',fontFamily:'inherit',color:'#fff',background:sc}}>
+            ▶ Resume Test
+          </button>
+        </div>
+      )}
+
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:10}}>
         <span style={{color:T.textSub,fontSize:12}}>{sectionLabel} · {q.topic}</span>
-        <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <div style={{display:'flex',alignItems:'center',gap:10}}>
+          <button
+            onClick={()=>setPaused(p=>!p)}
+            title={paused?'Resume':'Pause'}
+            style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:8,padding:'4px 10px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:700,fontSize:12,display:'flex',alignItems:'center',gap:5}}>
+            {paused?'▶ Resume':'⏸ Pause'}
+          </button>
           <span style={{color:T.textSub,fontSize:12}}>Time left</span>
           <span style={{color:secsLeft<=60?T.incorrect:sc,fontWeight:800,fontSize:14,fontVariantNumeric:'tabular-nums'}}>{fmtTime(secsLeft)}</span>
         </div>
