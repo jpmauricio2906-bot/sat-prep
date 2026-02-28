@@ -193,10 +193,10 @@ function SVGFigure({ type, params }) {
   const W=280, H=200;
   const base={ background:T.svgBg, border:`1px solid ${T.border}`, borderRadius:10, padding:12, margin:"0 auto 20px", display:"block" };
   if (type==="right_triangle") {
-    const {a=3,b=4,c=5}=params;
+    const {a=3,b=4,c=null}=params;
     const labelA = a==="?" ? "?" : String(a);
     const labelB = b==="?" ? "?" : String(b);
-    const labelC = c==="?" ? "?" : String(c);
+    const labelC = c===null ? "" : (c==="?" ? "?" : String(c));
     const colA = a==="?" ? T.correct : T.svgLabel;
     const colB = b==="?" ? T.correct : T.svgLabel;
     const colC = c==="?" ? T.correct : T.svgLabel;
