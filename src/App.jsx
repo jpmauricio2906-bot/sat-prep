@@ -226,15 +226,20 @@ function SVGFigure({ type, params }) {
   }
   if (type==="circle_arc") {
     const {radius=12,angle=60}=params;
-    const cx=W/2,cy=H/2,r=70,rad=(angle*Math.PI)/180;
+    const angleUnknown = angle==="?";
+    const numAngle = angleUnknown ? 90 : Number(angle);
+    const cx=W/2,cy=H/2,r=70,rad=(numAngle*Math.PI)/180;
     const x2=cx+r*Math.cos(-Math.PI/2+rad),y2=cy+r*Math.sin(-Math.PI/2+rad);
+    const largeArc = numAngle>180?1:0;
+    const angleLabel = angleUnknown ? "?" : (numAngle===360 ? "" : `${angle}°`);
+    const angleColor = angleUnknown ? T.correct : T.svgMuted;
     return (<svg width={W} height={H} style={base}>
       <circle cx={cx} cy={cy} r={r} fill={T.svgFill} stroke={T.svgAxis} strokeWidth="1.5"/>
-      <line x1={cx} y1={cy} x2={cx} y2={cy-r} stroke={T.svgStroke} strokeWidth="2"/>
-      <line x1={cx} y1={cy} x2={x2} y2={y2}   stroke={T.svgStroke} strokeWidth="2"/>
-      <path d={`M ${cx} ${cy-r} A ${r} ${r} 0 0 1 ${x2} ${y2}`} fill="none" stroke={T.svgArc} strokeWidth="3"/>
+      {numAngle!==360 && <line x1={cx} y1={cy} x2={cx} y2={cy-r} stroke={T.svgStroke} strokeWidth="2"/>}
+      {numAngle!==360 && <line x1={cx} y1={cy} x2={x2} y2={y2} stroke={T.svgStroke} strokeWidth="2"/>}
+      {numAngle!==360 && <path d={`M ${cx} ${cy-r} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}`} fill="none" stroke={T.svgArc} strokeWidth="3"/>}
       <text x={cx+8}  y={cy-r/2} fill={T.svgLabel} fontSize="13">{radius}</text>
-      <text x={cx+20} y={cy-10}  fill={T.svgMuted}  fontSize="12">{angle}°</text>
+      {angleLabel && <text x={cx+20} y={cy-10} fill={angleColor} fontSize="12">{angleLabel}</text>}
       <text x={cx-14} y={cy+16}  fill={T.svgMuted}  fontSize="11">O</text>
       <circle cx={cx} cy={cy} r="3" fill={T.svgStroke}/>
     </svg>);
@@ -269,41 +274,211 @@ function SVGFigure({ type, params }) {
     </svg>);
   }
   if (type==="parallel_lines_transversal") {
-    const {angle=72, known="bottom"}=params;
-    const rad = angle * Math.PI / 180;
-    // Two horizontal parallel lines
-    const y1=65, y2=145, x0=20, x1=260;
-    // Transversal cuts through: find x positions at each line
-    const tx = 140; // x center of transversal
-    const tlen = 90; // half-length of transversal
-    const dx = tlen * Math.cos(rad), dy = tlen * Math.sin(rad);
-    // intersection points
-    const ix1=tx, iy1=y1, ix2=tx, iy2=y2;
-    // transversal endpoints extended past both lines
-    const txTop=tx-dx*1.1, tyTop=y1-dy*1.1;
-    const txBot=tx+dx*1.1, tyBot=y2+dy*1.1;
-    // angle arc at bottom-left intersection (the known angle)
-    const arcR=28;
-    // bottom intersection: angle opens to the left-below
-    const knownLabel = `${angle}°`;
-    const unknownLabel = "?";
+    const {angle=72, angle1, angle2, mode="alternate_interior"}=params;
+    // Support both numeric angle and algebraic angle1/angle2 labels
+    const numAngle = angle1 ? 55 : (typeof angle==="number" ? angle : 55);
+    const rad = numAngle * Math.PI / 180;
+    const y1=60, y2=148, x0=15, xEnd=265, tx=140, arcR=28;
+    const txTop=tx-100*Math.cos(rad), tyTop=y1-100*Math.sin(rad);
+    const txBot=tx+100*Math.cos(rad), tyBot=y2+100*Math.sin(rad);
+    const label1 = angle1 ? String(angle1) : `${angle}°`;
+    const label2 = angle2 ? String(angle2) : "?";
+    // co_interior: same side (both right of transversal), supplementary
+    // alternate_interior: opposite sides, equal
+    const isCo = mode==="co_interior";
     return (<svg width={W} height={H} style={base}>
-      {/* parallel lines */}
-      <line x1={x0} y1={y1} x2={x1} y2={y1} stroke={T.svgStroke} strokeWidth="2.5"/>
-      <line x1={x0} y1={y2} x2={x1} y2={y2} stroke={T.svgStroke} strokeWidth="2.5"/>
-      {/* parallel indicator arrows */}
-      <text x={30} y={y1-6} fill={T.svgMuted} fontSize="13">▶▶</text>
-      <text x={30} y={y2-6} fill={T.svgMuted} fontSize="13">▶▶</text>
-      {/* transversal */}
+      <line x1={x0} y1={y1} x2={xEnd} y2={y1} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <line x1={x0} y1={y2} x2={xEnd} y2={y2} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <text x={28} y={y1-6} fill={T.svgMuted} fontSize="12">▶▶</text>
+      <text x={28} y={y2-6} fill={T.svgMuted} fontSize="12">▶▶</text>
       <line x1={txTop} y1={tyTop} x2={txBot} y2={tyBot} stroke={T.svgStroke} strokeWidth="2.5"/>
-      {/* angle arc at upper-right (known angle) */}
-      <path d={`M ${ix1+arcR} ${iy1} A ${arcR} ${arcR} 0 0 0 ${ix1+arcR*Math.cos(-rad)} ${iy1+arcR*Math.sin(-rad)}`}
-        fill="none" stroke={T.svgArc??T.correct} strokeWidth="2"/>
-      <text x={ix1+arcR+6} y={iy1-8} fill={T.svgLabel} fontSize="13" textAnchor="start">{knownLabel}</text>
-      {/* angle arc at lower-left (unknown angle — alternate interior) */}
-      <path d={`M ${ix2-arcR} ${iy2} A ${arcR} ${arcR} 0 0 1 ${ix2-arcR*Math.cos(-rad)} ${iy2-arcR*Math.sin(-rad)}`}
-        fill="none" stroke={T.correct} strokeWidth="2"/>
-      <text x={ix2-arcR-28} y={iy2+16} fill={T.correct} fontSize="13" textAnchor="start">{unknownLabel}</text>
+      {/* upper intersection — angle on right */}
+      <path d={`M ${tx+arcR} ${y1} A ${arcR} ${arcR} 0 0 0 ${tx+arcR*Math.cos(-rad)} ${y1+arcR*Math.sin(-rad)}`}
+        fill="none" stroke={T.svgLabel} strokeWidth="2"/>
+      <text x={tx+arcR+6} y={y1-8} fill={T.svgLabel} fontSize="13">{label1}</text>
+      {/* lower intersection — co_interior: same right side; alternate: left side */}
+      {isCo
+        ? <path d={`M ${tx+arcR} ${y2} A ${arcR} ${arcR} 0 0 1 ${tx+arcR*Math.cos(-(Math.PI-rad))} ${y2+arcR*Math.sin(-(Math.PI-rad))}`}
+            fill="none" stroke={T.correct} strokeWidth="2"/>
+        : <path d={`M ${tx-arcR} ${y2} A ${arcR} ${arcR} 0 0 0 ${tx-arcR*Math.cos(rad)} ${y2-arcR*Math.sin(rad)}`}
+            fill="none" stroke={T.correct} strokeWidth="2"/>
+      }
+      {isCo
+        ? <text x={tx+arcR+6} y={y2+18} fill={T.correct} fontSize="13">{label2}</text>
+        : <text x={tx-arcR-6} y={y2+18} fill={T.correct} fontSize="13" textAnchor="end">{label2}</text>
+      }
+    </svg>);
+  }
+  if (type==="general_triangle") {
+    const {angleA="A", angleB="B", angleC="C", labelA, labelB, labelC}=params;
+    const Ax=45,Ay=168, Bx=235,By=168, Cx=155,Cy=35;
+    const cx=(Ax+Bx+Cx)/3, cy=(Ay+By+Cy)/3;
+    const offA=18, offB=18, offC=18;
+    const lAx=Ax-(cx-Ax)/Math.hypot(cx-Ax,cy-Ay)*offA;
+    const lAy=Ay-(cy-Ay)/Math.hypot(cx-Ax,cy-Ay)*offA+8;
+    const lBx=Bx+(Bx-cx)/Math.hypot(Bx-cx,By-cy)*offB+4;
+    const lBy=By-(cy-By)/Math.hypot(Bx-cx,By-cy)*offB+8;
+    const lCx=Cx+(Cx-cx)/Math.hypot(Cx-cx,Cy-cy)*offC;
+    const lCy=Cy-(cy-Cy)/Math.hypot(Cx-cx,Cy-cy)*offC-6;
+    return (<svg width={W} height={H} style={base}>
+      <polygon points={`${Ax},${Ay} ${Bx},${By} ${Cx},${Cy}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      <text x={lAx-10} y={lAy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{angleA}</text>
+      <text x={lBx+10} y={lBy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{angleB}</text>
+      <text x={lCx} y={lCy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{angleC}</text>
+      {labelA && <text x={(Bx+Cx)/2+14} y={(By+Cy)/2} fill={T.svgMuted} fontSize="12" textAnchor="start">{labelA}</text>}
+      {labelB && <text x={(Ax+Cx)/2-14} y={(Ay+Cy)/2} fill={T.svgMuted} fontSize="12" textAnchor="end">{labelB}</text>}
+      {labelC && <text x={(Ax+Bx)/2} y={Ay+16} fill={T.svgMuted} fontSize="12" textAnchor="middle">{labelC}</text>}
+    </svg>);
+  }
+  if (type==="supplementary_angles") {
+    const {angle1=115, angle2="?"}=params;
+    const rad = angle1 * Math.PI / 180;
+    const cx=140, cy=150, lineLen=110, arcR=50;
+    const rayEndX=cx+(lineLen*0.75)*Math.cos(Math.PI-rad), rayEndY=cy-(lineLen*0.75)*Math.sin(Math.PI-rad);
+    const a1end_x=cx+arcR*Math.cos(Math.PI-rad), a1end_y=cy-arcR*Math.sin(Math.PI-rad);
+    const label2 = angle2==="?" ? "?" : `${angle2}°`;
+    return (<svg width={W} height={H} style={base}>
+      <line x1={cx-lineLen} y1={cy} x2={cx+lineLen} y2={cy} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <line x1={cx} y1={cy} x2={rayEndX} y2={rayEndY} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <path d={`M ${cx+arcR} ${cy} A ${arcR} ${arcR} 0 0 1 ${a1end_x} ${a1end_y}`} fill="none" stroke={T.svgLabel} strokeWidth="1.8"/>
+      <path d={`M ${a1end_x} ${a1end_y} A ${arcR} ${arcR} 0 0 1 ${cx-arcR} ${cy}`} fill="none" stroke={T.correct} strokeWidth="1.8"/>
+      <text x={cx+arcR+14} y={cy-10} fill={T.svgLabel} fontSize="14" textAnchor="start">{angle1}°</text>
+      <text x={cx-arcR-14} y={cy-10} fill={T.correct} fontSize="14" textAnchor="end">{label2}</text>
+      <circle cx={cx} cy={cy} r="3" fill={T.svgStroke}/>
+    </svg>);
+  }
+  if (type==="complementary_angles") {
+    const {angle1=28, angle2="?"}=params;
+    const rad = angle1 * Math.PI / 180;
+    const cx=80, cy=155, len=120, arcR=45, arcR2=30;
+    const label2 = angle2==="?" ? "?" : `${angle2}°`;
+    const divRayX=cx+len*Math.cos(rad), divRayY=cy-len*Math.sin(rad);
+    return (<svg width={W} height={H} style={base}>
+      <line x1={cx} y1={cy} x2={cx+len} y2={cy} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <line x1={cx} y1={cy} x2={cx} y2={cy-len} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <line x1={cx} y1={cy} x2={divRayX} y2={divRayY} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <rect x={cx} y={cy-14} width="14" height="14" fill="none" stroke={T.svgStroke} strokeWidth="1.5"/>
+      <path d={`M ${cx+arcR} ${cy} A ${arcR} ${arcR} 0 0 1 ${cx+arcR*Math.cos(rad)} ${cy-arcR*Math.sin(rad)}`} fill="none" stroke={T.svgLabel} strokeWidth="1.8"/>
+      <path d={`M ${cx+arcR2*Math.cos(rad)} ${cy-arcR2*Math.sin(rad)} A ${arcR2} ${arcR2} 0 0 1 ${cx} ${cy-arcR2}`} fill="none" stroke={T.correct} strokeWidth="1.8"/>
+      <text x={cx+arcR+8} y={cy-12} fill={T.svgLabel} fontSize="14">{angle1}°</text>
+      <text x={cx+12} y={cy-arcR2-6} fill={T.correct} fontSize="14">{label2}</text>
+    </svg>);
+  }
+  if (type==="exterior_angle_triangle") {
+    const {interiorA="60°", interiorB="?", exterior="115°"}=params;
+    const Ax=40,Ay=160, Bx=210,By=160, Cx=130,Cy=50;
+    const extX=275, extY=160;
+    const angleBC = Math.atan2(Cy-By, Cx-Bx);
+    const arcR=30;
+    return (<svg width={W} height={H} style={base}>
+      <polygon points={`${Ax},${Ay} ${Bx},${By} ${Cx},${Cy}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      <line x1={Bx} y1={By} x2={extX} y2={extY} stroke={T.svgStroke} strokeWidth="2" strokeDasharray="6 3"/>
+      <path d={`M ${Bx+arcR} ${By} A ${arcR} ${arcR} 0 0 0 ${Bx+arcR*Math.cos(angleBC)} ${By+arcR*Math.sin(angleBC)}`} fill="none" stroke={T.svgArc??T.correct} strokeWidth="1.8"/>
+      <text x={Bx+arcR+8} y={By-6} fill={T.svgLabel} fontSize="13">{exterior}</text>
+      <text x={Ax-4} y={Ay+4} fill={T.svgLabel} fontSize="13" textAnchor="end">{interiorA}</text>
+      <text x={Cx} y={Cy-10} fill={T.correct} fontSize="13" textAnchor="middle">{interiorB}</text>
+      <text x={Ax-12} y={Ay} fill={T.svgMuted} fontSize="11">A</text>
+      <text x={Bx+2} y={By+14} fill={T.svgMuted} fontSize="11">B</text>
+      <text x={Cx+6} y={Cy} fill={T.svgMuted} fontSize="11">C</text>
+    </svg>);
+  }
+  if (type==="rectangular_prism") {
+    // Isometric-style box showing all 3 dimensions
+    const {l=10, w=4, h=3}=params;
+    const maxD=Math.max(l,w,h), sc=100/maxD;
+    const pl=l*sc, pw=w*sc, ph=h*sc;
+    // Front face bottom-left anchor
+    const fx=50, fy=160;
+    const offX=pw*0.5, offY=pw*0.35; // perspective offset for depth
+    // 8 corners
+    const p = {
+      // front face
+      A:[fx,     fy],
+      B:[fx+pl,  fy],
+      C:[fx+pl,  fy-ph],
+      D:[fx,     fy-ph],
+      // back face (offset by depth)
+      E:[fx+offX,     fy-offY],
+      F:[fx+pl+offX,  fy-offY],
+      G:[fx+pl+offX,  fy-ph-offY],
+      H:[fx+offX,     fy-ph-offY],
+    };
+    const pt = (k) => p[k].join(',');
+    return (<svg width={W} height={H} style={base}>
+      {/* back faces first */}
+      <polygon points={`${pt('E')} ${pt('F')} ${pt('G')} ${pt('H')}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="1.5" opacity="0.6"/>
+      <line x1={p.A[0]} y1={p.A[1]} x2={p.E[0]} y2={p.E[1]} stroke={T.svgStroke} strokeWidth="1.5"/>
+      <line x1={p.B[0]} y1={p.B[1]} x2={p.F[0]} y2={p.F[1]} stroke={T.svgStroke} strokeWidth="1.5"/>
+      <line x1={p.C[0]} y1={p.C[1]} x2={p.G[0]} y2={p.G[1]} stroke={T.svgStroke} strokeWidth="1.5"/>
+      {/* top face */}
+      <polygon points={`${pt('D')} ${pt('C')} ${pt('G')} ${pt('H')}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="1.5" opacity="0.8"/>
+      {/* right face */}
+      <polygon points={`${pt('B')} ${pt('F')} ${pt('G')} ${pt('C')}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="1.5" opacity="0.7"/>
+      {/* front face */}
+      <polygon points={`${pt('A')} ${pt('B')} ${pt('C')} ${pt('D')}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      {/* dimension labels */}
+      <text x={(p.A[0]+p.B[0])/2} y={p.A[1]+16} fill={T.svgLabel} fontSize="13" textAnchor="middle">{l}</text>
+      <text x={p.B[0]+12} y={(p.B[1]+p.C[1])/2} fill={T.svgLabel} fontSize="13" textAnchor="start">{h}</text>
+      <text x={(p.B[0]+p.F[0])/2+6} y={(p.B[1]+p.F[1])/2-4} fill={T.svgLabel} fontSize="13" textAnchor="start">{w}</text>
+    </svg>);
+  }
+  if (type==="cone") {
+    const {r=4, h=8}=params;
+    const cx=140, baseY=168, maxH=130;
+    const scale=Math.min(maxH/h, 100/r);
+    const pr=r*scale, ph=h*scale;
+    const apexX=cx, apexY=baseY-ph;
+    return (<svg width={W} height={H} style={base}>
+      {/* base ellipse */}
+      <ellipse cx={cx} cy={baseY} rx={pr} ry={pr*0.3} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      {/* side lines */}
+      <line x1={cx-pr} y1={baseY} x2={apexX} y2={apexY} stroke={T.svgStroke} strokeWidth="2"/>
+      <line x1={cx+pr} y1={baseY} x2={apexX} y2={apexY} stroke={T.svgStroke} strokeWidth="2"/>
+      {/* height dashed line */}
+      <line x1={cx} y1={baseY} x2={cx} y2={apexY} stroke={T.svgMuted} strokeWidth="1.5" strokeDasharray="5 3"/>
+      {/* labels */}
+      <text x={cx+pr/2+6} y={baseY+4} fill={T.svgLabel} fontSize="13" textAnchor="start">{r}</text>
+      <text x={cx+8} y={(baseY+apexY)/2} fill={T.svgLabel} fontSize="13" textAnchor="start">{h}</text>
+      <text x={cx-pr-4} y={baseY+4} fill={T.svgMuted} fontSize="11" textAnchor="end">r</text>
+      <text x={cx+2} y={apexY-6} fill={T.svgMuted} fontSize="11" textAnchor="start">h</text>
+    </svg>);
+  }
+  if (type==="inscribed_circle_square") {
+    const {side=10}=params;
+    const sq=150, sx=65, sy=25, r=sq/2, cx=sx+r, cy=sy+r;
+    return (<svg width={W} height={H} style={base}>
+      <rect x={sx} y={sy} width={sq} height={sq} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke={T.svgStroke} strokeWidth="2"/>
+      {/* side label */}
+      <text x={sx+sq/2} y={sy+sq+16} fill={T.svgLabel} fontSize="13" textAnchor="middle">{side}</text>
+      <text x={sx-12} y={sy+sq/2+5} fill={T.svgLabel} fontSize="13" textAnchor="middle">{side}</text>
+      {/* radius label with dashed line */}
+      <line x1={cx} y1={cy} x2={cx+r} y2={cy} stroke={T.svgMuted} strokeWidth="1.5" strokeDasharray="4 2"/>
+      <text x={cx+r/2} y={cy-6} fill={T.correct} fontSize="13" textAnchor="middle">?</text>
+    </svg>);
+  }
+  if (type==="circle_chord") {
+    const {chord=16, dist=6, radius="?"}=params;
+    const cx=140, cy=100, r=80;
+    const halfChord=chord/2;
+    const scale=r/Math.sqrt((chord/2)**2+dist**2+10);
+    const pHalf=halfChord*scale, pDist=dist*scale;
+    // chord endpoints
+    const chordY=cy+pDist, chordX1=cx-pHalf, chordX2=cx+pHalf;
+    return (<svg width={W} height={H} style={base}>
+      <circle cx={cx} cy={cy} r={r} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
+      {/* chord */}
+      <line x1={chordX1} y1={chordY} x2={chordX2} y2={chordY} stroke={T.svgStroke} strokeWidth="2.5"/>
+      {/* perpendicular from center to chord */}
+      <line x1={cx} y1={cy} x2={cx} y2={chordY} stroke={T.svgMuted} strokeWidth="1.5" strokeDasharray="5 3"/>
+      {/* radius line to chord endpoint */}
+      <line x1={cx} y1={cy} x2={chordX2} y2={chordY} stroke={T.svgMuted} strokeWidth="1.5" strokeDasharray="5 3"/>
+      {/* labels */}
+      <text x={cx+pHalf/2} y={chordY-6} fill={T.svgLabel} fontSize="13" textAnchor="middle">{chord/2}</text>
+      <text x={cx-pHalf/2} y={chordY-6} fill={T.svgLabel} fontSize="13" textAnchor="middle">{chord/2}</text>
+      <text x={cx+6} y={(cy+chordY)/2} fill={T.svgLabel} fontSize="13" textAnchor="start">{dist}</text>
+      <text x={(cx+chordX2)/2+6} y={(cy+chordY)/2-6} fill={T.correct} fontSize="13" textAnchor="start">{String(radius)}</text>
+      <circle cx={cx} cy={cy} r="3" fill={T.svgStroke}/>
     </svg>);
   }
   if (type==="coordinate_plane") {
