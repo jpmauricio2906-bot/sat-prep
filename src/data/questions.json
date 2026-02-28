@@ -20708,8 +20708,7 @@
       "shape": "right_triangle",
       "params": {
         "a": 9,
-        "b": 12,
-        "c": 15
+        "b": 12
       }
     }
   },
