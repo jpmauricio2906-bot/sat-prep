@@ -344,10 +344,15 @@ function SVGFigure({ type, params }) {
     const lBy=By-(cy-By)/Math.hypot(Bx-cx,By-cy)*offB+8;
     const lCx=Cx+(Cx-cx)/Math.hypot(Cx-cx,Cy-cy)*offC;
     const lCy=Cy-(cy-Cy)/Math.hypot(Cx-cx,Cy-cy)*offC-6;
+    const rightAtB = angleB==="90°" || angleB==="90";
+    const rightAtA = angleA==="90°" || angleA==="90";
+    const sqSz=12;
     return (<svg width={W} height={H} style={base}>
       <polygon points={`${Ax},${Ay} ${Bx},${By} ${Cx},${Cy}`} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2"/>
-      <text x={lAx-10} y={lAy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{angleA}</text>
-      <text x={lBx+10} y={lBy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{angleB}</text>
+      {rightAtB && <rect x={Bx-sqSz} y={By-sqSz} width={sqSz} height={sqSz} fill="none" stroke={T.svgStroke} strokeWidth="1.5"/>}
+      {rightAtA && <rect x={Ax} y={Ay-sqSz} width={sqSz} height={sqSz} fill="none" stroke={T.svgStroke} strokeWidth="1.5"/>}
+      <text x={lAx-10} y={lAy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{rightAtA ? "" : angleA}</text>
+      <text x={lBx+10} y={lBy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{rightAtB ? "" : angleB}</text>
       <text x={lCx} y={lCy} fill={T.svgLabel} fontSize="13" textAnchor="middle">{angleC}</text>
       {labelA && <text x={(Bx+Cx)/2+14} y={(By+Cy)/2} fill={T.svgMuted} fontSize="12" textAnchor="start">{labelA}</text>}
       {labelB && <text x={(Ax+Cx)/2-14} y={(Ay+Cy)/2} fill={T.svgMuted} fontSize="12" textAnchor="end">{labelB}</text>}
