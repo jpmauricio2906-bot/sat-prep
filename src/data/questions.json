@@ -21829,13 +21829,14 @@
     "answerIndex": 1,
     "explanation": "A = \u00bd(b\u2081 + b\u2082)h = \u00bd(8 + 14)(6) = \u00bd \u00d7 22 \u00d7 6 = 66.",
     "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": "8 & 14",
-        "h": 6
-      }
-    }
+  "type": "svg",
+  "shape": "trapezoid",
+  "params": {
+    "b1": 8,
+    "b2": 14,
+    "h": 6
+  }
+}
   },
   {
     "id": "math_geometry_medium_024",
