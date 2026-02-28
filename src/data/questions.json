@@ -20216,12 +20216,9 @@
     "answerIndex": 1,
     "explanation": "Alternate interior angles are equal when lines are parallel. The other angle is also 72\u00b0.",
     "visual": {
-      "type": "svg",
-      "shape": "rectangle",
-      "params": {
-        "w": "72\u00b0",
-        "h": "?"
-      }
+  "type": "svg",
+  "shape": "parallel_lines_transversal",
+  "params": { "angle": 72 }
     }
   },
 {
