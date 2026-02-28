@@ -268,6 +268,44 @@ function SVGFigure({ type, params }) {
       <text x={cx} y={yTop-8}  fill={T.svgLabel} fontSize="14" textAnchor="middle">{b1}</text>
     </svg>);
   }
+  if (type==="parallel_lines_transversal") {
+    const {angle=72, known="bottom"}=params;
+    const rad = angle * Math.PI / 180;
+    // Two horizontal parallel lines
+    const y1=65, y2=145, x0=20, x1=260;
+    // Transversal cuts through: find x positions at each line
+    const tx = 140; // x center of transversal
+    const tlen = 90; // half-length of transversal
+    const dx = tlen * Math.cos(rad), dy = tlen * Math.sin(rad);
+    // intersection points
+    const ix1=tx, iy1=y1, ix2=tx, iy2=y2;
+    // transversal endpoints extended past both lines
+    const txTop=tx-dx*1.1, tyTop=y1-dy*1.1;
+    const txBot=tx+dx*1.1, tyBot=y2+dy*1.1;
+    // angle arc at bottom-left intersection (the known angle)
+    const arcR=28;
+    // bottom intersection: angle opens to the left-below
+    const knownLabel = `${angle}°`;
+    const unknownLabel = "?";
+    return (<svg width={W} height={H} style={base}>
+      {/* parallel lines */}
+      <line x1={x0} y1={y1} x2={x1} y2={y1} stroke={T.svgStroke} strokeWidth="2.5"/>
+      <line x1={x0} y1={y2} x2={x1} y2={y2} stroke={T.svgStroke} strokeWidth="2.5"/>
+      {/* parallel indicator arrows */}
+      <text x={30} y={y1-6} fill={T.svgMuted} fontSize="13">▶▶</text>
+      <text x={30} y={y2-6} fill={T.svgMuted} fontSize="13">▶▶</text>
+      {/* transversal */}
+      <line x1={txTop} y1={tyTop} x2={txBot} y2={tyBot} stroke={T.svgStroke} strokeWidth="2.5"/>
+      {/* angle arc at upper-right (known angle) */}
+      <path d={`M ${ix1+arcR} ${iy1} A ${arcR} ${arcR} 0 0 0 ${ix1+arcR*Math.cos(-rad)} ${iy1+arcR*Math.sin(-rad)}`}
+        fill="none" stroke={T.svgArc??T.correct} strokeWidth="2"/>
+      <text x={ix1+arcR+6} y={iy1-8} fill={T.svgLabel} fontSize="13" textAnchor="start">{knownLabel}</text>
+      {/* angle arc at lower-left (unknown angle — alternate interior) */}
+      <path d={`M ${ix2-arcR} ${iy2} A ${arcR} ${arcR} 0 0 1 ${ix2-arcR*Math.cos(-rad)} ${iy2-arcR*Math.sin(-rad)}`}
+        fill="none" stroke={T.correct} strokeWidth="2"/>
+      <text x={ix2-arcR-28} y={iy2+16} fill={T.correct} fontSize="13" textAnchor="start">{unknownLabel}</text>
+    </svg>);
+  }
   if (type==="coordinate_plane") {
     const {points=[],lineEq,curve}=params;
     // Grid: ±5 range, uniform 22px per unit on both axes, centered at (140,105)
