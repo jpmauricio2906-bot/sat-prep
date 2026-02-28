@@ -27137,7 +27137,7 @@
       "3/10",
       "1/4",
       "1/3",
-      "3/9"
+      "2/9"
     ],
     "answerIndex": 3,
     "explanation": "After removing one green ball, 9 balls remain: 3 red, 2 blue, 4 green. P(2nd red | 1st green) = 3/9 = 1/3.",
