@@ -21293,10 +21293,11 @@
     "explanation": "x + 3x = 90° → 4x = 90° → x = 22.5°. Angles are 22.5° and 67.5°.",
     "visual": {
       "type": "svg",
-      "shape": "complementary_angles",
+      "shape": "general_triangle",
       "params": {
-        "angle1": "x",
-        "angle2": "3x"
+        "angleA": "x°",
+        "angleB": "90°",
+        "angleC": "3x°"
       }
     }
   },
