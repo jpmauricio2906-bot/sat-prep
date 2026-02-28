@@ -200,16 +200,40 @@ function SVGFigure({ type, params }) {
     const colA = a==="?" ? T.correct : T.svgLabel;
     const colB = b==="?" ? T.correct : T.svgLabel;
     const colC = c==="?" ? T.correct : T.svgLabel;
+    // Parse symbolic values like "7√3", "5√2", "x+2", "2x" into numbers for layout
+    const parseVal = (v) => {
+      if (v===null || v==="" || v==="?") return null;
+      const n = Number(v);
+      if (!isNaN(n)) return n;
+      // Match patterns like "7√3", "5√2", "10√3"
+      const sqrtMatch = String(v).match(/^(\d*\.?\d*)?√(\d+)$/);
+      if (sqrtMatch) {
+        const coef = sqrtMatch[1] ? Number(sqrtMatch[1]) : 1;
+        return coef * Math.sqrt(Number(sqrtMatch[2]));
+      }
+      // Match patterns like "2x", "x+2", "x+7" — use coeff*2 as rough estimate for layout
+      const xMatch = String(v).match(/^(\d*)x(?:[+\-](\d+))?$/);
+      if (xMatch) {
+        const coef = xMatch[1] ? Number(xMatch[1]) : 1;
+        const offset = xMatch[2] ? Number(xMatch[2]) : 0;
+        return coef * 3 + offset; // estimate x=3 for layout
+      }
+      return null;
+    };
     // Derive missing side from known sides using Pythagorean theorem
     const knownA=a!=="?", knownB=b!=="?", knownC=c!=null&&c!=="?";
-    const rawA=knownA?Number(a):null, rawB=knownB?Number(b):null, rawC=knownC?Number(c):null;
+    const rawA=parseVal(a), rawB=parseVal(b), rawC=parseVal(c);
+    const hasA=rawA!=null&&!isNaN(rawA), hasB=rawB!=null&&!isNaN(rawB), hasC=rawC!=null&&!isNaN(rawC);
     let numA, numB;
-    if      (knownA && knownB)  { numA=rawA; numB=rawB; }
-    else if (knownA && knownC)  { numA=rawA; numB=Math.sqrt(Math.max(0,rawC**2-rawA**2)); }
-    else if (knownB && knownC)  { numA=Math.sqrt(Math.max(0,rawC**2-rawB**2)); numB=rawB; }
-    else if (knownA)            { numA=rawA; numB=rawA*Math.sqrt(3); }
-    else if (knownB)            { numA=rawB/Math.sqrt(3); numB=rawB; }
-    else                        { numA=3; numB=4; }
+    if      (hasA && hasB)  { numA=rawA; numB=rawB; }
+    else if (hasA && hasC)  { numA=rawA; numB=Math.sqrt(Math.max(1,rawC**2-rawA**2)); }
+    else if (hasB && hasC)  { numA=Math.sqrt(Math.max(1,rawC**2-rawB**2)); numB=rawB; }
+    else if (hasA)          { numA=rawA; numB=rawA*Math.sqrt(3); }
+    else if (hasB)          { numA=rawB/Math.sqrt(3); numB=rawB; }
+    else if (hasC)          { numA=rawC*0.6; numB=rawC*0.8; }
+    else                    { numA=3; numB=4; }
+    // Guard against zero/negative after sqrt
+    if (numA<=0) numA=1; if (numB<=0) numB=1;
     const maxPx=155, scale=maxPx/Math.max(numA,numB);
     const pxA=Math.round(numA*scale), pxB=Math.round(numB*scale);
     const Ax=40,Ay=165, Bx=40+pxA,By=165, Cx=40+pxA,Cy=165-pxB;
