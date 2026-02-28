@@ -1693,7 +1693,9 @@ function QuizView({questions,onDone,onExit,headerLabel}){
 function TopicQuizView({section,topic,difficulty,count,onDone,onExit}){
   // Shuffle once on mount, then slice to requested count
   const questions = useMemo(()=>{
-    const pool=(BANK[section]?.[topic]?.[difficulty]??[]).slice();
+    const pool = difficulty==="mixed"
+      ? ["easy","medium","hard"].flatMap(d=>(BANK[section]?.[topic]?.[d]??[]).map(q=>({...q,difficulty:d})))
+      : (BANK[section]?.[topic]?.[difficulty]??[]).slice();
     // Fisher-Yates shuffle
     for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
     return pool.slice(0, count ?? pool.length).map(q=>({...q,section,topic}));
@@ -1704,7 +1706,9 @@ function TopicQuizView({section,topic,difficulty,count,onDone,onExit}){
 // ─── QUESTION COUNT PICKER ────────────────────────────────────────────────────
 function QuestionCountPicker({section, topic, difficulty, onStart, onBack}){
   const T=useTheme();
-  const poolSize=(BANK[section]?.[topic]?.[difficulty]??[]).length;
+  const poolSize = difficulty==="mixed"
+    ? ["easy","medium","hard"].reduce((sum,d)=>sum+(BANK[section]?.[topic]?.[d]??[]).length, 0)
+    : (BANK[section]?.[topic]?.[difficulty]??[]).length;
   const dv=DIFFICULTY_LEVELS[difficulty];
 
   // Preset options: filter to only those ≤ poolSize
