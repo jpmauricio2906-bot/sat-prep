@@ -137,6 +137,7 @@ const DIFFICULTY_LEVELS = {
   easy:   { label:"Easy",   color:"#2ecc71", desc:"Build confidence with foundational questions" },
   medium: { label:"Medium", color:"#f7c44f", desc:"Core difficulty — closest to the real SAT"  },
   hard:   { label:"Hard",   color:"#e74c3c", desc:"Challenge yourself with advanced questions"  },
+  mixed:  { label:"Mixed",  color:"#a78bfa", desc:"Blend of all levels — closest to the real SAT experience" },
 };
 const SECTIONS = {
   math:    { label:"Math",              icon:"∑", topics:["Algebra","Geometry","Data Analysis","Advanced Math","Problem Solving","Statistics & Probability"] },
@@ -901,8 +902,23 @@ function getPracticeQs(length,diff){
   const cfg=TEST_LENGTHS[length];let all=[];
   [{key:"math",n:cfg.math},{key:"reading",n:cfg.rw}].forEach(({key,n})=>{
     let pool=[];
-    SECTIONS[key].topics.forEach(t=>{const qs=BANK[key][t]?.[diff]??[];pool.push(...qs.map(q=>({...q,section:key,topic:t})));});
-    pool=pool.sort(()=>Math.random()-0.5);all.push(...pool.slice(0,n));
+    if(diff==="mixed"){
+      // Approximate real SAT distribution: ~25% easy, ~50% medium, ~25% hard
+      const nEasy=Math.round(n*0.25), nHard=Math.round(n*0.25), nMed=n-nEasy-nHard;
+      SECTIONS[key].topics.forEach(t=>{
+        ["easy","medium","hard"].forEach(d=>{
+          const qs=BANK[key][t]?.[d]??[];
+          pool.push(...qs.map(q=>({...q,section:key,topic:t,difficulty:d})));
+        });
+      });
+      const byDiff = {easy:[],medium:[],hard:[]};
+      pool.forEach(q=>byDiff[q.difficulty]?.push(q));
+      ["easy","medium","hard"].forEach(d=>byDiff[d].sort(()=>Math.random()-0.5));
+      all.push(...byDiff.easy.slice(0,nEasy),...byDiff.medium.slice(0,nMed),...byDiff.hard.slice(0,nHard));
+    } else {
+      SECTIONS[key].topics.forEach(t=>{const qs=BANK[key][t]?.[diff]??[];pool.push(...qs.map(q=>({...q,section:key,topic:t})));});
+      pool=pool.sort(()=>Math.random()-0.5);all.push(...pool.slice(0,n));
+    }
   });
   return all.sort(()=>Math.random()-0.5);
 }
@@ -990,10 +1006,25 @@ function compositePercentile(total){
 
 function buildPool(section, diff){
   let pool=[];
-  SECTIONS[section].topics.forEach(t=>{
-    const qs = BANK[section]?.[t]?.[diff] ?? [];
-    pool.push(...qs.map(q=>({...q,section,topic:t})));
-  });
+  if(diff==="mixed"){
+    SECTIONS[section].topics.forEach(t=>{
+      ["easy","medium","hard"].forEach(d=>{
+        const qs = BANK[section]?.[t]?.[d] ?? [];
+        pool.push(...qs.map(q=>({...q,section,topic:t,difficulty:d})));
+      });
+    });
+    // Shuffle each tier then interleave at ~25/50/25 ratio
+    const byDiff={easy:[],medium:[],hard:[]};
+    pool.forEach(q=>byDiff[q.difficulty]?.push(q));
+    ["easy","medium","hard"].forEach(d=>byDiff[d].sort(()=>Math.random()-0.5));
+    // Return as a pool with proportional representation; pickN will trim to final count
+    pool=[...byDiff.easy,...byDiff.medium,...byDiff.medium,...byDiff.hard]; // 1x easy, 2x medium, 1x hard weight
+  } else {
+    SECTIONS[section].topics.forEach(t=>{
+      const qs = BANK[section]?.[t]?.[diff] ?? [];
+      pool.push(...qs.map(q=>({...q,section,topic:t})));
+    });
+  }
   return pool.sort(()=>Math.random()-0.5);
 }
 
@@ -1060,11 +1091,11 @@ function PracticeTestPage({onStart,onBack}){
     </div>
     <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:24}}>
       <div style={{fontWeight:700,fontSize:13,color:T.textSub,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>🎯 Difficulty Level</div>
-      <p style={{color:T.textSub,fontSize:13,marginBottom:16}}>The real SAT mixes all levels — focus on one tier to build targeted skills.</p>
+      <p style={{color:T.textSub,fontSize:13,marginBottom:16}}>Focus on one tier to build targeted skills — or choose Mixed for the most realistic SAT experience.</p>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",gap:12}}>
         {Object.entries(DIFFICULTY_LEVELS).map(([key,val])=>(
           <button key={key} onClick={()=>setDiff(key)} style={{borderRadius:14,border:`2px solid ${diff===key?val.color:T.border}`,padding:"20px 14px",cursor:"pointer",textAlign:"center",fontFamily:"inherit",background:diff===key?`${val.color}18`:T.bgCard,color:T.text}}>
-            <div style={{fontSize:22,marginBottom:6}}>{key==="easy"?"🟢":key==="medium"?"🟡":"🔴"}</div>
+            <div style={{fontSize:22,marginBottom:6}}>{key==="easy"?"🟢":key==="medium"?"🟡":key==="hard"?"🔴":"🎲"}</div>
             <div style={{fontWeight:800,fontSize:15,color:diff===key?val.color:T.text}}>{val.label}</div>
             <div style={{color:T.textSub,fontSize:12,marginTop:6,lineHeight:1.4}}>{val.desc}</div>
           </button>
@@ -1124,13 +1155,13 @@ function MockTestPage({onStart,onBack}){
 
     <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:16,padding:24}}>
       <div style={{fontWeight:700,fontSize:13,color:T.textSub,letterSpacing:1,textTransform:'uppercase',marginBottom:4}}>🎯 Difficulty Level</div>
-      <p style={{color:T.textSub,fontSize:13,marginBottom:16}}>Pick one difficulty for now (adaptive comes next).</p>
+      <p style={{color:T.textSub,fontSize:13,marginBottom:16}}>Pick one difficulty — or choose Mixed for the most realistic SAT experience.</p>
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:12}}>
         {Object.entries(DIFFICULTY_LEVELS).map(([key,val])=>{
           const on = diff===key;
           return (
             <button key={key} onClick={()=>setDiff(key)} style={{borderRadius:14,border:`2px solid ${on?val.color:T.border}`,padding:'20px 14px',cursor:'pointer',textAlign:'center',fontFamily:'inherit',background:on?`${val.color}18`:T.bgCard,color:T.text}}>
-              <div style={{fontSize:22,marginBottom:6}}>{key==='easy'?'🟢':key==='medium'?'🟡':'🔴'}</div>
+              <div style={{fontSize:22,marginBottom:6}}>{key==='easy'?'🟢':key==='medium'?'🟡':key==='hard'?'🔴':'🎲'}</div>
               <div style={{fontWeight:800,fontSize:15,color:on?val.color:T.text}}>{val.label}</div>
               <div style={{color:T.textSub,fontSize:12,marginTop:6,lineHeight:1.4}}>{val.desc}</div>
             </button>
@@ -1227,9 +1258,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
           <div style={{color:'rgba(255,255,255,0.6)',fontSize:13,maxWidth:260,textAlign:'center',lineHeight:1.5}}>
             Timer is stopped. Questions are hidden until you resume.
           </div>
-          <button
-            onClick={()=>setPaused(false)}
-            style={{marginTop:8,padding:'14px 36px',borderRadius:12,border:'none',fontWeight:800,fontSize:15,cursor:'pointer',fontFamily:'inherit',color:'#fff',background:sc}}>
+          <button onClick={()=>setPaused(false)} style={{marginTop:8,padding:'14px 36px',borderRadius:12,border:'none',fontWeight:800,fontSize:15,cursor:'pointer',fontFamily:'inherit',color:'#fff',background:sc}}>
             ▶ Resume Test
           </button>
         </div>
@@ -1238,10 +1267,7 @@ function TimedSectionView({sectionLabel, questions, secondsTotal, onDone}){
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:10}}>
         <span style={{color:T.textSub,fontSize:12}}>{sectionLabel} · {q.topic}</span>
         <div style={{display:'flex',alignItems:'center',gap:10}}>
-          <button
-            onClick={()=>setPaused(p=>!p)}
-            title={paused?'Resume':'Pause'}
-            style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:8,padding:'4px 10px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:700,fontSize:12,display:'flex',alignItems:'center',gap:5}}>
+          <button onClick={()=>setPaused(p=>!p)} title={paused?'Resume':'Pause'} style={{background:'transparent',border:`1px solid ${T.border}`,borderRadius:8,padding:'4px 10px',cursor:'pointer',color:T.textSub,fontFamily:'inherit',fontWeight:700,fontSize:12,display:'flex',alignItems:'center',gap:5}}>
             {paused?'▶ Resume':'⏸ Pause'}
           </button>
           <span style={{color:T.textSub,fontSize:12}}>Time left</span>
