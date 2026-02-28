@@ -510,6 +510,41 @@ function SVGFigure({ type, params }) {
       <circle cx={cx} cy={cy} r="3" fill={T.svgStroke}/>
     </svg>);
   }
+  if (type==="circle_with_point") {
+    const {radius=5, px=null, py=null}=params;
+    const CX=140, CY=105, range=radius+1;
+    const STEP=Math.min(60, Math.floor(90/range));
+    const sx = v => CX + v*STEP;
+    const sy = v => CY - v*STEP;
+    const cr = radius*STEP;
+    const gridVals = Array.from({length:2*range+1},(_,i)=>i-range);
+    const hasPoint = px!=null;
+    const pyLabel = py==="?" ? "?" : (py!=null ? String(py) : null);
+    const pointX = hasPoint ? sx(px) : null;
+    const pointY = hasPoint ? (py==="?" ? sy(Math.sqrt(radius**2-px**2)) : sy(Number(py))) : null;
+    const eqLabel = `x²+y²=${radius*radius}`;
+    return (<svg width={W} height={H} style={base}>
+      {gridVals.map(v=><line key={`gx${v}`} x1={sx(v)} y1={sy(-range)} x2={sx(v)} y2={sy(range)} stroke={T.chartGrid??"#dde"} strokeWidth="0.5"/>)}
+      {gridVals.map(v=><line key={`gy${v}`} x1={sx(-range)} y1={sy(v)} x2={sx(range)} y2={sy(v)} stroke={T.chartGrid??"#dde"} strokeWidth="0.5"/>)}
+      <line x1={sx(-range)} y1={CY} x2={sx(range)} y2={CY} stroke={T.svgAxis??"#aaa"} strokeWidth="1.5"/>
+      <line x1={CX} y1={sy(-range)} x2={CX} y2={sy(range)} stroke={T.svgAxis??"#aaa"} strokeWidth="1.5"/>
+      <text x={sx(range)+6} y={CY+4} fill={T.svgMuted} fontSize="11">x</text>
+      <text x={CX+4} y={sy(range)-4} fill={T.svgMuted} fontSize="11">y</text>
+      {gridVals.filter(v=>v!==0&&Math.abs(v)<=radius).map(v=>(
+        <text key={`lx${v}`} x={sx(v)} y={CY+12} fill={T.svgMuted} fontSize="9" textAnchor="middle">{v}</text>
+      ))}
+      {gridVals.filter(v=>v!==0&&Math.abs(v)<=radius).map(v=>(
+        <text key={`ly${v}`} x={CX-6} y={sy(v)+4} fill={T.svgMuted} fontSize="9" textAnchor="end">{v}</text>
+      ))}
+      <circle cx={CX} cy={CY} r={cr} fill={T.svgFill} stroke={T.svgStroke} strokeWidth="2" fillOpacity="0.3"/>
+      <text x={CX} y={sy(range)-6} fill={T.svgLabel} fontSize="11" textAnchor="middle">{eqLabel}</text>
+      {hasPoint && <>
+        <line x1={pointX} y1={CY} x2={pointX} y2={pointY} stroke={T.svgMuted} strokeWidth="1.2" strokeDasharray="4 2"/>
+        <circle cx={pointX} cy={pointY} r="4" fill={T.correct} stroke="none"/>
+        <text x={pointX+8} y={pointY-6} fill={T.correct} fontSize="12" textAnchor="start">({px}, {pyLabel})</text>
+      </>}
+    </svg>);
+  }
   if (type==="coordinate_plane") {
     const {points=[],lineEq,curve}=params;
     // Grid: ±5 range, uniform 22px per unit on both axes, centered at (140,105)
