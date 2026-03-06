@@ -2204,6 +2204,218 @@ function Dashboard({progress,onStartTopic,onPracticeTest,onMockTest, bankIssues=
   </div>);
 }
 
+// ─── QUESTION INSPECTOR ───────────────────────────────────────────────────────
+function QuestionInspector({ onClose }) {
+  const T = useTheme();
+
+  // Build full list of available sections / topics / difficulties from BANK
+  const sectionKeys = Object.keys(SECTIONS); // ["math","reading"]
+
+  const [section, setSection] = useState(sectionKeys[0]);
+  const [topic, setTopic]     = useState(SECTIONS[sectionKeys[0]].topics[0]);
+  const [diff, setDiff]       = useState("easy");
+  const [qIdx, setQIdx]       = useState(0);
+  const [revealed, setRevealed] = useState(false);
+
+  // Derive topic list whenever section changes
+  const topicList = SECTIONS[section]?.topics ?? [];
+
+  // Clamp topic when section changes
+  useEffect(() => {
+    if (!topicList.includes(topic)) {
+      setTopic(topicList[0] ?? "");
+    }
+    setQIdx(0);
+    setRevealed(false);
+  }, [section]);
+
+  useEffect(() => { setQIdx(0); setRevealed(false); }, [topic, diff]);
+
+  // Fetch question list for current selection
+  const pool = useMemo(() => {
+    try { return BANK[section]?.[topic]?.[diff] ?? []; }
+    catch { return []; }
+  }, [section, topic, diff]);
+
+  const total = pool.length;
+  const q = pool[qIdx] ?? null;
+
+  const sel = { background: T.bgInput, border: `1px solid ${T.border}`, borderRadius: 8, padding: "8px 12px", color: T.text, fontFamily: "inherit", fontSize: 13, fontWeight: 600, cursor: "pointer", outline: "none" };
+  const labelStyle = { fontSize: 11, fontWeight: 700, color: T.textSub, letterSpacing: 1, textTransform: "uppercase", marginBottom: 5, display: "block" };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+      {/* Header */}
+      <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: "18px 22px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: T.accent1, marginBottom: 4 }}>ADMIN</div>
+          <h2 style={{ fontSize: 22, fontWeight: 800, margin: 0, color: T.text }}>🔍 Question Inspector</h2>
+          <p style={{ color: T.textSub, fontSize: 12, margin: "4px 0 0" }}>Browse, verify, and review every question in the bank</p>
+        </div>
+        <button onClick={onClose} style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontWeight: 700, color: T.textSub, fontSize: 13 }}>
+          ← Back
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: "18px 22px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr auto", gap: 14, alignItems: "end" }}>
+          {/* Section */}
+          <div>
+            <label style={labelStyle}>Section</label>
+            <select value={section} onChange={e => setSection(e.target.value)} style={{ ...sel, width: "100%" }}>
+              {sectionKeys.map(k => (
+                <option key={k} value={k}>{SECTIONS[k].label}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Topic */}
+          <div>
+            <label style={labelStyle}>Topic</label>
+            <select value={topic} onChange={e => setTopic(e.target.value)} style={{ ...sel, width: "100%" }}>
+              {topicList.map(t => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Difficulty */}
+          <div>
+            <label style={labelStyle}>Difficulty</label>
+            <select value={diff} onChange={e => setDiff(e.target.value)} style={{ ...sel, width: "100%" }}>
+              {Object.entries(DIFFICULTY_LEVELS).filter(([k]) => k !== "mixed").map(([k, v]) => (
+                <option key={k} value={k}>{v.label}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Count badge */}
+          <div style={{ textAlign: "center", padding: "8px 14px", background: T.bgInput, borderRadius: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 22, fontWeight: 900, color: T.accent1, lineHeight: 1 }}>{total}</div>
+            <div style={{ fontSize: 10, color: T.textSub, marginTop: 2 }}>questions</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigator */}
+      {total === 0 ? (
+        <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: "32px", textAlign: "center", color: T.textSub }}>
+          No questions found for this selection.
+        </div>
+      ) : (
+        <>
+          {/* Pagination */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 14, padding: "12px 18px" }}>
+            <button
+              disabled={qIdx === 0}
+              onClick={() => { setQIdx(i => i - 1); setRevealed(false); }}
+              style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 8, padding: "6px 14px", cursor: qIdx === 0 ? "not-allowed" : "pointer", color: qIdx === 0 ? T.textMuted : T.text, fontFamily: "inherit", fontWeight: 700, fontSize: 13 }}>
+              ← Prev
+            </button>
+
+            <div style={{ textAlign: "center" }}>
+              <span style={{ fontWeight: 800, fontSize: 16, color: T.text }}>{qIdx + 1}</span>
+              <span style={{ color: T.textMuted, fontSize: 13 }}> / {total}</span>
+              <div style={{ fontSize: 11, color: T.textSub, marginTop: 2 }}>
+                {section === "math" ? "Math" : "Reading & Writing"} › {topic} › <span style={{ color: DIFFICULTY_LEVELS[diff]?.color }}>{DIFFICULTY_LEVELS[diff]?.label}</span>
+              </div>
+            </div>
+
+            <button
+              disabled={qIdx === total - 1}
+              onClick={() => { setQIdx(i => i + 1); setRevealed(false); }}
+              style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 8, padding: "6px 14px", cursor: qIdx === total - 1 ? "not-allowed" : "pointer", color: qIdx === total - 1 ? T.textMuted : T.text, fontFamily: "inherit", fontWeight: 700, fontSize: 13 }}>
+              Next →
+            </button>
+          </div>
+
+          {/* Question Card */}
+          {q && (
+            <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+              {/* Meta pills */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                {[
+                  { label: `#${qIdx + 1}`, color: T.textMuted },
+                  { label: SECTIONS[section]?.label, color: T.accent1 },
+                  { label: topic, color: T.accent1 },
+                  { label: DIFFICULTY_LEVELS[diff]?.label, color: DIFFICULTY_LEVELS[diff]?.color },
+                  q.fig ? { label: `fig: ${q.fig.type}${q.fig.shape ? " / " + q.fig.shape : q.fig.chartType ? " / " + q.fig.chartType : ""}`, color: T.accent2 } : null,
+                  q.choiceMode ? { label: `mode: ${q.choiceMode}`, color: T.textSub } : null,
+                ].filter(Boolean).map((pill, i) => (
+                  <span key={i} style={{ background: T.bgInput, border: `1px solid ${T.border}`, borderRadius: 20, padding: "3px 10px", fontSize: 11, fontWeight: 700, color: pill.color }}>{pill.label}</span>
+                ))}
+              </div>
+
+              {/* Passage (R&W) */}
+              {q.passage && (
+                <div style={{ background: T.bgAlt, border: `1px solid ${T.border}`, borderRadius: 10, padding: "12px 14px", fontSize: 13, lineHeight: 1.65, color: T.text }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: T.textSub, letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>Passage</div>
+                  {renderPassage(q, T)}
+                </div>
+              )}
+
+              {/* Figure */}
+              {q.fig && <Figure fig={q.fig} />}
+
+              {/* Question text */}
+              <p style={{ fontSize: 16, fontWeight: 700, color: T.text, lineHeight: 1.6, margin: 0 }}>{q.q}</p>
+
+              {/* Answer choices */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+                {q.choices.map((c, i) => {
+                  const isCorrect = i === q.answer;
+                  let bg = T.bgInput, borderCol = T.border, textCol = T.textChoice;
+                  if (revealed) {
+                    if (isCorrect) { bg = T.correctBg; borderCol = T.correctBdr; textCol = T.correct; }
+                  }
+                  return (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderRadius: 10, background: bg, border: `1.5px solid ${borderCol}`, transition: "all 0.2s" }}>
+                      <span style={{ fontWeight: 800, fontSize: 13, color: revealed && isCorrect ? T.correct : T.textMuted, minWidth: 22 }}>
+                        {String.fromCharCode(65 + i)}
+                      </span>
+                      <span style={{ fontSize: 14, color: textCol, flex: 1 }}>{c}</span>
+                      {revealed && isCorrect && <span style={{ fontSize: 16 }}>✓</span>}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Reveal / Explanation */}
+              {!revealed ? (
+                <button
+                  onClick={() => setRevealed(true)}
+                  style={{ alignSelf: "flex-start", padding: "9px 20px", borderRadius: 10, border: `1.5px solid ${T.accent1}`, background: "transparent", color: T.accent1, fontFamily: "inherit", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>
+                  👁 Reveal Answer & Explanation
+                </button>
+              ) : (
+                <div style={{ background: T.bgAlt, border: `1px solid ${T.border}`, borderRadius: 12, padding: "14px 16px" }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: T.correct, letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>
+                    ✓ Answer: {String.fromCharCode(65 + q.answer)} — {q.choices[q.answer]}
+                  </div>
+                  <div style={{ fontSize: 13, color: T.textExpl, lineHeight: 1.65 }}>{q.explanation}</div>
+                </div>
+              )}
+
+              {/* Raw JSON toggle (dev utility) */}
+              <details style={{ marginTop: 4 }}>
+                <summary style={{ fontSize: 11, color: T.textMuted, cursor: "pointer", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" }}>
+                  {"{ } Raw JSON"}
+                </summary>
+                <pre style={{ marginTop: 8, padding: "12px 14px", background: T.bgTable, borderRadius: 10, fontSize: 11, color: T.textSub, overflowX: "auto", border: `1px solid ${T.border}`, lineHeight: 1.5 }}>
+                  {JSON.stringify(q, null, 2)}
+                </pre>
+              </details>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
 // ─── APP ──────────────────────────────────────────────────────────────────────
 export default function App(){
 
@@ -2257,7 +2469,11 @@ export default function App(){
 
   const [themeKey,setThemeKey]=useState(loadThemeKey);
   const [progress,setProgress]=useState(loadProg);
-  const [view,setView]=useState("dashboard");
+  // Allow ?inspect=1 URL param to jump straight to inspector
+  const [view,setView]=useState(()=>{
+    try { return new URLSearchParams(window.location.search).has("inspect") ? "inspector" : "dashboard"; }
+    catch { return "dashboard"; }
+  });
   const [active,setActive]=useState({});
   const [lastResults,setLastResults]=useState(null);
   const T=THEMES[themeKey]??THEMES.midnight;
@@ -2302,6 +2518,13 @@ export default function App(){
               onClick={()=>{if(confirm("Reset all progress?")){setProgress(makeEmpty());localStorage.removeItem("sat_p4");}}}>
               Reset All Progress
             </button>
+            {/* Hidden inspector shortcut — subtle link at the very bottom */}
+            <div style={{textAlign:"center",marginTop:16}}>
+              <button onClick={()=>setView("inspector")} style={{background:"transparent",border:"none",cursor:"pointer",fontFamily:"inherit",fontSize:11,color:T.textMuted,opacity:0.4,letterSpacing:0.5}}
+                title="Question Inspector (dev tool)">
+                ⚙ inspect
+              </button>
+            </div>
           </>)}
           {view==="topicPicker"&&(
             <QuestionCountPicker
@@ -2370,6 +2593,9 @@ export default function App(){
               results={lastResults.results}
               onBack={()=>setView("dashboard")}
               onRetry={()=>{const mock=getMockTest(active.length??"full", active.difficulty??"medium");setActive({mode:"mock",length:active.length??"full",difficulty:active.difficulty??"medium",mock});setView("mock");}}/>
+          )}
+          {view==="inspector"&&(
+            <QuestionInspector onClose={()=>setView("dashboard")}/>
           )}
         </div>
       </div>
