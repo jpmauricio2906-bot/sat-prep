@@ -2307,18 +2307,30 @@ function QuestionInspector({ onClose }) {
       ) : (
         <>
           {/* Pagination */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 14, padding: "12px 18px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 14, padding: "12px 18px", gap: 12 }}>
             <button
               disabled={qIdx === 0}
               onClick={() => { setQIdx(i => i - 1); setRevealed(false); }}
-              style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 8, padding: "6px 14px", cursor: qIdx === 0 ? "not-allowed" : "pointer", color: qIdx === 0 ? T.textMuted : T.text, fontFamily: "inherit", fontWeight: 700, fontSize: 13 }}>
+              style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 8, padding: "6px 14px", cursor: qIdx === 0 ? "not-allowed" : "pointer", color: qIdx === 0 ? T.textMuted : T.text, fontFamily: "inherit", fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
               ← Prev
             </button>
 
-            <div style={{ textAlign: "center" }}>
-              <span style={{ fontWeight: 800, fontSize: 16, color: T.text }}>{qIdx + 1}</span>
-              <span style={{ color: T.textMuted, fontSize: 13 }}> / {total}</span>
-              <div style={{ fontSize: 11, color: T.textSub, marginTop: 2 }}>
+            <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <input
+                  type="number"
+                  min={1}
+                  max={total}
+                  value={qIdx + 1}
+                  onChange={e => {
+                    const v = parseInt(e.target.value, 10);
+                    if (!isNaN(v) && v >= 1 && v <= total) { setQIdx(v - 1); setRevealed(false); }
+                  }}
+                  style={{ width: 56, textAlign: "center", background: T.bgInput, border: `1px solid ${T.border}`, borderRadius: 8, padding: "5px 6px", color: T.text, fontFamily: "inherit", fontWeight: 800, fontSize: 15, outline: "none" }}
+                />
+                <span style={{ color: T.textMuted, fontSize: 13 }}>/ {total}</span>
+              </div>
+              <div style={{ fontSize: 11, color: T.textSub }}>
                 {section === "math" ? "Math" : "Reading & Writing"} › {topic} › <span style={{ color: DIFFICULTY_LEVELS[diff]?.color }}>{DIFFICULTY_LEVELS[diff]?.label}</span>
               </div>
             </div>
@@ -2326,7 +2338,7 @@ function QuestionInspector({ onClose }) {
             <button
               disabled={qIdx === total - 1}
               onClick={() => { setQIdx(i => i + 1); setRevealed(false); }}
-              style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 8, padding: "6px 14px", cursor: qIdx === total - 1 ? "not-allowed" : "pointer", color: qIdx === total - 1 ? T.textMuted : T.text, fontFamily: "inherit", fontWeight: 700, fontSize: 13 }}>
+              style={{ background: "transparent", border: `1px solid ${T.border}`, borderRadius: 8, padding: "6px 14px", cursor: qIdx === total - 1 ? "not-allowed" : "pointer", color: qIdx === total - 1 ? T.textMuted : T.text, fontFamily: "inherit", fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
               Next →
             </button>
           </div>
