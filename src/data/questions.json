@@ -9788,7 +9788,7 @@
     "section": "reading",
     "topic": "Grammar",
     "difficulty": "easy",
-    "passage": "Because the rain stopped.",
+    "passage": "The referee blew the whistle and signaled to the players. _____.",
     "question": "Which choice best corrects the underlined portion?",
     "choices": [
       "Because the rain stopped",
@@ -9797,7 +9797,7 @@
       "Because the rain stopped; we continued the game"
     ],
     "answerIndex": 2,
-    "explanation": "A dependent clause needs an independent clause to form a complete sentence.",
+    "explanation": "A dependent clause needs an independent clause to form a complete sentence. Only option C correctly joins the dependent clause with a comma and an independent clause.",
     "underline": "Because the rain stopped",
     "fullSentence": "Because the rain stopped, we continued the game.",
     "choiceMode": "replace_underline",
@@ -9828,7 +9828,7 @@
     "section": "reading",
     "topic": "Grammar",
     "difficulty": "easy",
-    "passage": "Running through the park on a sunny day.",
+    "passage": "The children spent the afternoon outside. _____.",
     "question": "Which choice best corrects the underlined portion?",
     "choices": [
       "Running through the park on a sunny day is fun",
@@ -9837,7 +9837,7 @@
       "Running through the park on a sunny day;"
     ],
     "answerIndex": 0,
-    "explanation": "Adding a verb creates a complete sentence instead of a fragment.",
+    "explanation": "A participial phrase alone is a fragment. Adding a predicate (\"is fun\") creates a complete sentence.",
     "underline": "Running through the park on a sunny day",
     "fullSentence": "Running through the park on a sunny day is fun.",
     "choiceMode": "replace_underline",
